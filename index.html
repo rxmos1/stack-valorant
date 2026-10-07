@@ -60,6 +60,9 @@ th.num button{justify-content:flex-end}
 .rb-iron{color:var(--t-iron)}.rb-bronze{color:var(--t-bronze)}.rb-silver{color:var(--t-silver)}.rb-gold{color:var(--t-gold)}
 .rb-plat{color:var(--t-plat)}.rb-dia{color:var(--t-dia)}.rb-asc{color:var(--t-asc)}.rb-imm{color:var(--t-imm)}.rb-rad{color:var(--t-rad)}
 .rb-img{flex:none;display:block;object-fit:contain}
+.av{border-radius:50%;object-fit:cover;flex:none;background:var(--chip);display:inline-block}
+.who .av{vertical-align:middle;margin-right:8px}
+.trk{font-size:12px;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:3px 10px}
 .ro-img{flex:none;vertical-align:-3px;margin-right:5px;filter:invert(1);opacity:.7}
 @media (prefers-color-scheme:dark){.ro-img{filter:none;opacity:.8}}
 .ro{flex:none;vertical-align:-2px;margin-right:5px;color:var(--muted);fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
@@ -206,6 +209,8 @@ function ri(agent){
   const r=ROLE[agent]; if(!r) return "";
   return `<svg class="ro" width="14" height="14" viewBox="0 0 16 16" role="img" aria-label="${ROLENAME[r]}"><title>${ROLENAME[r]}</title>${ROLEPATH[r]}</svg>`;
 }
+const slug=n=>String(n).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]/g,"");
+const av=(p,s)=>`<img class="av" src="fotos/${slug(p.n)}.jpg" width="${s}" height="${s}" alt="" onerror="this.remove()">`;
 const rkLine=(rank,extra)=>`<span class="rkl">${rb(rank)}<b>${esc(rank)}</b>${extra?`<span>${esc(extra)}</span>`:""}</span>`;
 
 /* ---------- datos ---------- */
@@ -221,12 +226,12 @@ function stat(ps){
 }
 function prep(d){
   const g=d.partidas.map(x=>({date:x.fecha,at:x.inicio||x.fecha,map:x.mapa,ag:x.agente,w:!!x.victoria,sc:x.marcador,
-    k:x.k,d:x.d,a:x.a,acs:x.acs,adr:x.adr,hs:x.hs,rr:x.rr==null?null:x.rr,grp:x.grupo,gn:x.grupo_n,con:x.con||[],sb:x.marcador_jugadores||null}));
+    k:x.k,d:x.d,a:x.a,acs:x.acs,adr:x.adr,hs:x.hs,rr:x.rr==null?null:x.rr,grp:x.grupo,gn:x.grupo_n,con:x.con||[],sb:x.marcador_jugadores||null,fb:x.primeras_bajas==null?null:x.primeras_bajas,fd:x.primeras_muertes==null?null:x.primeras_muertes,mk:x.multikills==null?null:x.multikills}));
   g.sort((a,b)=>String(b.at).localeCompare(String(a.at)));
   const p={n:d.nombre,tag:d.tag,rank:esRank(d.rango),rr:d.rr,peak:esRank(d.pico),last:d.ultimo_cambio,g};
   const s=stat(g);
   p.s=s; p.v=s.v; p.kd=s.kd; p.acs=s.acs; p.adr=s.adr; p.hs=s.hs; p.net=s.rr==null?0:s.rr; p.rrN=s.rrN;
-  p.ast=sum(g,x=>x.a);
+  p.ast=sum(g,x=>x.a); p.hasFb=g.some(x=>x.fb!=null); p.fb=sum(g,x=>x.fb||0); p.fd=sum(g,x=>x.fd||0); p.mk=sum(g,x=>x.mk||0);
   p.winRR=mean(g.filter(x=>x.w&&x.rr!=null).map(x=>x.rr));
   p.lossRR=mean(g.filter(x=>!x.w&&x.rr!=null).map(x=>x.rr));
   let best=0,cur=0; g.slice().reverse().forEach(x=>{cur=x.w?cur+1:0;best=Math.max(best,cur)}); p.streak=best;
@@ -250,7 +255,7 @@ function secPodium(){
   const html=rows.map((p,i)=>{
     const w=Math.abs(p.net)/span*100, pos=p.net>=0, left=pos?z:z-w;
     return `<div class="pod-row">
-      <div class="pod-name"><span class="pos">${i+1}</span>${rb(p.rank,26)}<div><b>${esc(p.n)}</b><small>${esc(p.rank)} · ${p.s.v}V-${p.s.l}D</small></div></div>
+      <div class="pod-name"><span class="pos">${i+1}</span>${av(p,36)}${rb(p.rank,26)}<div><b>${esc(p.n)}</b><small>${esc(p.rank)} · ${p.s.v}V-${p.s.l}D</small></div></div>
       <div class="pod-track"><span class="bar ${pos?"pos":"neg"}" style="left:${left.toFixed(2)}%;width:${w.toFixed(2)}%"></span><span class="zero" style="left:calc(${z.toFixed(2)}% - 1px)"></span></div>
       <div class="pod-val ${pos?"pos-t":"neg-t"}">${sgn(p.net)}</div></div>`;
   }).join("");
@@ -294,6 +299,11 @@ function secAwards(){
   pl("Gatillo fácil","Más kills por partida",p=>Math.round(mean(p.g.map(x=>x.k))*10),1,v=>fmt1(v/10),p=>"K/D "+fmt2(p.kd),(p,a)=>`Con ${a} dispara a todo lo que se mueve. A veces acierta.`);
   pl("Mártir del equipo","Más muertes por partida",p=>Math.round(mean(p.g.map(x=>x.d))*10),1,v=>fmt1(v/10),p=>"K/D "+fmt2(p.kd),(p,a)=>`Con ${a} muere más que nadie. Entrar primero no es excusa.`);
   pl("Hace cosquillas","Mayor daño por ronda (ADR)",p=>p.adr,1,v=>String(v),p=>"ACS "+p.acs,(p,a)=>`Mucho daño con ${a}; rematar ya es otro deporte.`);
+  if(P.every(p=>p.hasFb)){
+    pl("Abre latas","Más primeras bajas",p=>p.fb,1,v=>String(v),p=>`${p.fd} primeras muertes`,(p,a)=>`Siempre el primero en llegar con ${a}; no siempre el último en vivir.`);
+    pl("Entra primero, sale en bolsa","Más primeras muertes",p=>p.fd,1,v=>String(v),p=>`${p.fb} primeras bajas`,(p,a)=>`Con ${a} es el primero en caer. Alguien tiene que abrir sitio... para el rival.`);
+    pl("Tiene su momento","Más multikills (3+ en una ronda)",p=>p.mk,1,v=>String(v),()=>"",(p,a)=>`Un multikill de vez en cuando con ${a}, para que no lo echen.`);
+  }
   const plS=(title,label,gname,dir,roast)=>{
     const L=P.map(p=>({p,s:byGroup(p.g)[gname]})).filter(o=>o.s&&o.s.n>=5);
     if(L.length<2) return;
@@ -380,7 +390,7 @@ function renderSummary(){
     const pips=p.g.slice(0,10).reverse().map(x=>`<span class="pip ${x.w?"w":"l"}" title="${fdate(x.date)} ${esc(x.map)} ${esc(x.sc)}">${x.w?"V":"D"}</span>`).join("");
     const w=Math.round(Math.abs(p.net)/maxNet*50);
     return `<tr class="${i===sel?"sel":""}">
-      <td><button type="button" class="who" data-i="${i}" aria-pressed="${i===sel}"><b>${esc(p.n)}</b><span>#${esc(p.tag)}</span></button></td>
+      <td><button type="button" class="who" data-i="${i}" aria-pressed="${i===sel}">${av(p,28)}<b>${esc(p.n)}</b><span>#${esc(p.tag)}</span></button></td>
       <td>${rkLine(p.rank,p.rr+" RR")}</td><td>${rkLine(p.peak)}</td>
       <td><div class="pips">${pips}</div></td>
       <td class="num">${fmt2(p.kd)}</td><td class="num">${p.acs}</td><td class="num">${p.hs}</td>
@@ -473,9 +483,10 @@ function renderDetail(){
   const p=P[sel], s=p.s;
   const kp=[["Rango",rkLine(p.rank,p.rr+" RR"),1],["Pico",rkLine(p.peak),1],["Última partida",sgn(p.last)+" RR"],
     ["Balance",`${s.v}V - ${s.l}D`],["% victorias",s.wr+"%"],["K/D",fmt2(s.kd)],["ACS",s.acs],["ADR",s.adr],["HS%",s.hs],["RR neto",sgn(p.net)]];
+  if(p.hasFb) kp.push(["Primeras bajas",p.fb],["Primeras muertes",p.fd],["Multikills (3+)",p.mk]);
   const rows=p.g.map((x,mi)=>`<tr class="mrow${x.sb?" exp":""}" data-mi="${mi}"${x.sb?` tabindex="0" role="button" aria-expanded="false" title="Ver la partida completa"`:""}><td>${x.sb?'<span class="chev" aria-hidden="true">▸</span>':""}${fdate(x.date)}</td><td>${esc(x.map)}</td><td>${ri(x.ag)}${esc(x.ag)}</td><td class="${x.w?"res-w":"res-l"}">${x.w?"Victoria":"Derrota"} ${esc(x.sc)}</td><td class="num ${x.rr==null?"":x.rr>=0?"pos-t":"neg-t"}"><b>${x.rr==null?"-":sgn(x.rr)}</b></td><td class="num">${x.k}/${x.d}/${x.a}</td><td class="num">${x.acs}</td><td class="num">${x.adr}</td><td class="num">${x.hs}</td><td>${esc(x.grp)}</td><td>${esc(x.con.join(", ")||"-")}</td></tr>`).join("");
   document.getElementById("detail").innerHTML=`
-    <div class="dhead">${rb(p.rank,40)}<h3>${esc(p.n)}</h3><span class="tag">#${esc(p.tag)}</span></div>
+    <div class="dhead">${av(p,56)}${rb(p.rank,40)}<h3>${esc(p.n)}</h3><span class="tag">#${esc(p.tag)}</span><a class="trk" href="https://tracker.gg/valorant/profile/riot/${encodeURIComponent(p.n+"#"+p.tag)}/overview" target="_blank" rel="noopener">Ver en tracker.gg ↗</a></div>
     <div class="kpis">${kp.map(([l,v,raw])=>`<div class="kpi"><small>${l}</small>${raw?`<b>${v}</b>`:`<b>${esc(v)}</b>`}</div>`).join("")}</div>
     <div><div class="sub-h">Según con cuántos jugaba</div><div class="panel">${groupTable(byGroup(p.g),"Grupo")}</div></div>
     ${spark(p)}
