@@ -60,7 +60,8 @@ th.num button{justify-content:flex-end}
 .rb-iron{color:var(--t-iron)}.rb-bronze{color:var(--t-bronze)}.rb-silver{color:var(--t-silver)}.rb-gold{color:var(--t-gold)}
 .rb-plat{color:var(--t-plat)}.rb-dia{color:var(--t-dia)}.rb-asc{color:var(--t-asc)}.rb-imm{color:var(--t-imm)}.rb-rad{color:var(--t-rad)}
 .rb-img{flex:none;display:block;object-fit:contain}
-.av{border-radius:50%;object-fit:cover;flex:none;background:var(--chip);display:inline-block}
+.av{border-radius:50%;object-fit:cover;flex:none;background:var(--chip);display:inline-block;cursor:zoom-in}
+.avpop{position:fixed;z-index:100;display:none;width:min(300px,60vw);max-height:75vh;object-fit:cover;border-radius:14px;box-shadow:0 10px 40px rgba(0,0,0,.45);border:3px solid var(--surface);background:var(--surface);pointer-events:none}
 .who .av{vertical-align:middle;margin-right:8px}
 .trk{font-size:12px;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:3px 10px}
 .ro-img{flex:none;vertical-align:-3px;margin-right:5px;filter:invert(1);opacity:.7}
@@ -210,7 +211,7 @@ function ri(agent){
   return `<svg class="ro" width="14" height="14" viewBox="0 0 16 16" role="img" aria-label="${ROLENAME[r]}"><title>${ROLENAME[r]}</title>${ROLEPATH[r]}</svg>`;
 }
 const slug=n=>String(n).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]/g,"");
-const av=(p,s)=>`<img class="av" src="fotos/${slug(p.n)}.jpg" width="${s}" height="${s}" alt="" onerror="this.remove()">`;
+const av=(p,s)=>`<img class="av" data-s="${slug(p.n)}" src="fotos/${slug(p.n)}.jpg" width="${s}" height="${s}" alt="" onerror="this.remove()">`;
 const rkLine=(rank,extra)=>`<span class="rkl">${rb(rank)}<b>${esc(rank)}</b>${extra?`<span>${esc(extra)}</span>`:""}</span>`;
 
 /* ---------- datos ---------- */
@@ -557,6 +558,21 @@ function cargarIconos(){
     }).catch(()=>{})
   ]);
 }
+(function(){
+  const pop=document.createElement("img"); pop.className="avpop"; pop.alt=""; document.body.appendChild(pop);
+  let cur=null;
+  const place=()=>{ if(!cur) return; const r=cur.getBoundingClientRect(), w=pop.offsetWidth||300, h=pop.offsetHeight||300;
+    let l=r.right+12; if(l+w>innerWidth-8) l=Math.max(8,r.left-w-12);
+    pop.style.left=l+"px"; pop.style.top=Math.max(8,Math.min(r.top-h/4,innerHeight-h-8))+"px"; };
+  pop.addEventListener("load",place);
+  document.addEventListener("mouseover",e=>{
+    const a=e.target.closest?e.target.closest("img.av"):null;
+    if(!a){ if(cur){cur=null;pop.style.display="none"} return; }
+    if(a===cur) return; cur=a;
+    pop.onerror=()=>{pop.onerror=null;pop.src=a.src};
+    pop.src="fotos/grande/"+a.dataset.s+".jpg"; pop.style.display="block"; place();
+  });
+})();
 Promise.all([fetch("data.json?v="+Date.now()).then(r=>{if(!r.ok) throw new Error("data.json: HTTP "+r.status); return r.json()}),cargarIconos()]).then(x=>x[0]).then(init).catch(err=>showEmpty(String(err.message||err)));
 </script>
 </body>
