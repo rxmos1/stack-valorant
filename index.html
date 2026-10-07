@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stack Valorant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: podio y premios arriba, rendimiento por tamaño de grupo, comparativa, resúmenes y detalle por jugador. Los datos se leen de data.json. */
+:root{
+  --bg:#f1f5f6; --surface:#ffffff; --fg:#14232a; --muted:#576a72; --line:#d6e0e3; --chip:#e5edef;
+  --accent:#0a7a87; --win:#1a8447; --loss:#c13a3a;
+  --t-iron:#6b7780; --t-bronze:#a0693a; --t-silver:#7f8f98; --t-gold:#b58a14; --t-plat:#0f8f9a; --t-dia:#8a45d6; --t-asc:#1f9d63; --t-imm:#c93a45; --t-rad:#c58a00;
+  --display:"Barlow Condensed","Arial Narrow",sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0d1a1f; --surface:#14252b; --fg:#e3edf0; --muted:#8ea3ab; --line:#25383f; --chip:#1b3037;
+    --accent:#4fc4d0; --win:#4cc27f; --loss:#f06b6b;
+    --t-iron:#9aa7af; --t-bronze:#d49a62; --t-silver:#b4c1c8; --t-gold:#e6bd4a; --t-plat:#4fd0d8; --t-dia:#c08bf5; --t-asc:#4cc98a; --t-imm:#f2666f; --t-rad:#f5c64a;
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14px;line-height:1.45}
+.wrap{max-width:1080px;margin-inline:auto;padding-inline:16px;padding-block:28px 40px;display:flex;flex-direction:column;gap:28px}
+section{min-width:0}
+header h1{font-family:var(--display);font-weight:700;font-size:clamp(36px,7vw,58px);line-height:1;margin:0;letter-spacing:.01em;text-wrap:balance}
+header p{margin:8px 0 0;color:var(--muted)}
+h2{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:.04em;text-transform:uppercase;margin:0 0 10px;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;min-width:0}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px 12px;text-align:left;white-space:nowrap}
+th{font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line)}
+th button{all:unset;cursor:pointer;display:inline-flex;gap:4px;align-items:center;text-transform:inherit;letter-spacing:inherit}
+th button:hover{color:var(--fg)}
+th button:focus-visible,.who:focus-visible,.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+td{border-top:1px solid var(--line)}
+tbody tr:first-child td{border-top:0}
+tr.sel td{background:var(--chip)}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+th.num{text-align:right}
+th.num button{justify-content:flex-end}
+.who{all:unset;cursor:pointer;display:block}
+.who b{font-weight:600;font-size:15px}
+.who span{color:var(--muted);font-family:var(--mono);font-size:12px}
+.rkl{display:inline-flex;align-items:center;gap:8px}
+.rkl b{font-weight:600}.rkl span{color:var(--muted);font-family:var(--mono);font-size:12px}
+.rb{flex:none;display:block}
+.rb polygon{fill:currentColor;fill-opacity:.16;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round}
+.rb g{fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.rb-iron{color:var(--t-iron)}.rb-bronze{color:var(--t-bronze)}.rb-silver{color:var(--t-silver)}.rb-gold{color:var(--t-gold)}
+.rb-plat{color:var(--t-plat)}.rb-dia{color:var(--t-dia)}.rb-asc{color:var(--t-asc)}.rb-imm{color:var(--t-imm)}.rb-rad{color:var(--t-rad)}
+.rb-img{flex:none;display:block;object-fit:contain}
+.ro-img{flex:none;vertical-align:-3px;margin-right:5px;filter:invert(1);opacity:.7}
+@media (prefers-color-scheme:dark){.ro-img{filter:none;opacity:.8}}
+.ro{flex:none;vertical-align:-2px;margin-right:5px;color:var(--muted);fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.pips{display:flex;gap:3px}
+.pip{width:17px;height:17px;border-radius:4px;font:500 10px/17px var(--mono);text-align:center;color:var(--surface)}
+.pip.w{background:var(--win)}.pip.l{background:var(--loss)}
+.net{display:flex;align-items:center;gap:8px;min-width:150px}
+.net .track{position:relative;flex:1;height:8px;background:var(--chip);border-radius:4px}
+.net .track::after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--muted);opacity:.5}
+.net .bar{position:absolute;top:0;bottom:0;border-radius:4px}
+.net .bar.pos{left:50%;background:var(--win)}
+.net .bar.neg{right:50%;background:var(--loss)}
+.net .val{font-family:var(--mono);font-size:13px;width:44px;text-align:right}
+.pos-t{color:var(--win)}.neg-t{color:var(--loss)}
+.podium{padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.pod-row{display:grid;grid-template-columns:minmax(150px,230px) 1fr 62px;align-items:center;gap:6px 14px}
+.pod-name{display:flex;align-items:center;gap:10px;min-width:0}
+.pod-name .pos{font-family:var(--display);font-weight:700;font-size:26px;width:22px;color:var(--muted);line-height:1}
+.pod-name div{min-width:0}
+.pod-name b{display:block;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pod-name small{color:var(--muted);font-family:var(--mono);font-size:11px}
+.pod-track{position:relative;height:22px;background:var(--chip);border-radius:4px}
+.pod-track .bar{position:absolute;top:0;bottom:0;border-radius:3px}
+.pod-track .bar.pos{background:var(--win)}.pod-track .bar.neg{background:var(--loss)}
+.pod-track .zero{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--fg);opacity:.55}
+.pod-val{font-family:var(--mono);font-weight:500;font-size:17px;text-align:right}
+.pod-note{margin:4px 0 0;color:var(--muted);font-size:13px}
+@media (max-width:560px){.pod-row{grid-template-columns:1fr 56px}.pod-name{grid-column:1/-1}}
+.awards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.award{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.award small{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.award .val{font-family:var(--display);font-weight:700;font-size:34px;line-height:1.05}
+.award .nm{font-weight:600;overflow-wrap:anywhere}
+.award .sub{font-family:var(--mono);font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.detail{padding:18px;display:flex;flex-direction:column;gap:18px}
+.dhead{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px}
+.dhead h3{font-family:var(--display);font-weight:700;font-size:30px;margin:0;line-height:1.1}
+.dhead .tag{font-family:var(--mono);color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:10px}
+.kpi{background:var(--chip);border-radius:8px;padding:10px 12px;min-width:0}
+.kpi small{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.kpi b{font-family:var(--mono);font-weight:500;font-size:18px;font-variant-numeric:tabular-nums}
+.kpi .rkl b{font-family:var(--body);font-size:15px}
+.chart{min-width:0}
+.chart h4,.sub-h{margin:0 0 6px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
+svg.spark{width:100%;height:auto;display:block;max-width:100%}
+.spark .grid{stroke:var(--line);stroke-width:1}
+.spark .zero{stroke:var(--muted);stroke-width:1;stroke-dasharray:4 4}
+.spark .line{fill:none;stroke:var(--accent);stroke-width:2.2;stroke-linejoin:round}
+.spark .area{fill:var(--accent);opacity:.12}
+.spark .dot.w{fill:var(--win)}.spark .dot.l{fill:var(--loss)}
+.spark .dot{stroke:var(--surface);stroke-width:2}
+.spark text{fill:var(--muted);font:11px var(--mono)}
+.spark text.end{fill:var(--fg);font-weight:500}
+.res-w{color:var(--win);font-weight:600}.res-l{color:var(--loss);font-weight:600}
+.verdicts{display:flex;flex-direction:column;gap:12px;margin:0;padding:18px;list-style:none}
+.verdicts li{display:grid;grid-template-columns:minmax(130px,190px) 1fr;gap:4px 16px;padding-top:12px;border-top:1px solid var(--line);min-width:0}
+.verdicts li:first-child{border-top:0;padding-top:0}
+.verdicts b{font-weight:600}
+.verdicts p{margin:0;max-width:72ch}
+@media (max-width:560px){.verdicts li{grid-template-columns:1fr}}
+.insights{padding:18px 18px 18px 36px;margin:0;display:flex;flex-direction:column;gap:10px}
+.insights li{max-width:72ch}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;color:var(--muted);font-size:12px;margin:0 0 8px}
+.legend span{display:inline-flex;align-items:center}
+.bar-cell{display:flex;align-items:center;gap:8px;min-width:120px}
+.bar-cell .t{flex:1;height:8px;background:var(--chip);border-radius:4px;overflow:hidden}
+.bar-cell .t i{display:block;height:100%;background:var(--accent)}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;padding:12px 12px 0}
+.tab{all:unset;cursor:pointer;padding:5px 12px;border-radius:999px;background:var(--chip);color:var(--muted);font-size:12px}
+.tab[aria-pressed="true"]{background:var(--accent);color:var(--surface);font-weight:600}
+.cell-w{color:var(--win)}.cell-l{color:var(--loss)}
+.small{color:var(--muted);font-size:12px;padding:0 12px 12px;margin:8px 0 0}
+.mrow td:last-child{white-space:normal;min-width:180px}
+tr.exp{cursor:pointer}tr.exp:hover td{background:var(--chip)}tr.exp:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.chev{display:inline-block;width:1em;color:var(--muted)}
+tr.mdet>td{white-space:normal;background:var(--bg);padding:12px}
+.sb{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
+.sbt{overflow-x:auto;min-width:0}.sbh{font-weight:600;margin-bottom:4px}
+.sbt table{width:100%}.sbt tr.amigo td{background:var(--chip)}.anon{color:var(--muted)}
+.foot{color:var(--muted);font-size:12px}
+.empty{padding:28px;color:var(--muted)}
+.empty b{color:var(--fg)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Stack Valorant</h1>
+    <p id="meta">Cargando datos…</p>
+  </header>
+  <div id="app"></div>
+  <p class="foot">Fuente: API de HenrikDev. El RR de cada partida es el cambio que registró el juego; el RR neto suma solo las partidas que tienen ese dato. El tamaño del grupo es el número de jugadores del mismo equipo que iban en la misma party, sean o no del grupo. Iconos de rango y de rol de valorant-api.com; son propiedad de Riot Games. Web de fans, sin relación oficial con Riot Games.</p>
+</div>
+
+<script>
+const TIERES={Iron:"Hierro",Bronze:"Bronce",Silver:"Plata",Gold:"Oro",Platinum:"Platino",Diamond:"Diamante",Ascendant:"Ascendente",Immortal:"Inmortal",Radiant:"Radiante",Unrated:"Sin rango",Unranked:"Sin rango"};
+const TCLASS={Hierro:"iron",Bronce:"bronze",Plata:"silver",Oro:"gold",Platino:"plat",Diamante:"dia",Ascendente:"asc",Inmortal:"imm",Radiante:"rad"};
+const ROLE={Jett:"d",Raze:"d",Neon:"d",Phoenix:"d",Reyna:"d",Yoru:"d",Iso:"d",Waylay:"d",
+  Chamber:"s",Cypher:"s",Vyse:"s",Sage:"s",Killjoy:"s",Deadlock:"s",
+  Sova:"i",Fade:"i",Breach:"i",Tejo:"i",Skye:"i","KAY/O":"i",Gekko:"i",
+  Astra:"c",Omen:"c",Clove:"c",Brimstone:"c",Viper:"c",Harbor:"c",Miks:"c",Veto:"s"};
+const ROLENAME={d:"Duelista",c:"Controlador",s:"Centinela",i:"Iniciador"};
+const ROLEPATH={
+  d:'<path d="M8 2.5 L13 12.5 L8 10 L3 12.5 Z"/>',
+  c:'<circle cx="8" cy="8" r="5.5"/><circle cx="8" cy="8" r="2"/>',
+  s:'<path d="M8 2 L13 4 V8 C13 11 10.5 13 8 14.2 C5.5 13 3 11 3 8 V4 Z"/>',
+  i:'<path d="M1.5 8 C4 4 12 4 14.5 8 C12 12 4 12 1.5 8 Z"/><circle cx="8" cy="8" r="1.8"/>'
+};
+const GRUPOS=["Solo","Dúo","Trío","Cuarteto","Stack de 5"];
+
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sgn=n=>(n>0?"+":n<0?"−":"")+Math.abs(n);
+const fdate=d=>{const [y,m,day]=String(d).slice(0,10).split("-");return day+"/"+m};
+const sum=(a,f)=>a.reduce((s,x)=>s+f(x),0);
+const mean=a=>a.length?sum(a,x=>x)/a.length:0;
+const fmt1=n=>(Math.round(n*10)/10).toString().replace(".",",");
+const fmt2=n=>n.toFixed(2).replace(".",",");
+
+function esRank(r){
+  r=String(r||"").replace(/\s*\(.*\)\s*$/,"").trim();
+  if(!r) return "Sin rango";
+  const parts=r.split(" ");
+  return (TIERES[parts[0]]||parts[0])+(parts.length>1?" "+parts.slice(1).join(" "):"");
+}
+let ICON={tiers:{},agents:{},roles:{}};
+function rb(rank,size){
+  size=size||22;
+  if(ICON.tiers[rank]) return `<img class="rb-img" src="${ICON.tiers[rank]}" width="${size}" height="${size}" alt="${esc(rank)}" loading="lazy">`;
+  const parts=rank.split(" "), c=TCLASS[parts[0]]||"iron", k=Math.min(+parts[1]||0,3);
+  const ys={1:[10],2:[8.5,12.5],3:[7,11,15]}[k]||[];
+  const chev=ys.map(y=>`<path d="M8,${y} L12,${y+3.4} L16,${y}"/>`).join("");
+  return `<svg class="rb rb-${c}" width="${size}" height="${size}" viewBox="0 0 24 24" role="img" aria-label="${esc(rank)}"><polygon points="12,1.5 21.5,6.8 21.5,17.2 12,22.5 2.5,17.2 2.5,6.8"/><g>${chev}</g></svg>`;
+}
+function ri(agent){
+  const ic=ICON.agents[agent];
+  if(ic&&ic.role) return `<img class="ro-img" src="${ic.role}" width="14" height="14" alt="${esc(ic.roleName||"")}" title="${esc(ic.roleName||"")}" loading="lazy">`;
+  const r=ROLE[agent]; if(!r) return "";
+  return `<svg class="ro" width="14" height="14" viewBox="0 0 16 16" role="img" aria-label="${ROLENAME[r]}"><title>${ROLENAME[r]}</title>${ROLEPATH[r]}</svg>`;
+}
+const rkLine=(rank,extra)=>`<span class="rkl">${rb(rank)}<b>${esc(rank)}</b>${extra?`<span>${esc(extra)}</span>`:""}</span>`;
+
+/* ---------- datos ---------- */
+let P=[], ALL=[], META={}, ERRS=[], sel=0, sortKey=null, sortDir=-1, metric="wr";
+
+function stat(ps){
+  const n=ps.length; if(!n) return null;
+  const v=ps.filter(x=>x.w).length, k=sum(ps,x=>x.k), d=sum(ps,x=>x.d);
+  const rrs=ps.filter(x=>x.rr!=null).map(x=>x.rr);
+  return {n,v,l:n-v,wr:Math.round(100*v/n),kd:k/Math.max(d,1),acs:Math.round(mean(ps.map(x=>x.acs))),
+    adr:Math.round(mean(ps.map(x=>x.adr))),hs:Math.round(mean(ps.map(x=>x.hs))),
+    rr:rrs.length?sum(rrs,x=>x):null,rrN:rrs.length};
+}
+function prep(d){
+  const g=d.partidas.map(x=>({date:x.fecha,at:x.inicio||x.fecha,map:x.mapa,ag:x.agente,w:!!x.victoria,sc:x.marcador,
+    k:x.k,d:x.d,a:x.a,acs:x.acs,adr:x.adr,hs:x.hs,rr:x.rr==null?null:x.rr,grp:x.grupo,gn:x.grupo_n,con:x.con||[],sb:x.marcador_jugadores||null}));
+  g.sort((a,b)=>String(b.at).localeCompare(String(a.at)));
+  const p={n:d.nombre,tag:d.tag,rank:esRank(d.rango),rr:d.rr,peak:esRank(d.pico),last:d.ultimo_cambio,g};
+  const s=stat(g);
+  p.s=s; p.v=s.v; p.kd=s.kd; p.acs=s.acs; p.adr=s.adr; p.hs=s.hs; p.net=s.rr==null?0:s.rr; p.rrN=s.rrN;
+  p.ast=sum(g,x=>x.a);
+  p.winRR=mean(g.filter(x=>x.w&&x.rr!=null).map(x=>x.rr));
+  p.lossRR=mean(g.filter(x=>!x.w&&x.rr!=null).map(x=>x.rr));
+  let best=0,cur=0; g.slice().reverse().forEach(x=>{cur=x.w?cur+1:0;best=Math.max(best,cur)}); p.streak=best;
+  return p;
+}
+function byGroup(ps){
+  const o={};
+  GRUPOS.concat([...new Set(ps.map(x=>x.grp))].filter(x=>!GRUPOS.includes(x)).sort()).forEach(g=>{
+    const sub=ps.filter(x=>x.grp===g); if(sub.length) o[g]=stat(sub);
+  });
+  return o;
+}
+const FIELD={wr:"Victorias (%)",kd:"K/D",acs:"ACS",rr:"RR neto"};
+const fmtM={wr:s=>s.wr+"%",kd:s=>fmt2(s.kd),acs:s=>String(s.acs),rr:s=>s.rr==null?"-":sgn(s.rr)};
+
+/* ---------- secciones ---------- */
+function secPodium(){
+  const rows=P.slice().sort((a,b)=>b.net-a.net);
+  const hi=Math.max(0,...P.map(p=>p.net)), lo=Math.min(0,...P.map(p=>p.net)), span=(hi-lo)||1;
+  const z=-lo/span*100;
+  const html=rows.map((p,i)=>{
+    const w=Math.abs(p.net)/span*100, pos=p.net>=0, left=pos?z:z-w;
+    return `<div class="pod-row">
+      <div class="pod-name"><span class="pos">${i+1}</span>${rb(p.rank,26)}<div><b>${esc(p.n)}</b><small>${esc(p.rank)} · ${p.s.v}V-${p.s.l}D</small></div></div>
+      <div class="pod-track"><span class="bar ${pos?"pos":"neg"}" style="left:${left.toFixed(2)}%;width:${w.toFixed(2)}%"></span><span class="zero" style="left:calc(${z.toFixed(2)}% - 1px)"></span></div>
+      <div class="pod-val ${pos?"pos-t":"neg-t"}">${sgn(p.net)}</div></div>`;
+  }).join("");
+  const top=rows[0], bot=rows[rows.length-1];
+  return `<section><h2>Podio de RR</h2><div class="panel podium">${html}
+    <p class="pod-note">RR ganado o perdido en las últimas partidas competitivas con dato de RR. De ${esc(top.n)} a ${esc(bot.n)} hay ${top.net-bot.net} RR de diferencia.</p></div></section>`;
+}
+
+function ext(items,f,dir){
+  const vals=items.map(f), t=dir>0?Math.max(...vals):Math.min(...vals);
+  return {val:t,items:items.filter((_,i)=>vals[i]===t)};
+}
+const namesOf=items=>{const ns=items.map(x=>(x.p||x).n);return ns.length>3?ns.length+" jugadores":ns.join(" · ")};
+function secAwards(){
+  const A=[];
+  const pl=(label,f,dir,fmt,sub)=>{const e=ext(P,f,dir);A.push({label,val:fmt(e.val),names:namesOf(e.items),sub:e.items.length===1?sub(e.items[0]):""})};
+  const wr=p=>`${p.s.v}V-${p.s.l}D · ${p.rank}`;
+  pl("Más RR",p=>p.net,1,v=>sgn(v)+" RR",wr);
+  pl("Menos RR",p=>p.net,-1,v=>sgn(v)+" RR",wr);
+  pl("Mayor ACS medio",p=>p.acs,1,v=>String(v),p=>`K/D ${fmt2(p.kd)} · ADR ${p.adr}`);
+  pl("Mayor K/D",p=>Math.round(p.kd*100),1,v=>fmt2(v/100),p=>`ACS ${p.acs}`);
+  pl("Mayor % de headshots",p=>p.hs,1,v=>v+"%",p=>`K/D ${fmt2(p.kd)}`);
+  pl("Mayor % de victorias",p=>p.s.wr,1,v=>v+"%",wr);
+  pl("Mejor racha de victorias",p=>p.streak,1,v=>v+" seguidas",()=>"");
+  pl("Más asistencias por partida",p=>Math.round(p.ast/p.g.length*10),1,v=>fmt1(v/10),p=>`${p.ast} en ${p.g.length} partidas`);
+  const ml=(label,f,dir,fmt,sub)=>{const e=ext(ALL,f,dir);A.push({label,val:fmt(e.val),names:namesOf(e.items),sub:e.items.length===1?sub(e.items[0]):""})};
+  ml("Mejor partida (ACS)",x=>x.acs,1,v=>String(v),x=>`${x.k}/${x.d}/${x.a} · ${x.ag} · ${x.map}`);
+  const conRR=ALL.filter(x=>x.rr!=null);
+  if(conRR.length){
+    const up=ext(conRR,x=>x.rr,1), dn=ext(conRR,x=>x.rr,-1);
+    A.push({label:"Mayor subida en una partida",val:sgn(up.val)+" RR",names:namesOf(up.items),sub:up.items.length===1?`${up.items[0].ag} · ${up.items[0].map} ${up.items[0].sc}`:""});
+    A.push({label:"Mayor bajada en una partida",val:sgn(dn.val)+" RR",names:namesOf(dn.items),sub:dn.items.length===1?`${dn.items[0].ag} · ${dn.items[0].map} ${dn.items[0].sc}`:""});
+  }
+  return `<section><h2>Premios del grupo</h2><div class="awards">`+A.map(a=>`<div class="award"><small>${a.label}</small><span class="val">${esc(a.val)}</span><span class="nm">${esc(a.names)}</span>${a.sub?`<span class="sub">${esc(a.sub)}</span>`:""}</div>`).join("")+`</div></section>`;
+}
+
+function groupTable(d,firstCol){
+  const rows=Object.entries(d).map(([g,s])=>`<tr><td>${esc(g)}</td><td class="num">${s.n}</td><td class="num">${s.v}-${s.l}</td><td class="num ${s.wr>=50?"cell-w":"cell-l"}">${s.wr}%</td><td class="num">${fmt2(s.kd)}</td><td class="num">${s.acs}</td><td class="num">${s.adr}</td><td class="num">${s.hs}</td><td class="num">${s.rr==null?"-":sgn(s.rr)}</td></tr>`).join("");
+  return `<div class="scroll"><table><thead><tr><th>${firstCol}</th><th class="num">Partidas</th><th class="num">V-D</th><th class="num">% vict.</th><th class="num">K/D</th><th class="num">ACS</th><th class="num">ADR</th><th class="num">HS%</th><th class="num">RR neto</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function secGroups(){
+  const gl=byGroup(ALL);
+  const mats=Object.keys(FIELD).map(k=>`<button type="button" class="tab" data-metric="${k}" aria-pressed="${k===metric}">${FIELD[k]}</button>`).join("");
+  const present=GRUPOS.filter(g=>gl[g]);
+  const head=present.map(g=>`<th class="num">${g}</th>`).join("");
+  const rows=P.map(p=>{
+    const bg=byGroup(p.g);
+    const cells=present.map(g=>{
+      const s=bg[g]; if(!s) return `<td class="num">-</td>`;
+      let cls="";
+      if(metric==="wr") cls=s.wr>=55?"cell-w":s.wr<=45?"cell-l":"";
+      if(metric==="rr"&&s.rr!=null) cls=s.rr>0?"cell-w":s.rr<0?"cell-l":"";
+      return `<td class="num ${cls}">${fmtM[metric](s)} <span style="color:var(--muted);font-size:11px">(${s.n})</span></td>`;
+    }).join("");
+    return `<tr><td><b>${esc(p.n)}</b></td>${cells}</tr>`;
+  }).join("");
+  return `<section><h2>Rendimiento según el tamaño del grupo</h2>
+    <div class="panel">${groupTable(gl,"Grupo (todos)")}</div>
+    <div class="panel" style="margin-top:16px"><div class="tabs">${mats}</div>
+      <div class="scroll"><table><thead><tr><th>Jugador</th>${head}</tr></thead><tbody>${rows}</tbody></table></div>
+      <p class="small">Entre paréntesis, número de partidas en ese tipo de grupo. Con pocas partidas las cifras no son fiables.</p></div></section>`;
+}
+
+function secSummary(){
+  return `<section><h2>Comparativa</h2><div class="panel scroll"><table id="summary"><thead><tr>
+    <th>Jugador</th><th>Rango</th><th>Pico</th><th>Forma <span style="text-transform:none;letter-spacing:0">(antigua → reciente, últimas 10)</span></th>
+    <th class="num"><button data-k="kd" type="button">K/D <span class="arrow"></span></button></th>
+    <th class="num"><button data-k="acs" type="button">ACS <span class="arrow"></span></button></th>
+    <th class="num"><button data-k="hs" type="button">HS% <span class="arrow"></span></button></th>
+    <th><button data-k="net" type="button">RR neto <span class="arrow"></span></button></th>
+  </tr></thead><tbody></tbody></table></div></section>`;
+}
+function renderSummary(){
+  const maxNet=Math.max(1,...P.map(p=>Math.abs(p.net)));
+  const rows=P.map((p,i)=>({p,i}));
+  if(sortKey) rows.sort((a,b)=>sortDir*(a.p[sortKey]-b.p[sortKey]));
+  document.querySelector("#summary tbody").innerHTML=rows.map(({p,i})=>{
+    const pips=p.g.slice(0,10).reverse().map(x=>`<span class="pip ${x.w?"w":"l"}" title="${fdate(x.date)} ${esc(x.map)} ${esc(x.sc)}">${x.w?"V":"D"}</span>`).join("");
+    const w=Math.round(Math.abs(p.net)/maxNet*50);
+    return `<tr class="${i===sel?"sel":""}">
+      <td><button type="button" class="who" data-i="${i}" aria-pressed="${i===sel}"><b>${esc(p.n)}</b><span>#${esc(p.tag)}</span></button></td>
+      <td>${rkLine(p.rank,p.rr+" RR")}</td><td>${rkLine(p.peak)}</td>
+      <td><div class="pips">${pips}</div></td>
+      <td class="num">${fmt2(p.kd)}</td><td class="num">${p.acs}</td><td class="num">${p.hs}</td>
+      <td><div class="net"><div class="track"><span class="bar ${p.net>=0?"pos":"neg"}" style="width:${w}%"></span></div><span class="val ${p.net>=0?"pos-t":"neg-t"}">${sgn(p.net)}</span></div></td></tr>`;
+  }).join("");
+  document.querySelectorAll("#summary th button").forEach(b=>{b.querySelector(".arrow").textContent=b.dataset.k===sortKey?(sortDir<0?"↓":"↑"):""});
+}
+
+function playerText(p){
+  const s=p.s, T=[];
+  T.push(`${s.v} victorias y ${s.l} derrotas (${s.wr}%) en ${s.n} partidas, con K/D ${fmt2(s.kd)} y ACS ${s.acs}.`);
+  if(s.rr!=null) T.push(`RR neto ${sgn(s.rr)} en ${s.rrN} partidas con dato`+(isFinite(p.winRR)&&isFinite(p.lossRR)&&p.winRR&&p.lossRR?`: gana de media ${fmt1(p.winRR)} RR por victoria y pierde ${fmt1(-p.lossRR)} por derrota.`:"."));
+  const ag={}; p.g.forEach(x=>ag[x.ag]=(ag[x.ag]||0)+1);
+  const top=Object.entries(ag).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([k,n])=>`${k} (${n})`);
+  if(top.length) T.push(`Agentes más jugados: ${top.join(", ")}.`);
+  const bg=Object.entries(byGroup(p.g)).filter(([,x])=>x.n>=4);
+  if(bg.length>=2){
+    bg.sort((a,b)=>b[1].wr-a[1].wr);
+    const [gb,sb]=bg[0],[gw,sw]=bg[bg.length-1];
+    if(sb.wr!==sw.wr) T.push(`Mejor % de victorias en ${gb.toLowerCase()} (${sb.wr}% en ${sb.n} partidas) y peor en ${gw.toLowerCase()} (${sw.wr}% en ${sw.n}).`);
+  }
+  T.push(`Rango actual ${p.rank} (${p.rr} RR); pico ${p.peak}.`);
+  return T.join(" ");
+}
+function secPlayers(){
+  return `<section><h2>Resumen por jugador</h2><ul class="panel verdicts">`+P.map(p=>`<li><b>${esc(p.n)}</b><p>${esc(playerText(p))}</p></li>`).join("")+`</ul></section>`;
+}
+
+function mapStats(){
+  const m={}; ALL.forEach(x=>{const o=m[x.map]||(m[x.map]={n:0,w:0});o.n++;if(x.w)o.w++});
+  return Object.entries(m).map(([k,o])=>({map:k,n:o.n,w:o.w,pct:o.w/o.n})).sort((a,b)=>b.pct-a.pct||b.n-a.n);
+}
+function secInsights(){
+  const L=[];
+  const byNet=P.slice().sort((a,b)=>b.net-a.net);
+  L.push(`${byNet[0].n} es quien más RR suma (${sgn(byNet[0].net)}) y ${byNet[byNet.length-1].n} quien menos (${sgn(byNet[byNet.length-1].net)}).`);
+  const gv={}; P.forEach(p=>(gv[p.s.wr]=gv[p.s.wr]||[]).push(p));
+  const tie=Object.values(gv).filter(a=>a.length>=2).map(a=>({a,sp:Math.max(...a.map(p=>p.net))-Math.min(...a.map(p=>p.net))})).sort((x,y)=>y.sp-x.sp)[0];
+  if(tie&&tie.sp>=10) L.push(`${tie.a.map(p=>`${p.n} (${sgn(p.net)})`).join(", ")} tienen el mismo porcentaje de victorias (${tie.a[0].s.wr}%) y RR netos distintos. El RR depende también del rango oculto, no solo de ganar.`);
+  const w=P.filter(p=>p.winRR&&p.lossRR);
+  if(w.length>=2){
+    const hiW=w.slice().sort((a,b)=>b.winRR-a.winRR)[0], loL=w.slice().sort((a,b)=>b.lossRR-a.lossRR)[0], worst=w.slice().sort((a,b)=>a.lossRR-b.lossRR)[0];
+    L.push(`${hiW.n} gana más RR por victoria (${fmt1(hiW.winRR)} de media), ${loL.n} pierde menos por derrota (${fmt1(-loL.lossRR)}) y ${worst.n} pierde más (${fmt1(-worst.lossRR)}).`);
+  }
+  const kdTop=P.slice().sort((a,b)=>b.kd-a.kd)[0], pos=byNet.indexOf(kdTop)+1;
+  L.push(`${kdTop.n} tiene el mayor K/D (${fmt2(kdTop.kd)}) y ocupa el puesto ${pos} de ${P.length} en RR neto.`);
+  const gl=Object.entries(byGroup(ALL)).filter(([,s])=>s.n>=10).sort((a,b)=>b[1].wr-a[1].wr);
+  if(gl.length>=2) L.push(`Con todos los jugadores juntos, el mejor porcentaje de victorias es en ${gl[0][0].toLowerCase()} (${gl[0][1].wr}% en ${gl[0][1].n} partidas) y el peor en ${gl[gl.length-1][0].toLowerCase()} (${gl[gl.length-1][1].wr}% en ${gl[gl.length-1][1].n}).`);
+  const ms=mapStats().filter(o=>o.n>=8);
+  if(ms.length>=2) L.push(`${ms[0].map} es el mapa con mayor porcentaje de victorias (${Math.round(ms[0].pct*100)}% en ${ms[0].n} partidas contadas por jugador) y ${ms[ms.length-1].map} el de menor (${Math.round(ms[ms.length-1].pct*100)}% en ${ms[ms.length-1].n}).`);
+  return `<section><h2>Lo que se ve en los datos</h2><ul class="panel insights">`+L.map(t=>`<li>${esc(t)}</li>`).join("")+`</ul></section>`;
+}
+function secMapsAgents(){
+  const ms=mapStats();
+  const maps=`<table><thead><tr><th>Mapa</th><th class="num">Partidas</th><th class="num">V-D</th><th>Victorias</th></tr></thead><tbody>`+
+    ms.map(o=>`<tr><td>${esc(o.map)}</td><td class="num">${o.n}</td><td class="num">${o.w}-${o.n-o.w}</td><td><div class="bar-cell"><div class="t"><i style="width:${Math.round(o.pct*100)}%"></i></div><span class="num" style="width:40px">${Math.round(o.pct*100)}%</span></div></td></tr>`).join("")+`</tbody></table>`;
+  const ag={}; ALL.forEach(x=>{const o=ag[x.ag]||(ag[x.ag]={n:0,w:0,ps:new Set()});o.n++;if(x.w)o.w++;o.ps.add(x.p.n)});
+  const rows=Object.entries(ag).map(([k,o])=>({a:k,n:o.n,w:o.w,ps:[...o.ps]})).sort((a,b)=>b.n-a.n||b.w-a.w).slice(0,12);
+  const agents=`<table><thead><tr><th>Agente</th><th class="num">Partidas</th><th class="num">% vict.</th><th>Quién</th></tr></thead><tbody>`+
+    rows.map(o=>`<tr><td>${ri(o.a)}${esc(o.a)}</td><td class="num">${o.n}</td><td class="num">${Math.round(100*o.w/o.n)}%</td><td style="white-space:normal;min-width:130px">${esc(o.ps.join(", "))}</td></tr>`).join("")+`</tbody></table>`;
+  const legend=Object.keys(ROLENAME).map(k=>`<span>${ICON.roles[ROLENAME[k]]?`<img class="ro-img" src="${ICON.roles[ROLENAME[k]]}" width="14" height="14" alt="">`:`<svg class="ro" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true">${ROLEPATH[k]}</svg>`}${ROLENAME[k]}</span>`).join("");
+  return `<section><h2>Mapas y agentes</h2><div class="legend">${legend}</div><div class="two"><div class="panel scroll">${maps}</div><div class="panel scroll">${agents}</div></div></section>`;
+}
+
+function spark(p){
+  const chrono=p.g.filter(x=>x.rr!=null).slice().reverse();
+  if(chrono.length<2) return "";
+  const pts=[0]; chrono.forEach(x=>pts.push(pts[pts.length-1]+x.rr));
+  const W=640,H=170,L=40,R=56,T=16,B=26;
+  const lo=Math.min(0,...pts),hi=Math.max(0,...pts), pad=Math.max(4,(hi-lo)*0.12), y0=lo-pad,y1=hi+pad;
+  const X=i=>L+(W-L-R)*i/(pts.length-1), Y=v=>T+(H-T-B)*(1-(v-y0)/(y1-y0));
+  const line=pts.map((v,i)=>(i?"L":"M")+X(i).toFixed(1)+","+Y(v).toFixed(1)).join(" ");
+  const area=line+" L"+X(pts.length-1).toFixed(1)+","+Y(0).toFixed(1)+" L"+X(0).toFixed(1)+","+Y(0).toFixed(1)+" Z";
+  const dots=chrono.map((x,i)=>`<circle class="dot ${x.w?"w":"l"}" cx="${X(i+1).toFixed(1)}" cy="${Y(pts[i+1]).toFixed(1)}" r="${chrono.length>20?3.5:5}"><title>${fdate(x.date)} ${esc(x.map)} · ${esc(x.ag)} · ${x.w?"Victoria":"Derrota"} ${esc(x.sc)} · ${sgn(x.rr)} RR</title></circle>`).join("");
+  const end=pts[pts.length-1], ex=X(pts.length-1);
+  return `<div class="chart"><h4>RR acumulado (de la más antigua a la más reciente)</h4><svg class="spark" viewBox="0 0 ${W} ${H}" role="img" aria-label="RR acumulado de ${esc(p.n)}: ${sgn(end)}">
+    <line class="grid" x1="${L}" x2="${W-R}" y1="${Y(hi).toFixed(1)}" y2="${Y(hi).toFixed(1)}"/>
+    <line class="grid" x1="${L}" x2="${W-R}" y1="${Y(lo).toFixed(1)}" y2="${Y(lo).toFixed(1)}"/>
+    <line class="zero" x1="${L}" x2="${W-R}" y1="${Y(0).toFixed(1)}" y2="${Y(0).toFixed(1)}"/>
+    <text x="${L-6}" y="${(Y(hi)+4).toFixed(1)}" text-anchor="end">${sgn(hi)}</text>
+    ${lo<0?`<text x="${L-6}" y="${(Y(lo)+4).toFixed(1)}" text-anchor="end">${sgn(lo)}</text>`:""}
+    <text x="${L-6}" y="${(Y(0)+4).toFixed(1)}" text-anchor="end">0</text>
+    <path class="area" d="${area}"/><path class="line" d="${line}"/>${dots}
+    <text class="end" x="${(ex+10).toFixed(1)}" y="${(Y(end)+4).toFixed(1)}">${sgn(end)} RR</text>
+    <text x="${L}" y="${H-6}">${fdate(chrono[0].date)}</text>
+    <text x="${W-R}" y="${H-6}" text-anchor="end">${fdate(chrono[chrono.length-1].date)}</text></svg></div>`;
+}
+function renderDetail(){
+  const p=P[sel], s=p.s;
+  const kp=[["Rango",rkLine(p.rank,p.rr+" RR"),1],["Pico",rkLine(p.peak),1],["Última partida",sgn(p.last)+" RR"],
+    ["Balance",`${s.v}V - ${s.l}D`],["% victorias",s.wr+"%"],["K/D",fmt2(s.kd)],["ACS",s.acs],["ADR",s.adr],["HS%",s.hs],["RR neto",sgn(p.net)]];
+  const rows=p.g.map((x,mi)=>`<tr class="mrow${x.sb?" exp":""}" data-mi="${mi}"${x.sb?` tabindex="0" role="button" aria-expanded="false" title="Ver la partida completa"`:""}><td>${x.sb?'<span class="chev" aria-hidden="true">▸</span>':""}${fdate(x.date)}</td><td>${esc(x.map)}</td><td>${ri(x.ag)}${esc(x.ag)}</td><td class="${x.w?"res-w":"res-l"}">${x.w?"Victoria":"Derrota"} ${esc(x.sc)}</td><td class="num ${x.rr==null?"":x.rr>=0?"pos-t":"neg-t"}"><b>${x.rr==null?"-":sgn(x.rr)}</b></td><td class="num">${x.k}/${x.d}/${x.a}</td><td class="num">${x.acs}</td><td class="num">${x.adr}</td><td class="num">${x.hs}</td><td>${esc(x.grp)}</td><td>${esc(x.con.join(", ")||"-")}</td></tr>`).join("");
+  document.getElementById("detail").innerHTML=`
+    <div class="dhead">${rb(p.rank,40)}<h3>${esc(p.n)}</h3><span class="tag">#${esc(p.tag)}</span></div>
+    <div class="kpis">${kp.map(([l,v,raw])=>`<div class="kpi"><small>${l}</small>${raw?`<b>${v}</b>`:`<b>${esc(v)}</b>`}</div>`).join("")}</div>
+    <div><div class="sub-h">Según con cuántos jugaba</div><div class="panel">${groupTable(byGroup(p.g),"Grupo")}</div></div>
+    ${spark(p)}
+    <div class="scroll"><table><thead><tr><th>Fecha</th><th>Mapa</th><th>Agente</th><th>Resultado</th><th class="num">RR</th><th class="num">K/D/A</th><th class="num">ACS</th><th class="num">ADR</th><th class="num">HS%</th><th>Grupo</th><th>Con</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+function scoreboard(x){
+  const eq=(k,t)=>{
+    const ps=x.sb.filter(j=>j.equipo===k);
+    return `<div class="sbt"><div class="sbh ${k==="mio"?(x.w?"res-w":"res-l"):(x.w?"res-l":"res-w")}">${t}</div><table><thead><tr><th>Jugador</th><th>Agente</th><th class="num">K/D/A</th><th class="num">ACS</th><th>Party</th></tr></thead><tbody>`+
+    ps.map(j=>`<tr${j.nombre?' class="amigo"':""}><td>${j.nombre?`<b>${esc(j.nombre)}</b>`:'<span class="anon">Otro jugador</span>'}</td><td>${ri(j.agente)}${esc(j.agente)}</td><td class="num">${j.k}/${j.d}/${j.a}</td><td class="num">${j.acs}</td><td>${j.party?"Grupo "+j.party:""}</td></tr>`).join("")+`</tbody></table></div>`;
+  };
+  return `<div class="sb">${eq("mio","Su equipo · "+(x.w?"Victoria":"Derrota")+" "+esc(x.sc))}${eq("rival","Equipo rival")}</div>`;
+}
+function toggleMatch(tr){
+  const open=tr.getAttribute("aria-expanded")==="true", nx=tr.nextElementSibling;
+  if(open){ if(nx&&nx.classList.contains("mdet")) nx.remove(); tr.setAttribute("aria-expanded","false"); tr.querySelector(".chev").textContent="▸"; return; }
+  const x=P[sel].g[+tr.dataset.mi]; if(!x||!x.sb) return;
+  const d=document.createElement("tr"); d.className="mdet"; d.innerHTML=`<td colspan="11">${scoreboard(x)}</td>`;
+  tr.after(d); tr.setAttribute("aria-expanded","true"); tr.querySelector(".chev").textContent="▾";
+}
+function renderGroupsOnly(){ document.getElementById("groups").innerHTML=secGroups(); }
+
+function showEmpty(msg){
+  document.getElementById("meta").textContent="";
+  document.getElementById("app").innerHTML=`<div class="panel empty"><b>Todavía no hay datos.</b><br>${esc(msg||"")}<br>Ejecuta el workflow "Actualizar datos" desde la pestaña Actions del repositorio y recarga esta página.</div>`;
+}
+function init(j){
+  const arr=Array.isArray(j)?j:(j.jugadores||[]); META=Array.isArray(j)?{}:j;
+  ERRS=arr.filter(d=>!(d.partidas&&d.partidas.length)).map(d=>d.id||d.nombre);
+  P=arr.filter(d=>d.rango&&d.partidas&&d.partidas.length).map(prep);
+  if(!P.length) return showEmpty("El archivo data.json no contiene partidas.");
+  ALL=P.flatMap(p=>p.g.map(x=>Object.assign({p},x)));
+  const f=META.actualizado?new Date(META.actualizado).toLocaleString("es-ES",{dateStyle:"long",timeStyle:"short"}):"";
+  document.getElementById("meta").textContent=`${P.length} jugadores · últimas ${META.n_partidas||""} partidas competitivas de cada uno`+(f?` · actualizado el ${f}`:"");
+  document.getElementById("app").innerHTML=
+    secPodium()+secAwards()+`<div id="groups">${secGroups()}</div>`+secSummary()+secPlayers()+secInsights()+secMapsAgents()+
+    `<section><h2>Detalle por jugador</h2><div class="panel detail" id="detail"></div></section>`+
+    (ERRS.length?`<p class="foot">Sin datos de partidas para: ${esc(ERRS.join(", "))}.</p>`:"");
+  renderSummary(); renderDetail();
+}
+
+document.addEventListener("keydown",e=>{ if((e.key==="Enter"||e.key===" ")&&e.target.matches&&e.target.matches("tr.exp")){e.preventDefault();toggleMatch(e.target)} });
+document.addEventListener("click",e=>{
+  const mr=e.target.closest("tr.exp"); if(mr){toggleMatch(mr);return}
+  const who=e.target.closest(".who");
+  if(who){sel=+who.dataset.i;renderSummary();renderDetail();return}
+  const th=e.target.closest("#summary th button");
+  if(th){ if(sortKey===th.dataset.k) sortDir*=-1; else {sortKey=th.dataset.k;sortDir=-1} renderSummary(); return }
+  const tab=e.target.closest(".tab");
+  if(tab){ metric=tab.dataset.metric; renderGroupsOnly(); }
+});
+
+/* iconos oficiales desde valorant-api.com (si falla, se usan los dibujados) */
+function cargarIconos(){
+  const t=(u)=>Promise.race([fetch(u).then(r=>r.json()),new Promise((_,rej)=>setTimeout(()=>rej(new Error("timeout")),4000))]);
+  return Promise.all([
+    t("https://valorant-api.com/v1/competitivetiers").then(j=>{
+      const ep=j.data[j.data.length-1];
+      ep.tiers.forEach(x=>{
+        const nm=String(x.tierName||"").toLowerCase(); if(!nm||nm.includes("unused")||!x.largeIcon) return;
+        ICON.tiers[esRank(nm.charAt(0).toUpperCase()+nm.slice(1))]=x.largeIcon;
+      });
+    }).catch(()=>{}),
+    t("https://valorant-api.com/v1/agents?isPlayableCharacter=true").then(j=>{
+      const RN={Duelist:"Duelista",Controller:"Controlador",Sentinel:"Centinela",Initiator:"Iniciador"};
+      j.data.forEach(a=>{ if(a.role) ICON.roles[RN[a.role.displayName]||a.role.displayName]=a.role.displayIcon; ICON.agents[a.displayName]={role:a.role.displayIcon,roleName:RN[a.role.displayName]||a.role.displayName,face:a.displayIcon}; });
+    }).catch(()=>{})
+  ]);
+}
+Promise.all([fetch("data.json?v="+Date.now()).then(r=>{if(!r.ok) throw new Error("data.json: HTTP "+r.status); return r.json()}),cargarIconos()]).then(x=>x[0]).then(init).catch(err=>showEmpty(String(err.message||err)));
+</script>
+</body>
+</html>
