@@ -159,6 +159,22 @@ def partidas_jugador(jug, nombres_por_puuid):
                 x["party"] = ids.setdefault(x["party"], len(ids) + 1)
             s = yo["stats"]
             tiros = s["headshots"] + s["bodyshots"] + s["legshots"]
+            pb = pm = mk = None
+            try:
+                por_ronda = {}
+                for kl in m.get("kills") or []:
+                    por_ronda.setdefault(kl["round"], []).append(kl)
+                pb = pm = mk = 0
+                for ks in por_ronda.values():
+                    ks.sort(key=lambda z: z.get("time_in_round_in_ms") or 0)
+                    if ks[0]["killer"]["puuid"] == jug["puuid"]:
+                        pb += 1
+                    if ks[0]["victim"]["puuid"] == jug["puuid"]:
+                        pm += 1
+                    if sum(1 for z in ks if z["killer"]["puuid"] == jug["puuid"]) >= 3:
+                        mk += 1
+            except Exception:
+                pb = pm = mk = None
             partidas.append({
                 "match_id": mid,
                 "inicio": m["metadata"]["started_at"],
@@ -176,6 +192,7 @@ def partidas_jugador(jug, nombres_por_puuid):
                 "grupo": etiqueta_grupo(len(en_grupo)),
                 "con": con,
                 "marcador_jugadores": marc,
+                "primeras_bajas": pb, "primeras_muertes": pm, "multikills": mk,
             })
         if len(lote) < tam:
             break
