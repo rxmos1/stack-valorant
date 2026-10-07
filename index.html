@@ -29,7 +29,48 @@
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14px;line-height:1.45}
-.wrap{max-width:1080px;margin-inline:auto;padding-inline:16px;padding-block:28px 40px;display:flex;flex-direction:column;gap:28px}
+.wrap{max-width:1640px;margin-inline:auto;padding-inline:20px;padding-block:22px 40px;display:flex;flex-direction:column;gap:18px}
+#app{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:26px 22px;align-items:start}
+.sec{min-width:0;scroll-margin-top:64px}
+.s12{grid-column:span 12}.s7{grid-column:span 7}.s6{grid-column:span 6}.s5{grid-column:span 5}.s4{grid-column:span 4}
+@media (max-width:1180px){.s7,.s6,.s5,.s4{grid-column:span 12}}
+.nav{position:sticky;top:0;z-index:50;display:flex;gap:6px;overflow-x:auto;padding:8px 20px;margin:0 -20px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);scrollbar-width:thin}
+.nav a{flex:none;white-space:nowrap;text-decoration:none;color:var(--muted);font-size:13px;padding:5px 12px;border-radius:999px;background:var(--chip)}
+.nav a:hover{color:var(--fg)}
+.pad{padding:16px 18px}.small0{color:var(--muted);font-size:12px;margin:10px 0 0}
+.pn{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.nn{color:var(--muted);font-size:11px;font-weight:400}
+.legend.big{gap:6px 18px;font-size:13px;color:var(--fg);margin-bottom:10px}
+.lg{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}.lg i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.syn-t{margin:0;padding:12px 18px 12px 34px;display:flex;flex-direction:column;gap:6px;font-size:13px}
+.syn-t.pad{padding-top:12px}
+.syn th.syn-h{white-space:normal;min-width:56px;max-width:84px;text-align:center;font-size:10px;line-height:1.2;vertical-align:bottom;overflow-wrap:anywhere;padding:9px 4px}
+.syn td{padding:6px 3px;text-align:center}.syn .syn-r{text-align:left;padding-left:12px;white-space:nowrap}
+.syn-c b{display:block;font-family:var(--mono);font-size:14px;font-weight:600}.syn-c small{display:block;font-size:10px;color:var(--muted);font-family:var(--mono)}
+.syn-self,.syn-na{color:var(--muted)}
+.syn tr.syn-f td{border-top:2px solid var(--line)}.syn tr.syn-f .syn-r{font-weight:600;white-space:normal;min-width:120px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.cd-top{display:flex;align-items:center;gap:12px}.cd-id{min-width:0}.cd-id b{display:block;font-family:var(--display);font-size:26px;line-height:1.1;overflow-wrap:anywhere}.cd-id span{color:var(--muted);font-family:var(--mono);font-size:12px}
+.cd-rank{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.cd-rank div{min-width:0}.cd-rank b{display:block;font-size:16px;white-space:nowrap}.cd-rank span{color:var(--muted);font-size:12px;font-family:var(--mono)}
+.cd-rec{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted);padding:8px 0;border-block:1px solid var(--line)}.cd-rec span{white-space:nowrap}.cd-rec b{font-family:var(--mono);color:var(--fg);font-weight:600}.cd-rec .pos-t b{color:var(--win)}.cd-rec .neg-t b{color:var(--loss)}
+.cd-h{margin:2px 0 0;font-size:11px;letter-spacing:.08em;text-transform:uppercase}.cd-h.good{color:var(--win)}.cd-h.bad{color:var(--loss)}
+.cd-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.cd-list li{display:grid;grid-template-columns:1fr auto;gap:0 10px}
+.cd-l{font-weight:600;font-size:13px}.cd-v{font-family:var(--mono);font-size:13px;text-align:right;white-space:nowrap}.cd-v small{color:var(--muted);font-size:11px}
+.cd-r{grid-column:1/-1;font-size:12px;font-style:italic}
+.wraph th{white-space:normal;vertical-align:bottom;line-height:1.2}
+.syn-p{margin:0;padding:12px 18px;font-size:13px}
+.expl{padding:16px 18px}
+.kpi .rkl{flex-wrap:wrap}
+.rkl span{white-space:nowrap}
+.bar-cell{min-width:90px!important}
+@media (max-width:1280px){#summary th,#summary td{padding:9px 4px}.pips{gap:2px}.pip{width:15px}}
+.gwrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:16px;align-items:start}
+@media (max-width:1180px){.gwrap{grid-template-columns:minmax(0,1fr)}}
+.dgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:1280px){.dgrid{grid-template-columns:minmax(0,1fr)}}
+.two3{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px}
 section{min-width:0}
 header h1 .logo{height:1.15em;width:auto;vertical-align:-.12em;margin-right:.3em}
 header h1{font-family:var(--display);font-weight:700;font-size:clamp(36px,7vw,58px);line-height:1;margin:0;letter-spacing:.01em;text-wrap:balance}
@@ -38,7 +79,7 @@ h2{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:.04e
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;min-width:0}
 .scroll{overflow-x:auto}
 table{width:100%;border-collapse:collapse}
-th,td{padding:10px 12px;text-align:left;white-space:nowrap}
+th,td{padding:9px 10px;text-align:left;white-space:nowrap}
 th{font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line)}
 th button{all:unset;cursor:pointer;display:inline-flex;gap:4px;align-items:center;text-transform:inherit;letter-spacing:inherit}
 th button:hover{color:var(--fg)}
@@ -50,9 +91,9 @@ tr.sel td{background:var(--chip)}
 th.num{text-align:right}
 th.num button{justify-content:flex-end}
 .who{all:unset;cursor:pointer;display:block}
-.who b{font-weight:600;font-size:15px}
+.who b{font-weight:600;font-size:15px;white-space:nowrap}
 .who span{color:var(--muted);font-family:var(--mono);font-size:12px}
-.rkl{display:inline-flex;align-items:center;gap:8px}
+.rkl{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
 .rkl b{font-weight:600}.rkl span{color:var(--muted);font-family:var(--mono);font-size:12px}
 .rb{flex:none;display:block}
 .rb polygon{fill:currentColor;fill-opacity:.16;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round}
@@ -84,12 +125,12 @@ th.num button{justify-content:flex-end}
 .net .val{font-family:var(--mono);font-size:13px;width:44px;text-align:right}
 .pos-t{color:var(--win)}.neg-t{color:var(--loss)}
 .podium{padding:16px 18px;display:flex;flex-direction:column;gap:10px}
-.pod-row{display:grid;grid-template-columns:minmax(150px,230px) 1fr 62px;align-items:center;gap:6px 14px}
+.pod-row{display:grid;grid-template-columns:minmax(230px,300px) minmax(60px,1fr) 58px;align-items:center;gap:6px 14px}
 .pod-name{display:flex;align-items:center;gap:10px;min-width:0}
 .pod-name .pos{font-family:var(--display);font-weight:700;font-size:26px;width:22px;color:var(--muted);line-height:1}
 .pod-name div{min-width:0}
-.pod-name b{display:block;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.pod-name small{color:var(--muted);font-family:var(--mono);font-size:11px}
+.pod-name b{display:block;font-weight:600;overflow-wrap:anywhere;line-height:1.2}
+.pod-name small{display:block;color:var(--muted);font-family:var(--mono);font-size:11px;white-space:nowrap}
 .pod-track{position:relative;height:22px;background:var(--chip);border-radius:4px}
 .pod-track .bar{position:absolute;top:0;bottom:0;border-radius:3px}
 .pod-track .bar.pos{background:var(--win)}.pod-track .bar.neg{background:var(--loss)}
@@ -97,12 +138,13 @@ th.num button{justify-content:flex-end}
 .pod-val{font-family:var(--mono);font-weight:500;font-size:17px;text-align:right}
 .pod-note{margin:4px 0 0;color:var(--muted);font-size:13px}
 @media (max-width:560px){.pod-row{grid-template-columns:1fr 56px}.pod-name{grid-column:1/-1}}
-.awards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.awards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
 .award{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:3px;min-width:0}
 .award small{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
 .award .val{font-family:var(--display);font-weight:700;font-size:26px;line-height:1.05;color:var(--accent)}
 .award h3{margin:0 0 2px;font-family:var(--display);font-size:17px;line-height:1.15;letter-spacing:.02em;text-transform:uppercase;color:var(--accent)}
 .award .nm{font-family:var(--display);font-weight:700;font-size:25px;line-height:1.1;overflow-wrap:anywhere;margin:2px 0}
+.award .val{overflow-wrap:anywhere}
 .award .roast{margin:6px 0 8px;font-size:13px;line-height:1.35;font-style:italic}
 .award .obj{font-size:11px;color:var(--muted);margin-top:auto;padding-top:6px;border-top:1px solid var(--line);overflow-wrap:anywhere}
 .award .sub{font-family:var(--mono);font-size:12px;color:var(--muted);overflow-wrap:anywhere}
@@ -110,11 +152,12 @@ th.num button{justify-content:flex-end}
 .dhead{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px}
 .dhead h3{font-family:var(--display);font-weight:700;font-size:30px;margin:0;line-height:1.1}
 .dhead .tag{font-family:var(--mono);color:var(--muted)}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:10px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
 .kpi{background:var(--chip);border-radius:8px;padding:10px 12px;min-width:0}
 .kpi small{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .kpi b{font-family:var(--mono);font-weight:500;font-size:18px;font-variant-numeric:tabular-nums}
 .kpi .rkl b{font-family:var(--body);font-size:15px}
+.kpi b{overflow-wrap:anywhere}
 .chart{min-width:0}
 .chart h4,.sub-h{margin:0 0 6px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
 svg.spark{width:100%;height:auto;display:block;max-width:100%}
@@ -128,15 +171,15 @@ svg.spark{width:100%;height:auto;display:block;max-width:100%}
 .spark text.end{fill:var(--fg);font-weight:500}
 .res-w{color:var(--win);font-weight:600}.res-l{color:var(--loss);font-weight:600}
 .verdicts{display:flex;flex-direction:column;gap:12px;margin:0;padding:18px;list-style:none}
-.verdicts li{display:grid;grid-template-columns:minmax(130px,190px) 1fr;gap:4px 16px;padding-top:12px;border-top:1px solid var(--line);min-width:0}
+.verdicts li{display:grid;grid-template-columns:minmax(150px,200px) 1fr;gap:4px 16px;padding-top:12px;border-top:1px solid var(--line);min-width:0}
 .verdicts li:first-child{border-top:0;padding-top:0}
 .verdicts b{font-weight:600}
-.verdicts p{margin:0;max-width:72ch}
+.verdicts p{margin:0}
 .verdicts .roast{font-style:italic;margin-bottom:4px}.verdicts .facts{color:var(--muted);font-size:13px}
 .expl p{margin:0 0 8px;max-width:80ch}.expl ul{margin:0;padding-left:18px}.expl li{margin:2px 0}
 @media (max-width:560px){.verdicts li{grid-template-columns:1fr}}
 .insights{padding:18px 18px 18px 36px;margin:0;display:flex;flex-direction:column;gap:10px}
-.insights li{max-width:72ch}
+.insights li{max-width:none}
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
 .legend{display:flex;flex-wrap:wrap;gap:6px 16px;color:var(--muted);font-size:12px;margin:0 0 8px}
 .legend span{display:inline-flex;align-items:center}
@@ -166,6 +209,7 @@ tr.mdet>td{white-space:normal;background:var(--bg);padding:12px}
     <h1><img class="logo" src="data:image/png;base64,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" alt="" width="52" height="76">Vinicers</h1>
     <p id="meta">Cargando datos…</p>
   </header>
+  <nav class="nav" id="nav" aria-label="Secciones"></nav>
   <div id="app"></div>
   <p class="foot">Fuente: API de HenrikDev. El RR de cada partida es el cambio que registró el juego; el RR neto suma solo las partidas que tienen ese dato. El tamaño del grupo es el número de jugadores del mismo equipo que iban en la misma party, sean o no del grupo. Iconos de rango y de rol de valorant-api.com; son propiedad de Riot Games. Web de fans, sin relación oficial con Riot Games.</p>
 </div>
@@ -220,7 +264,7 @@ const av=(p,s)=>`<img class="av" data-s="${slug(p.n)}" src="fotos/${slug(p.n)}.j
 const rkLine=(rank,extra)=>`<span class="rkl">${rb(rank)}<b>${esc(rank)}</b>${extra?`<span>${esc(extra)}</span>`:""}</span>`;
 
 /* ---------- datos ---------- */
-let P=[], ALL=[], META={}, ERRS=[], sel=0, sortKey=null, sortDir=-1, metric="wr";
+let UNI=[], P=[], ALL=[], META={}, ERRS=[], sel=0, sortKey=null, sortDir=-1, metric="wr";
 
 function stat(ps){
   const n=ps.length; if(!n) return null;
@@ -232,12 +276,15 @@ function stat(ps){
 }
 function prep(d){
   const g=d.partidas.map(x=>({date:x.fecha,at:x.inicio||x.fecha,map:x.mapa,ag:x.agente,w:!!x.victoria,sc:x.marcador,
-    k:x.k,d:x.d,a:x.a,acs:x.acs,adr:x.adr,hs:x.hs,rr:x.rr==null?null:x.rr,grp:x.grupo,gn:x.grupo_n,con:x.con||[],sb:x.marcador_jugadores||null,fb:x.primeras_bajas==null?null:x.primeras_bajas,fd:x.primeras_muertes==null?null:x.primeras_muertes,mk:x.multikills==null?null:x.multikills}));
+    k:x.k,d:x.d,a:x.a,acs:x.acs,adr:x.adr,hs:x.hs,rr:x.rr==null?null:x.rr,grp:x.grupo,gn:x.grupo_n,con:x.con||[],sb:x.marcador_jugadores||null,fb:x.primeras_bajas==null?null:x.primeras_bajas,fd:x.primeras_muertes==null?null:x.primeras_muertes,mk:x.multikills==null?null:x.multikills,id:x.match_id,ases:x.ases||0,ci:x.clutch_intentos==null?null:x.clutch_intentos,cg:x.clutch_ganados||0,kar:x.kills_arma||null,ar:x.armas||null,cc:x.compra_cara==null?null:x.compra_cara,ccp:x.compra_cara_perdida||0,er:x.eco_rondas||0,eg:x.eco_ganadas||0,atq:x.ataque||null,def:x.defensa||null}));
   g.sort((a,b)=>String(b.at).localeCompare(String(a.at)));
   const p={n:d.nombre,tag:d.tag,rank:esRank(d.rango),rr:d.rr,peak:esRank(d.pico),last:d.ultimo_cambio,g};
   const s=stat(g);
   p.s=s; p.v=s.v; p.kd=s.kd; p.acs=s.acs; p.adr=s.adr; p.hs=s.hs; p.net=s.rr==null?0:s.rr; p.rrN=s.rrN;
   p.ast=sum(g,x=>x.a); p.hasFb=g.some(x=>x.fb!=null); p.fb=sum(g,x=>x.fb||0); p.fd=sum(g,x=>x.fd||0); p.mk=sum(g,x=>x.mk||0);
+  p.ases=sum(g,x=>x.ases); p.ci=g.some(x=>x.ci!=null)?sum(g,x=>x.ci||0):null; p.cg=sum(g,x=>x.cg);
+  p.cc=g.some(x=>x.cc!=null)?sum(g,x=>x.cc||0):null; p.ccp=sum(g,x=>x.ccp); p.er=sum(g,x=>x.er); p.eg=sum(g,x=>x.eg);
+  p.atw=sum(g,x=>x.atq?x.atq[0]:0); p.atn=sum(g,x=>x.atq?x.atq[1]:0); p.dfw=sum(g,x=>x.def?x.def[0]:0); p.dfn=sum(g,x=>x.def?x.def[1]:0);
   p.winRR=mean(g.filter(x=>x.w&&x.rr!=null).map(x=>x.rr));
   p.lossRR=mean(g.filter(x=>!x.w&&x.rr!=null).map(x=>x.rr));
   let best=0,cur=0; g.slice().reverse().forEach(x=>{cur=x.w?cur+1:0;best=Math.max(best,cur)}); p.streak=best;
@@ -266,7 +313,7 @@ function secPodium(){
       <div class="pod-val ${pos?"pos-t":"neg-t"}">${sgn(p.net)}</div></div>`;
   }).join("");
   const top=rows[0], bot=rows[rows.length-1];
-  return `<section><h2>Podio de RR</h2><div class="panel podium">${html}
+  return `<section class="sec s5" id="podio"><h2>Podio de RR</h2><div class="panel podium">${html}
     <p class="pod-note">RR ganado o perdido en las últimas partidas competitivas con dato de RR. De ${esc(top.n)} a ${esc(bot.n)} hay ${top.net-bot.net} RR de diferencia.</p></div></section>`;
 }
 
@@ -327,7 +374,7 @@ function secAwards(){
     ml("Premio de la lotería","Mayor subida en una partida",x=>x.rr,1,v=>sgn(v)+" RR",sb,(x,a)=>`Con ${a} sube de golpe lo que otros no suben en un mes.`);
     ml("El hundimiento","Mayor bajada en una partida",x=>x.rr,-1,v=>sgn(v)+" RR",sb,(x,a)=>`Con ${a} pierde todo ese RR de golpe. Hay que tener talento.`);
   }
-  return `<section><h2>Premios del grupo</h2><div class="awards">`+A.map(a=>`<div class="award"><h3>${esc(a.title)}</h3><span class="nm">${esc(a.names)}</span><span class="val">${esc(a.val)}</span>${a.roast?`<p class="roast">${esc(a.roast)}</p>`:""}<span class="obj">${esc(a.label)}${a.sub?" · "+esc(a.sub):""}</span></div>`).join("")+`</div></section>`;
+  return `<section class="sec s12" id="premios"><h2>Premios del grupo</h2><div class="awards">`+A.map(a=>`<div class="award"><h3>${esc(a.title)}</h3><span class="nm">${esc(a.names)}</span><span class="val">${esc(a.val)}</span>${a.roast?`<p class="roast">${esc(a.roast)}</p>`:""}<span class="obj">${esc(a.label)}${a.sub?" · "+esc(a.sub):""}</span></div>`).join("")+`</div></section>`;
 }
 
 function groupTable(d,firstCol){
@@ -371,16 +418,16 @@ function secGroups(){
     }).join("");
     return `<tr><td><b>${esc(p.n)}</b></td>${cells}</tr>`;
   }).join("");
-  return `<section><h2>Rendimiento según el tamaño del grupo</h2>
-    ${grpIntro(gl)}
-    <div class="panel" style="margin-top:16px">${groupTable(gl,"Grupo (todos)")}</div>
+  return `<section class="sec s12" id="grupos"><h2>Rendimiento según el tamaño del grupo</h2>
+    <div class="gwrap"><div>${grpIntro(gl)}</div><div>
+    <div class="panel">${groupTable(gl,"Grupo (todos)")}</div>
     <div class="panel" style="margin-top:16px"><div class="tabs">${mats}</div>
       <div class="scroll"><table><thead><tr><th>Jugador</th>${head}</tr></thead><tbody>${rows}</tbody></table></div>
-      <p class="small">Entre paréntesis, número de partidas en ese tipo de grupo. Con pocas partidas las cifras no son fiables.</p></div></section>`;
+      <p class="small">Entre paréntesis, número de partidas en ese tipo de grupo. Con pocas partidas las cifras no son fiables.</p></div></div></div></section>`;
 }
 
 function secSummary(){
-  return `<section><h2>Comparativa</h2><div class="panel scroll"><table id="summary"><thead><tr>
+  return `<section class="sec s12" id="comparativa"><h2>Comparativa</h2><div class="panel scroll"><table id="summary"><thead><tr>
     <th>Jugador</th><th>Rango</th><th>Pico</th><th>Forma <span style="text-transform:none;letter-spacing:0">(antigua → reciente, últimas 10)</span></th>
     <th class="num"><button data-k="kd" type="button">K/D <span class="arrow"></span></button></th>
     <th class="num"><button data-k="acs" type="button">ACS <span class="arrow"></span></button></th>
@@ -422,7 +469,7 @@ function playerText(p){
   return T.join(" ");
 }
 function secPlayers(){
-  return `<section><h2>Resumen por jugador</h2><ul class="panel verdicts">`+P.map(p=>`<li><b>${esc(p.n)}</b><div><p class="roast">${esc(roastText(p))}</p><p class="facts">${esc(playerText(p))}</p></div></li>`).join("")+`</ul></section>`;
+  return `<section class="sec s7" id="resumenes"><h2>Resumen por jugador</h2><ul class="panel verdicts">`+P.map(p=>`<li><b>${esc(p.n)}</b><div><p class="roast">${esc(roastText(p))}</p><p class="facts">${esc(playerText(p))}</p></div></li>`).join("")+`</ul></section>`;
 }
 
 function mapStats(){
@@ -448,7 +495,7 @@ function secInsights(){
   if(gl.length>=2) L.push(`Con todos los jugadores juntos, el mejor porcentaje de victorias es en ${gl[0][0].toLowerCase()} (${gl[0][1].wr}% en ${gl[0][1].n} partidas) y el peor en ${gl[gl.length-1][0].toLowerCase()} (${gl[gl.length-1][1].wr}% en ${gl[gl.length-1][1].n}). ${gl[0][0]==="Stack de 5"?"Solos no dan para tanto: necesitan compañía para disimular.":"Cuantos más se juntan, más se estorban entre ellos."}`);
   const ms=mapStats().filter(o=>o.n>=8);
   if(ms.length>=2) L.push(`${ms[0].map} es el mapa con mayor porcentaje de victorias (${Math.round(ms[0].pct*100)}% en ${ms[0].n} partidas contadas por jugador) y ${ms[ms.length-1].map} el de menor (${Math.round(ms[ms.length-1].pct*100)}% en ${ms[ms.length-1].n}). En ${ms[ms.length-1].map} ya no vale echarle la culpa al mapa.`);
-  return `<section><h2>Lo que se ve en los datos</h2><ul class="panel insights">`+L.map(t=>`<li>${esc(t)}</li>`).join("")+`</ul></section>`;
+  return `<section class="sec s5" id="datos"><h2>Lo que se ve en los datos</h2><ul class="panel insights">`+L.map(t=>`<li>${esc(t)}</li>`).join("")+`</ul></section>`;
 }
 function secMapsAgents(){
   const ms=mapStats();
@@ -459,7 +506,7 @@ function secMapsAgents(){
   const agents=`<table><thead><tr><th>Agente</th><th class="num">Partidas</th><th class="num">% vict.</th><th>Quién</th></tr></thead><tbody>`+
     rows.map(o=>`<tr><td>${ri(o.a)}${esc(o.a)}</td><td class="num">${o.n}</td><td class="num">${Math.round(100*o.w/o.n)}%</td><td style="white-space:normal;min-width:130px">${esc(o.ps.join(", "))}</td></tr>`).join("")+`</tbody></table>`;
   const legend=Object.keys(ROLENAME).map(k=>`<span>${ICON.roles[ROLENAME[k]]?`<img class="ro-img" src="${ICON.roles[ROLENAME[k]]}" width="14" height="14" alt="">`:`<svg class="ro" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true">${ROLEPATH[k]}</svg>`}${ROLENAME[k]}</span>`).join("");
-  return `<section><h2>Mapas y agentes</h2><div class="legend">${legend}</div><div class="two"><div class="panel scroll">${maps}</div><div class="panel scroll">${agents}</div></div></section>`;
+  return `<section class="sec s12" id="mapas"><h2>Mapas y agentes</h2><div class="legend">${legend}</div><div class="two"><div class="panel scroll">${maps}</div><div class="panel scroll">${agents}</div></div></section>`;
 }
 
 function spark(p){
@@ -490,13 +537,14 @@ function renderDetail(){
   const kp=[["Rango",rkLine(p.rank,p.rr+" RR"),1],["Pico",rkLine(p.peak),1],["Última partida",sgn(p.last)+" RR"],
     ["Balance",`${s.v}V - ${s.l}D`],["% victorias",s.wr+"%"],["K/D",fmt2(s.kd)],["ACS",s.acs],["ADR",s.adr],["HS%",s.hs],["RR neto",sgn(p.net)]];
   if(p.hasFb) kp.push(["Primeras bajas",p.fb],["Primeras muertes",p.fd],["Multikills (3+)",p.mk]);
+  if(p.ci!=null) kp.push(["Clutches",p.cg+"/"+p.ci],["Ases",p.ases]);
   const rows=p.g.map((x,mi)=>`<tr class="mrow${x.sb?" exp":""}" data-mi="${mi}"${x.sb?` tabindex="0" role="button" aria-expanded="false" title="Ver la partida completa"`:""}><td>${x.sb?'<span class="chev" aria-hidden="true">▸</span>':""}${fdate(x.date)}</td><td>${esc(x.map)}</td><td>${ri(x.ag)}${esc(x.ag)}</td><td class="${x.w?"res-w":"res-l"}">${x.w?"Victoria":"Derrota"} ${esc(x.sc)}</td><td class="num ${x.rr==null?"":x.rr>=0?"pos-t":"neg-t"}"><b>${x.rr==null?"-":sgn(x.rr)}</b></td><td class="num">${x.k}/${x.d}/${x.a}</td><td class="num">${x.acs}</td><td class="num">${x.adr}</td><td class="num">${x.hs}</td><td>${esc(x.grp)}</td><td>${esc(x.con.join(", ")||"-")}</td></tr>`).join("");
   document.getElementById("detail").innerHTML=`
     <div class="psel">${P.map((q,i)=>`<button type="button" class="who2" data-i="${i}" aria-pressed="${i===sel}">${av(q,24)}${esc(q.n)}</button>`).join("")}</div>
     <div class="dhead">${av(p,56)}${rb(p.rank,40)}<h3>${esc(p.n)}</h3><span class="tag">#${esc(p.tag)}</span><a class="trk" href="https://tracker.gg/valorant/profile/riot/${encodeURIComponent(p.n+"#"+p.tag)}/overview" target="_blank" rel="noopener">Ver en tracker.gg ↗</a></div>
     <div class="kpis">${kp.map(([l,v,raw])=>`<div class="kpi"><small>${l}</small>${raw?`<b>${v}</b>`:`<b>${esc(v)}</b>`}</div>`).join("")}</div>
-    <div><div class="sub-h">Según con cuántos jugaba</div><div class="panel">${groupTable(byGroup(p.g),"Grupo")}</div></div>
-    ${spark(p)}
+    <div class="dgrid"><div><div class="sub-h">Según con cuántos jugaba</div><div class="panel">${groupTable(byGroup(p.g),"Grupo")}</div></div>
+    ${spark(p)}</div>
     <details class="mlist"><summary>Partidas (${p.g.length}) · pulsa para desplegar la lista y ver cada partida completa</summary><div class="scroll"><table><thead><tr><th>Fecha</th><th>Mapa</th><th>Agente</th><th>Resultado</th><th class="num">RR</th><th class="num">K/D/A</th><th class="num">ACS</th><th class="num">ADR</th><th class="num">HS%</th><th>Grupo</th><th>Con</th></tr></thead><tbody>${rows}</tbody></table></div></details>`;
 }
 
@@ -517,6 +565,211 @@ function toggleMatch(tr){
 }
 function renderGroupsOnly(){ document.getElementById("groups").innerHTML=secGroups(); }
 
+/* ---------- secciones nuevas ---------- */
+const PCOL=["#e4572e","#17bebb","#e8b400","#76b041","#a86cc1","#4e8fdc","#f28ab2"];
+const DIAS=["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"];
+const sec=(id,span,title,body,cls)=>`<section class="sec s${span}${cls?" "+cls:""}" id="${id}"><h2>${title}</h2>${body}</section>`;
+const pct=(a,b)=>b?Math.round(100*a/b):null;
+const tint=(d,sc)=>{ if(d==null) return ""; const a=Math.min(Math.abs(d)/sc,1)*.5; return `background:${d>=0?"rgba(40,170,95,":"rgba(220,70,70,"}${a.toFixed(2)})`; };
+function uniq(){ const seen=new Set(); return ALL.filter(x=>{const k=x.id||(x.date+x.map+x.sc+x.at); if(seen.has(k)) return false; seen.add(k); return true;}); }
+function localParts(at){
+  if(!at||String(at).length<=10) return null; const d=new Date(at); if(isNaN(d)) return null;
+  try{ const f=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Madrid",hour:"numeric",hourCycle:"h23",weekday:"short"}).formatToParts(d);
+    const h=+f.find(x=>x.type==="hour").value, wd=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].indexOf(f.find(x=>x.type==="weekday").value);
+    return wd<0?null:{h,wd}; }catch(e){ return null; }
+}
+const nm=(p)=>`<b>${esc(p.n)}</b>`;
+const hasAny=(f)=>P.some(p=>p.g.some(f));
+const pname=(p)=>`<span class="pn">${av(p,22)}${esc(p.n)}</span>`;
+
+/* RR de todos en una línea del tiempo */
+function secRRAll(){
+  const series=P.map((p,i)=>{ let c=0,k=0; const pts=[];
+    p.g.filter(x=>x.rr!=null).slice().reverse().forEach(x=>{ c+=x.rr; pts.push({t:new Date(x.at).getTime()+(k++)*1000,v:c,x}); });
+    return {p,i,pts,end:c}; }).filter(s=>s.pts.length);
+  const all=series.flatMap(s=>s.pts); if(all.length<4) return "";
+  const t0=Math.min(...all.map(a=>a.t)), t1=Math.max(...all.map(a=>a.t)); if(!isFinite(t0)||t0===t1) return "";
+  const W=760,H=300,L=44,R=14,T=14,B=28;
+  const vs=all.map(a=>a.v).concat([0]); const lo=Math.min(...vs),hi=Math.max(...vs),pad=Math.max(4,(hi-lo)*.1),y0=lo-pad,y1=hi+pad;
+  const X=t=>L+(W-L-R)*(t-t0)/(t1-t0), Y=v=>T+(H-T-B)*(1-(v-y0)/(y1-y0));
+  const ticks=[]; for(let i=0;i<=4;i++){ const t=t0+(t1-t0)*i/4; ticks.push(t); }
+  const grid=[lo,0,hi].filter((v,i,a)=>a.indexOf(v)===i).map(v=>`<line class="grid" x1="${L}" x2="${W-R}" y1="${Y(v).toFixed(1)}" y2="${Y(v).toFixed(1)}"/><text x="${L-6}" y="${(Y(v)+4).toFixed(1)}" text-anchor="end">${v===0?"0":sgn(v)}</text>`).join("");
+  const lines=series.map(s=>{ const col=PCOL[s.i%PCOL.length]; const pts=[{t:Math.min(s.pts[0].t-1000,s.pts[0].t),v:0}].concat(s.pts);
+    const d=pts.map((a,j)=>(j?"L":"M")+X(a.t).toFixed(1)+","+Y(a.v).toFixed(1)).join(" "); const e=pts[pts.length-1];
+    return `<path d="${d}" fill="none" stroke="${col}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="${X(e.t).toFixed(1)}" cy="${Y(e.v).toFixed(1)}" r="4.5" fill="${col}" stroke="var(--surface)" stroke-width="2"><title>${esc(s.p.n)} ${sgn(s.end)} RR</title></circle>`; }).join("");
+  const xl=ticks.map((t,i)=>`<text x="${X(t).toFixed(1)}" y="${H-8}" text-anchor="${i===0?"start":i===4?"end":"middle"}">${fdate(new Date(t).toISOString())}</text>`).join("");
+  const leg=series.slice().sort((a,b)=>b.end-a.end).map(s=>`<span class="lg"><i style="background:${PCOL[s.i%PCOL.length]}"></i>${esc(s.p.n)} <b class="${s.end>=0?"pos-t":"neg-t"}">${sgn(s.end)}</b></span>`).join("");
+  return sec("rr",7,"RR de todos, en una sola línea del tiempo",`<div class="panel pad"><div class="legend big">${leg}</div><svg class="spark" viewBox="0 0 ${W} ${H}" role="img" aria-label="RR acumulado de cada jugador en el tiempo">${grid}${xl}${lines}</svg><p class="small0">Cada línea parte de 0 en la primera partida con dato de RR de ese jugador y suma el RR de cada partida. Sube quien sube, baja quien baja.</p></div>`);
+}
+
+/* tarjetas de jugador */
+function metricDefs(){
+  const per=(f)=>p=>p.g.length?f(p)/p.g.length:null;
+  const M=[
+   {k:"K/D",f:p=>p.kd,fm:fmt2,hi:1,b:"Mata más de lo que muere. Que no se acostumbre.",w:"Muere más de lo que mata."},
+   {k:"ACS",f:p=>p.acs,fm:v=>String(Math.round(v)),hi:1,b:"Llena el marcador.",w:"El marcador ni le conoce."},
+   {k:"ADR (daño por ronda)",f:p=>p.adr,fm:v=>String(Math.round(v)),hi:1,b:"Reparte bien el daño.",w:"Hace cosquillas."},
+   {k:"Headshots",f:p=>p.hs,fm:v=>Math.round(v)+"%",hi:1,b:"Apunta a la cabeza.",w:"Apunta a las rodillas."},
+   {k:"% de victorias",f:p=>p.s.wr,fm:v=>v+"%",hi:1,b:"Gana más que nadie.",w:"Pierde más que nadie."},
+   {k:"RR neto",f:p=>p.net,fm:v=>sgn(v),hi:1,b:"Sube en ascensor.",w:"Regala RR a cada rival."},
+   {k:"RR por victoria",f:p=>isFinite(p.winRR)&&p.winRR?p.winRR:null,fm:fmt1,hi:1,b:"Cada victoria le da mucho.",w:"Sus victorias valen poco."},
+   {k:"RR por derrota",f:p=>isFinite(p.lossRR)&&p.lossRR?p.lossRR:null,fm:v=>sgn(Math.round(v*10)/10).toString().replace(".",","),hi:1,b:"Perder le duele poco.",w:"Cada derrota le sale cara."},
+   {k:"Mejor racha",f:p=>p.streak,fm:v=>v+" seguidas",hi:1,b:"Racha larga.",w:"Ni dos seguidas."},
+   {k:"Asistencias por partida",f:per(p=>p.ast),fm:fmt1,hi:1,b:"Sirve a todos en bandeja.",w:"Ni para asistir."},
+   {k:"Primeras bajas por partida",f:p=>p.hasFb?p.fb/p.g.length:null,fm:fmt1,hi:1,b:"Abre las rondas.",w:"No abre ni una."},
+   {k:"Primeras muertes por partida",f:p=>p.hasFb?p.fd/p.g.length:null,fm:fmt1,hi:0,b:"Casi nunca cae el primero.",w:"Siempre el primero en caer."},
+   {k:"Multikills por partida",f:p=>p.hasFb?p.mk/p.g.length:null,fm:fmt2,hi:1,b:"Se viene arriba.",w:"Nunca se viene arriba."},
+   {k:"Clutches ganados",f:p=>p.ci>0?100*p.cg/p.ci:null,fm:v=>Math.round(v)+"%",hi:1,b:"Salva rondas imposibles.",w:"Se queda solo y se rinde."},
+   {k:"Compras completas perdidas",f:p=>p.cc>=5?100*p.ccp/p.cc:null,fm:v=>Math.round(v)+"%",hi:0,b:"Compra y rinde.",w:"Gasta mucho y pierde igual."},
+   {k:"Rondas ganadas en ataque",f:p=>p.atn>=20?100*p.atw/p.atn:null,fm:v=>Math.round(v)+"%",hi:1,b:"Un atacante de verdad.",w:"Atacando es un estorbo."},
+   {k:"Rondas ganadas en defensa",f:p=>p.dfn>=20?100*p.dfw/p.dfn:null,fm:v=>Math.round(v)+"%",hi:1,b:"Un muro.",w:"Defendiendo es un colador."}
+  ];
+  return M.filter(m=>P.every(p=>{const v=m.f(p);return v!=null&&isFinite(v)}));
+}
+function secCards(){
+  const M=metricDefs(); if(M.length<6) return "";
+  const info=P.map(()=>[]);
+  M.forEach(m=>{
+    const vals=P.map(p=>m.f(p)), mu=mean(vals), sd=Math.sqrt(mean(vals.map(v=>(v-mu)*(v-mu))))||1;
+    P.forEach((p,i)=>{ const v=vals[i], better=vals.filter(x=>m.hi?x>v:x<v).length;
+      info[i].push({m,v,z:(m.hi?v-mu:mu-v)/sd,rank:better+1}); });
+  });
+  const li=(o,good)=>`<li><span class="cd-l">${esc(o.m.k)}</span><span class="cd-v">${esc(o.m.fm(o.v))} <small>#${o.rank} de ${P.length}</small></span><span class="cd-r ${good?"pos-t":"neg-t"}">${esc(good?o.m.b:o.m.w)}</span></li>`;
+  const cards=P.map((p,i)=>{
+    const s=info[i].slice().sort((a,b)=>b.z-a.z), best=s.slice(0,3), worst=s.slice(-3).reverse();
+    return `<article class="card">
+      <div class="cd-top">${av(p,60)}<div class="cd-id"><b>${esc(p.n)}</b><span>#${esc(p.tag)}</span></div></div>
+      <div class="cd-rank">${rb(p.rank,34)}<div><b>${esc(p.rank)}</b><span>${p.rr} RR · pico ${esc(p.peak)}</span></div></div>
+      <div class="cd-rec"><span><b>${p.s.v}</b>V</span><span><b>${p.s.l}</b>D</span><span><b>${p.s.wr}%</b></span><span class="${p.net>=0?"pos-t":"neg-t"}"><b>${sgn(p.net)}</b> RR</span></div>
+      <h4 class="cd-h good">Lo mejor</h4><ul class="cd-list">${best.map(o=>li(o,true)).join("")}</ul>
+      <h4 class="cd-h bad">Lo peor</h4><ul class="cd-list">${worst.map(o=>li(o,false)).join("")}</ul></article>`; }).join("");
+  return sec("tarjetas",12,"Tarjeta de jugador",`<div class="cards">${cards}</div><p class="small0">Las tres cifras en las que cada uno sale mejor y peor parado frente al resto del grupo (comparadas con la media del grupo, no solo por puesto).</p>`);
+}
+
+/* quién carrea a quién */
+let synM="acs";
+function synCalc(){
+  const f=synM==="wr"?(a=>100*a.filter(x=>x.w).length/a.length):(a=>mean(a.map(x=>x.acs)));
+  return P.map(a=>P.map(b=>{ if(a===b) return null;
+    const w=a.g.filter(x=>x.con.includes(b.n)), wo=a.g.filter(x=>!x.con.includes(b.n));
+    if(w.length<4||wo.length<4) return {n1:w.length,n0:wo.length,d:null};
+    return {n1:w.length,n0:wo.length,d:f(w)-f(wo),a:f(w),b:f(wo)}; }));
+}
+function secSyn(){
+  const m=synCalc(), u=synM==="wr"?" pp":" ACS", sc=synM==="wr"?30:50;
+  const fm=d=>(d>0?"+":d<0?"−":"")+Math.abs(Math.round(d));
+  const head=P.map(p=>`<th class="num syn-h">${esc(p.n)}</th>`).join("");
+  const rows=P.map((a,i)=>`<tr><td class="syn-r">${pname(a)}</td>`+m[i].map((c,j)=>{
+    if(!c) return `<td class="syn-self">·</td>`;
+    if(c.d==null) return `<td class="syn-c" title="Pocas partidas (con: ${c.n1}, sin: ${c.n0})"><span class="syn-na">·</span></td>`;
+    return `<td class="syn-c" style="${tint(c.d,sc)}" title="${esc(a.n)} con ${esc(P[j].n)}: ${synM==="wr"?Math.round(c.a)+"%":Math.round(c.a)} en ${c.n1} partidas · sin él: ${synM==="wr"?Math.round(c.b)+"%":Math.round(c.b)} en ${c.n0}"><b>${fm(c.d)}</b><small>${c.n1}/${c.n0}</small></td>`; }).join("")+`</tr>`).join("");
+  const avg=P.map((b,j)=>{ const v=m.map(r=>r[j]).filter(c=>c&&c.d!=null).map(c=>c.d); return v.length?mean(v):null; });
+  const foot=`<tr class="syn-f"><td class="syn-r">Efecto medio en los demás</td>`+avg.map(v=>v==null?`<td class="syn-c"><span class="syn-na">·</span></td>`:`<td class="syn-c" style="${tint(v,sc)}"><b>${fm(v)}</b></td>`).join("")+`</tr>`;
+  const pairs=[]; m.forEach((r,i)=>r.forEach((c,j)=>{ if(c&&c.d!=null) pairs.push({a:P[i],b:P[j],c}); }));
+  pairs.sort((x,y)=>y.c.d-x.c.d);
+  let txt=""; if(pairs.length>=2){ const t=pairs[0], l=pairs[pairs.length-1];
+    txt=`<ul class="syn-t"><li><b>${esc(t.a.n)}</b> rinde ${fm(t.c.d)}${u} cuando juega con <b>${esc(t.b.n)}</b>. ${t.c.d>=15?"Alguien carrea a alguien, y se nota.":"Se llevan bien, o eso parece."}</li>
+    <li><b>${esc(l.a.n)}</b> rinde ${fm(l.c.d)}${u} con <b>${esc(l.b.n)}</b>. ${l.c.d<=-15?"Se estorban; que se lo hagan mirar.":"Nada grave, pero tampoco una pareja de ensueño."}</li>`;
+    const ok=avg.map((v,j)=>({v,p:P[j]})).filter(o=>o.v!=null).sort((x,y)=>y.v-x.v);
+    if(ok.length>=2) txt+=`<li>Quien más sube al resto: <b>${esc(ok[0].p.n)}</b> (${fm(ok[0].v)}${u} de media). Quien más los hunde: <b>${esc(ok[ok.length-1].p.n)}</b> (${fm(ok[ok.length-1].v)}${u}).</li>`;
+    txt+=`</ul>`; }
+  if(!pairs.length) return "";
+  const tabs=`<div class="tabs"><button type="button" class="tab" data-syn="acs" aria-pressed="${synM==="acs"}">Diferencia de ACS</button><button type="button" class="tab" data-syn="wr" aria-pressed="${synM==="wr"}">Diferencia de % victorias</button></div>`;
+  return sec("sinergia",7,"Quién carrea a quién",`<div class="panel">${tabs}<div class="scroll"><table class="syn"><thead><tr><th>Jugador</th>${head}</tr></thead><tbody>${rows}${foot}</tbody></table></div>
+    <p class="small">Cómo lee la tabla: fila = el jugador; columna = con quién juega en el mismo equipo. El número es cuánto cambia su ${synM==="wr"?"porcentaje de victorias (en puntos)":"ACS"} cuando juegan juntos frente a cuando no. Debajo, partidas con él / sin él. Mínimo 4 partidas en cada lado.</p>${txt}</div>`,"syn-sec");
+}
+function renderSyn(){ const e=document.getElementById("sinergia"); if(!e) return; const h=secSyn(); const t=document.createElement("div"); t.innerHTML=h; if(t.firstChild) e.replaceWith(t.firstChild); }
+
+/* mejor hora y día */
+function secHorario(){
+  const U=uniq().map(x=>Object.assign({lp:localParts(x.at)},x)).filter(x=>x.lp);
+  if(U.length<Math.max(10,ALL.length*.1)) return "";
+  const agg=(keyf,n)=>{ const o=Array.from({length:n},()=>({n:0,w:0})); U.forEach(x=>{const r=o[keyf(x)]; r.n++; if(x.w) r.w++;}); return o; };
+  const slots=agg(x=>Math.floor(x.lp.h/3),8), days=agg(x=>x.lp.wd,7);
+  const slotL=i=>`${String(i*3).padStart(2,"0")}:00–${String(i*3+3).padStart(2,"0")}:00`;
+  const bars=(o,lab)=>`<table><tbody>`+o.map((r,i)=>`<tr><td>${esc(lab(i))}</td><td class="num">${r.n?`${r.w}-${r.n-r.w}`:"-"}</td><td><div class="bar-cell"><div class="t"><i style="width:${r.n?Math.round(100*r.w/r.n):0}%;${r.n&&100*r.w/r.n<45?"background:var(--loss)":r.n&&100*r.w/r.n>=55?"background:var(--win)":""}"></i></div><span class="num" style="width:62px">${r.n?Math.round(100*r.w/r.n)+"%":"-"}<small class="nn"> (${r.n})</small></span></div></td></tr>`).join("")+`</tbody></table>`;
+  const best=(o,lab)=>{ const ok=o.map((r,i)=>({r,i})).filter(z=>z.r.n>=4).sort((a,b)=>b.r.w/b.r.n-a.r.w/a.r.n); return ok.length>=2?{b:ok[0],w:ok[ok.length-1],lab}:null; };
+  const bs=best(slots,slotL), bd=best(days,i=>DIAS[i]);
+  const late=U.filter(x=>x.lp.h>=2&&x.lp.h<7), lw=late.filter(x=>x.w).length;
+  let t=`<ul class="syn-t">`;
+  if(bs) t+=`<li>Mejor franja: <b>${slotL(bs.b.i)}</b> (${Math.round(100*bs.b.r.w/bs.b.r.n)}% en ${bs.b.r.n} partidas). Peor: <b>${slotL(bs.w.i)}</b> (${Math.round(100*bs.w.r.w/bs.w.r.n)}% en ${bs.w.r.n}). ${bs.w.i<=2?"A esas horas ya no juegan, sufren.":"Lo de elegir bien la hora no es lo vuestro."}</li>`;
+  if(bd) t+=`<li>Mejor día: <b>${DIAS[bd.b.i]}</b> (${Math.round(100*bd.b.r.w/bd.b.r.n)}%). Peor: <b>${DIAS[bd.w.i]}</b> (${Math.round(100*bd.w.r.w/bd.w.r.n)}%).</li>`;
+  if(late.length>=3) t+=`<li>Después de las 2 de la madrugada (hasta las 7): <b>${lw}-${late.length-lw}</b> (${Math.round(100*lw/late.length)}%). ${lw/late.length<.4?"Hay quien debería irse a dormir, y se nota.":"Aguantan despiertos, y al menos no lo pagan."}</li>`;
+  t+=`</ul>`;
+  return sec("horario",5,"Mejor hora y día para jugar",`<div class="panel pad"><div class="sub-h">Por franja horaria (hora de Madrid)</div>${bars(slots,slotL)}<div class="sub-h" style="margin-top:14px">Por día de la semana</div>${bars(days,i=>DIAS[i])}${t}<p class="small0">Partidas del grupo contadas una sola vez. Entre paréntesis, partidas en esa franja; con pocas, la cifra no es fiable.</p></div>`);
+}
+
+/* clutches y ases */
+function secClutch(){
+  if(!P.some(p=>p.ci!=null)) return "";
+  const rows=P.map(p=>{ const pc=pct(p.cg,p.ci);
+    return `<tr><td>${pname(p)}</td><td class="num">${p.cg}/${p.ci}</td><td class="num">${pc==null?"-":pc+"%"}</td><td class="num">${p.ases}</td><td class="num">${p.hasFb?p.mk:"-"}</td><td class="num">${p.hasFb?p.fb:"-"}</td><td class="num">${p.hasFb?p.fd:"-"}</td></tr>`; }).join("");
+  const V=P.filter(p=>p.ci>=3), t=[];
+  const most=P.slice().sort((a,b)=>b.cg-a.cg)[0];
+  if(most&&most.cg>0) t.push(`<b>${esc(most.n)}</b> es quien más clutches gana (${most.cg}). Lo que se dice un héroe cuando ya es tarde.`);
+  if(V.length>=2){ const b=V.slice().sort((x,y)=>y.cg/y.ci-x.cg/x.ci)[0], w=V.slice().sort((x,y)=>x.cg/x.ci-y.cg/y.ci)[0];
+    t.push(`Mejor porcentaje de clutches: <b>${esc(b.n)}</b> (${pct(b.cg,b.ci)}% de ${b.ci}). Peor: <b>${esc(w.n)}</b> (${pct(w.cg,w.ci)}% de ${w.ci}); cuando se queda solo, se despide.`); }
+  const as=P.slice().sort((a,b)=>b.ases-a.ases)[0]; if(as&&as.ases>0) t.push(`Ases: <b>${esc(as.n)}</b> tiene ${as.ases}. Los demás, cero ases; la envidia se nota.`);
+  else t.push(`Ases en total: 0. Nadie ha limpiado un equipo entero en estas partidas.`);
+  return sec("clutch",6,"Clutches y ases",`<div class="panel"><div class="scroll"><table class="wraph"><thead><tr><th>Jugador</th><th class="num">Clutch</th><th class="num">%</th><th class="num">Ases</th><th class="num">Multi-kills (3+)</th><th class="num">1ªs bajas</th><th class="num">1ªs muertes</th></tr></thead><tbody>${rows}</tbody></table></div><ul class="syn-t pad">${t.map(x=>`<li>${x}</li>`).join("")}</ul><p class="small">Clutch = quedarse vivo contra uno o más rivales y que tu equipo gane la ronda. Se calcula de las kills de cada ronda.</p></div>`);
+}
+
+/* economía */
+const CARAS=["Operator","Odin"];
+function secEco(){
+  if(!P.some(p=>p.cc!=null&&p.cc>0)) return "";
+  const rows=P.map(p=>{
+    const op=P.length&&p.g.reduce((s,x)=>{const a=x.ar&&x.ar.Operator;return a?[s[0]+a[0],s[1]+a[1]]:s},[0,0]);
+    const pc=pct(p.ccp,p.cc);
+    return {p,pc,row:`<tr><td>${pname(p)}</td><td class="num">${p.cc}</td><td class="num">${p.ccp}</td><td class="num"><b>${pc==null?"-":pc+"%"}</b></td><td class="num">${p.eg}/${p.er}</td><td class="num">${op[0]?op[1]+"/"+op[0]:"-"}</td></tr>`}; });
+  const V=rows.filter(r=>r.p.cc>=5), t=[];
+  if(V.length>=2){ const w=V.slice().sort((a,b)=>b.pc-a.pc)[0], b=V.slice().sort((a,b)=>a.pc-b.pc)[0];
+    t.push(`Pierde más rondas con la compra completa: <b>${esc(w.p.n)}</b> (${w.pc}% de ${w.p.cc}). Gasta como un rico y rinde como un pobre.`);
+    t.push(`Mejor rentabilidad de la compra: <b>${esc(b.p.n)}</b> (solo pierde el ${b.pc}%).`); }
+  const eco=P.slice().filter(p=>p.er>=4).sort((a,b)=>b.eg/b.er-a.eg/a.er)[0];
+  if(eco&&eco.eg>0) t.push(`Rey de las eco: <b>${esc(eco.p?eco.p.n:eco.n)}</b> gana ${eco.eg} de ${eco.er} rondas sin comprar. Lo hace con lo mínimo y aun así.`);
+  return sec("eco",6,"Economía: quién gasta y pierde",`<div class="panel"><div class="scroll"><table class="wraph"><thead><tr><th>Jugador</th><th class="num">Compras completas</th><th class="num">Perdidas</th><th class="num">% perdidas</th><th class="num">Eco ganadas / jugadas</th><th class="num">Operator ganadas / rondas</th></tr></thead><tbody>${rows.map(r=>r.row).join("")}</tbody></table></div><ul class="syn-t pad">${t.map(x=>`<li>${x}</li>`).join("")}</ul><p class="small">Compra completa = equipamiento de 3.900 créditos o más en una ronda normal (sin contar las pistolas). Eco = 1.500 o menos. “Eco ganadas” = rondas ganadas / rondas eco jugadas.</p></div>`);
+}
+
+/* armas */
+let wsel=-1;
+function secArmas(){
+  if(!hasAny(x=>x.ar||x.kar)) return "";
+  const render=()=>{
+    const ps=wsel<0?P:[P[wsel]], W={};
+    ps.forEach(p=>p.g.forEach(x=>{
+      if(x.ar) Object.entries(x.ar).forEach(([n,a])=>{const o=W[n]||(W[n]={r:0,w:0,h:0,b:0,l:0,k:0});o.r+=a[0];o.w+=a[1];o.h+=a[2];o.b+=a[3];o.l+=a[4];});
+      if(x.kar) Object.entries(x.kar).forEach(([n,k])=>{(W[n]||(W[n]={r:0,w:0,h:0,b:0,l:0,k:0})).k+=k;});
+    }));
+    const rows=Object.entries(W).filter(([n,o])=>o.r>=5||o.k>=8).sort((a,b)=>b[1].r-a[1].r||b[1].k-a[1].k).slice(0,10);
+    const hsOf=o=>{const t=o.h+o.b+o.l;return t?Math.round(100*o.h/t):null};
+    const body=rows.map(([n,o])=>{ const hs=hsOf(o); return `<tr><td>${esc(n)}</td><td class="num">${o.r}</td><td class="num">${o.k}</td><td class="num">${hs==null?"-":hs+"%"}</td><td class="num">${o.r?Math.round(100*o.w/o.r)+"%":"-"}</td></tr>`;}).join("");
+    const V=W.Vandal, Ph=W.Phantom; let t="";
+    if(V&&Ph&&V.r>=5&&Ph.r>=5){ const hv=hsOf(V),hp=hsOf(Ph);
+      t=`<p class="syn-p"><b>Vandal contra Phantom:</b> ${V.r} rondas con Vandal (${hv==null?"-":hv+"% a la cabeza"}, ${Math.round(100*V.w/V.r)}% ganadas) y ${Ph.r} con Phantom (${hp==null?"-":hp+"% a la cabeza"}, ${Math.round(100*Ph.w/Ph.r)}% ganadas). ${hv!=null&&hp!=null&&hv>hp?"Con el Vandal apuntan mejor, como debe ser.":"Con el Phantom apuntan más; el Vandal es de otro."}</p>`; }
+    return `<div class="tabs"><button type="button" class="tab" data-w="-1" aria-pressed="${wsel<0}">Todos</button>${P.map((p,i)=>`<button type="button" class="tab" data-w="${i}" aria-pressed="${wsel===i}">${esc(p.n)}</button>`).join("")}</div>
+      <div class="scroll"><table><thead><tr><th>Arma</th><th class="num">Rondas</th><th class="num">Kills</th><th class="num">HS%</th><th class="num">Rondas ganadas</th></tr></thead><tbody>${body||'<tr><td colspan="5">Sin datos</td></tr>'}</tbody></table></div>${t}
+      <p class="small">Rondas = rondas en las que empezó con esa arma. Kills = bajas reales con esa arma. HS% = porcentaje de impactos a la cabeza en esas rondas (el juego no da el headshot de cada kill, así que es una aproximación).</p>`;
+  };
+  return sec("armas",6,"Armas",`<div class="panel" id="armasbody">${render()}</div>`);
+}
+function renderArmas(){ const e=document.getElementById("armasbody"); if(!e) return; const s=secArmas(); const t=document.createElement("div"); t.innerHTML=s; const n=t.querySelector("#armasbody"); if(n) e.innerHTML=n.innerHTML; }
+
+/* ataque y defensa */
+function secLados(){
+  if(!P.some(p=>p.atn>0||p.dfn>0)) return "";
+  const bar=(w,n)=>n?`<div class="bar-cell"><div class="t"><i style="width:${Math.round(100*w/n)}%;${100*w/n<45?"background:var(--loss)":100*w/n>=55?"background:var(--win)":""}"></i></div><span class="num" style="width:44px">${Math.round(100*w/n)}%</span></div>`:"-";
+  const rows=P.map(p=>`<tr><td>${pname(p)}</td><td>${bar(p.atw,p.atn)}</td><td>${bar(p.dfw,p.dfn)}</td></tr>`).join("");
+  const U=uniq().filter(x=>x.atq&&x.def), tot=(k)=>U.reduce((s,x)=>[s[0]+x[k][0],s[1]+x[k][1]],[0,0]);
+  const A=tot("atq"), D=tot("def"); let t="";
+  if(A[1]&&D[1]){ const a=Math.round(100*A[0]/A[1]), d=Math.round(100*D[0]/D[1]);
+    t=`<p class="syn-p">En conjunto ganáis <b>${a}%</b> de las rondas atacando y <b>${d}%</b> defendiendo. ${a<d-5?"Pierden atacando: el spike lo plantan por compromiso.":d<a-5?"Pierden defendiendo: regalan el sitio a quien pase.":"Igual de regulares en los dos lados."}</p>`; }
+  const M={}; U.forEach(x=>{const o=M[x.map]||(M[x.map]={n:0,a:[0,0],d:[0,0]}); o.n++; o.a[0]+=x.atq[0];o.a[1]+=x.atq[1];o.d[0]+=x.def[0];o.d[1]+=x.def[1];});
+  const mrows=Object.entries(M).filter(([,o])=>o.n>=2&&o.a[1]&&o.d[1]).map(([k,o])=>({k,n:o.n,a:Math.round(100*o.a[0]/o.a[1]),d:Math.round(100*o.d[0]/o.d[1])})).sort((x,y)=>(y.a-y.d)-(x.a-x.d));
+  const mt=mrows.length?`<div class="scroll"><table><thead><tr><th>Mapa</th><th class="num">Partidas</th><th class="num">Ataque</th><th class="num">Defensa</th></tr></thead><tbody>${mrows.map(r=>`<tr><td>${esc(r.k)}</td><td class="num">${r.n}</td><td class="num ${r.a>=55?"cell-w":r.a<=45?"cell-l":""}">${r.a}%</td><td class="num ${r.d>=55?"cell-w":r.d<=45?"cell-l":""}">${r.d}%</td></tr>`).join("")}</tbody></table></div>`:"";
+  return sec("lados",6,"Por qué se pierde: ataque y defensa",`<div class="panel"><div class="scroll"><table class="wraph"><thead><tr><th>Jugador</th><th>Rondas ganadas atacando</th><th>Rondas ganadas defendiendo</th></tr></thead><tbody>${rows}</tbody></table></div>${t}${mt?`<div class="sub-h pad" style="margin-top:6px">Mapas por lado (partidas del grupo, una vez cada una)</div>${mt}`:""}<p class="small">El lado se deduce de quién planta el spike en la primera mitad (ataca) y se invierte en la segunda; las prórrogas no cuentan.</p></div>`);
+}
+
 function showEmpty(msg){
   document.getElementById("meta").textContent="";
   document.getElementById("app").innerHTML=`<div class="panel empty"><b>Todavía no hay datos.</b><br>${esc(msg||"")}<br>Ejecuta el workflow "Actualizar datos" desde la pestaña Actions del repositorio y recarga esta página.</div>`;
@@ -529,9 +782,11 @@ function init(j){
   ALL=P.flatMap(p=>p.g.map(x=>Object.assign({p},x)));
   const f=META.actualizado?new Date(META.actualizado).toLocaleString("es-ES",{dateStyle:"long",timeStyle:"short"}):"";
   document.getElementById("meta").textContent=`${P.length} jugadores · últimas ${META.n_partidas||""} partidas competitivas de cada uno`+(f?` · actualizado el ${f}`:"");
-  document.getElementById("app").innerHTML=
-    secPodium()+`<section><h2>Detalle por jugador</h2><div class="panel detail" id="detail"></div></section>`+secAwards()+`<div id="groups">${secGroups()}</div>`+secSummary()+secPlayers()+secInsights()+secMapsAgents()+
-    (ERRS.length?`<p class="foot">Sin datos de partidas para: ${esc(ERRS.join(", "))}.</p>`:"");
+  UNI=uniq();
+  const parts=[secPodium(),secRRAll(),`<section class="sec s12" id="detalle"><h2>Detalle por jugador</h2><div class="panel detail" id="detail"></div></section>`,secCards(),secAwards(),secSyn(),secHorario(),secClutch(),secEco(),secArmas(),secLados(),`<div id="groups" class="s12">${secGroups()}</div>`,secSummary(),secPlayers(),secInsights(),secMapsAgents()];
+  document.getElementById("app").innerHTML=parts.join("")+(ERRS.length?`<p class="foot s12">Sin datos de partidas para: ${esc(ERRS.join(", "))}.</p>`:"");
+  const NAV=[["podio","Podio"],["rr","RR"],["detalle","Detalle"],["tarjetas","Tarjetas"],["premios","Premios"],["sinergia","Sinergias"],["horario","Horario"],["clutch","Clutches"],["eco","Economía"],["armas","Armas"],["lados","Ataque/Defensa"],["grupos","Grupos"],["comparativa","Comparativa"],["resumenes","Resúmenes"],["mapas","Mapas"]];
+  document.getElementById("nav").innerHTML=NAV.filter(([id])=>document.getElementById(id)).map(([id,t])=>`<a href="#${id}">${t}</a>`).join("");
   renderSummary(); renderDetail();
 }
 
@@ -542,7 +797,9 @@ document.addEventListener("click",e=>{
   if(who){sel=+who.dataset.i;renderSummary();renderDetail();if(who.classList.contains("who"))document.getElementById("detail").scrollIntoView({behavior:"smooth",block:"start"});return}
   const th=e.target.closest("#summary th button");
   if(th){ if(sortKey===th.dataset.k) sortDir*=-1; else {sortKey=th.dataset.k;sortDir=-1} renderSummary(); return }
-  const tab=e.target.closest(".tab");
+  const ts=e.target.closest("[data-syn]"); if(ts){ synM=ts.dataset.syn; renderSyn(); return }
+  const tw=e.target.closest("[data-w]"); if(tw){ wsel=+tw.dataset.w; renderArmas(); return }
+  const tab=e.target.closest("[data-metric]");
   if(tab){ metric=tab.dataset.metric; renderGroupsOnly(); }
 });
 
