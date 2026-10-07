@@ -63,6 +63,11 @@ th.num button{justify-content:flex-end}
 .av{border-radius:50%;object-fit:cover;flex:none;background:var(--chip);display:inline-block;cursor:zoom-in}
 .avpop{position:fixed;z-index:100;display:none;width:min(300px,60vw);max-height:75vh;object-fit:cover;border-radius:14px;box-shadow:0 10px 40px rgba(0,0,0,.45);border:3px solid var(--surface);background:var(--surface);pointer-events:none}
 .who .av{vertical-align:middle;margin-right:8px}
+.mlist>summary{cursor:pointer;font-weight:600;padding:10px 0;color:var(--accent)}
+.psel{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.who2{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:4px 12px 4px 4px;border-radius:999px;background:var(--chip);font-size:13px}
+.who2[aria-pressed="true"]{background:var(--accent);color:#fff}
+.who2:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .trk{font-size:12px;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:3px 10px}
 .ro-img{flex:none;vertical-align:-3px;margin-right:5px;filter:invert(1);opacity:.7}
 @media (prefers-color-scheme:dark){.ro-img{filter:none;opacity:.8}}
@@ -487,11 +492,12 @@ function renderDetail(){
   if(p.hasFb) kp.push(["Primeras bajas",p.fb],["Primeras muertes",p.fd],["Multikills (3+)",p.mk]);
   const rows=p.g.map((x,mi)=>`<tr class="mrow${x.sb?" exp":""}" data-mi="${mi}"${x.sb?` tabindex="0" role="button" aria-expanded="false" title="Ver la partida completa"`:""}><td>${x.sb?'<span class="chev" aria-hidden="true">▸</span>':""}${fdate(x.date)}</td><td>${esc(x.map)}</td><td>${ri(x.ag)}${esc(x.ag)}</td><td class="${x.w?"res-w":"res-l"}">${x.w?"Victoria":"Derrota"} ${esc(x.sc)}</td><td class="num ${x.rr==null?"":x.rr>=0?"pos-t":"neg-t"}"><b>${x.rr==null?"-":sgn(x.rr)}</b></td><td class="num">${x.k}/${x.d}/${x.a}</td><td class="num">${x.acs}</td><td class="num">${x.adr}</td><td class="num">${x.hs}</td><td>${esc(x.grp)}</td><td>${esc(x.con.join(", ")||"-")}</td></tr>`).join("");
   document.getElementById("detail").innerHTML=`
+    <div class="psel">${P.map((q,i)=>`<button type="button" class="who2" data-i="${i}" aria-pressed="${i===sel}">${av(q,24)}${esc(q.n)}</button>`).join("")}</div>
     <div class="dhead">${av(p,56)}${rb(p.rank,40)}<h3>${esc(p.n)}</h3><span class="tag">#${esc(p.tag)}</span><a class="trk" href="https://tracker.gg/valorant/profile/riot/${encodeURIComponent(p.n+"#"+p.tag)}/overview" target="_blank" rel="noopener">Ver en tracker.gg ↗</a></div>
     <div class="kpis">${kp.map(([l,v,raw])=>`<div class="kpi"><small>${l}</small>${raw?`<b>${v}</b>`:`<b>${esc(v)}</b>`}</div>`).join("")}</div>
     <div><div class="sub-h">Según con cuántos jugaba</div><div class="panel">${groupTable(byGroup(p.g),"Grupo")}</div></div>
     ${spark(p)}
-    <div class="scroll"><table><thead><tr><th>Fecha</th><th>Mapa</th><th>Agente</th><th>Resultado</th><th class="num">RR</th><th class="num">K/D/A</th><th class="num">ACS</th><th class="num">ADR</th><th class="num">HS%</th><th>Grupo</th><th>Con</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+    <details class="mlist"><summary>Partidas (${p.g.length}) · pulsa para desplegar la lista y ver cada partida completa</summary><div class="scroll"><table><thead><tr><th>Fecha</th><th>Mapa</th><th>Agente</th><th>Resultado</th><th class="num">RR</th><th class="num">K/D/A</th><th class="num">ACS</th><th class="num">ADR</th><th class="num">HS%</th><th>Grupo</th><th>Con</th></tr></thead><tbody>${rows}</tbody></table></div></details>`;
 }
 
 function scoreboard(x){
@@ -524,8 +530,7 @@ function init(j){
   const f=META.actualizado?new Date(META.actualizado).toLocaleString("es-ES",{dateStyle:"long",timeStyle:"short"}):"";
   document.getElementById("meta").textContent=`${P.length} jugadores · últimas ${META.n_partidas||""} partidas competitivas de cada uno`+(f?` · actualizado el ${f}`:"");
   document.getElementById("app").innerHTML=
-    secPodium()+secAwards()+`<div id="groups">${secGroups()}</div>`+secSummary()+secPlayers()+secInsights()+secMapsAgents()+
-    `<section><h2>Detalle por jugador</h2><div class="panel detail" id="detail"></div></section>`+
+    secPodium()+`<section><h2>Detalle por jugador</h2><div class="panel detail" id="detail"></div></section>`+secAwards()+`<div id="groups">${secGroups()}</div>`+secSummary()+secPlayers()+secInsights()+secMapsAgents()+
     (ERRS.length?`<p class="foot">Sin datos de partidas para: ${esc(ERRS.join(", "))}.</p>`:"");
   renderSummary(); renderDetail();
 }
@@ -533,8 +538,8 @@ function init(j){
 document.addEventListener("keydown",e=>{ if((e.key==="Enter"||e.key===" ")&&e.target.matches&&e.target.matches("tr.exp")){e.preventDefault();toggleMatch(e.target)} });
 document.addEventListener("click",e=>{
   const mr=e.target.closest("tr.exp"); if(mr){toggleMatch(mr);return}
-  const who=e.target.closest(".who");
-  if(who){sel=+who.dataset.i;renderSummary();renderDetail();return}
+  const who=e.target.closest(".who,.who2");
+  if(who){sel=+who.dataset.i;renderSummary();renderDetail();if(who.classList.contains("who"))document.getElementById("detail").scrollIntoView({behavior:"smooth",block:"start"});return}
   const th=e.target.closest("#summary th button");
   if(th){ if(sortKey===th.dataset.k) sortDir*=-1; else {sortKey=th.dataset.k;sortDir=-1} renderSummary(); return }
   const tab=e.target.closest(".tab");
