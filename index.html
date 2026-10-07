@@ -123,6 +123,8 @@ svg.spark{width:100%;height:auto;display:block;max-width:100%}
 .verdicts li:first-child{border-top:0;padding-top:0}
 .verdicts b{font-weight:600}
 .verdicts p{margin:0;max-width:72ch}
+.verdicts .roast{font-style:italic;margin-bottom:4px}.verdicts .facts{color:var(--muted);font-size:13px}
+.expl p{margin:0 0 8px;max-width:80ch}.expl ul{margin:0;padding-left:18px}.expl li{margin:2px 0}
 @media (max-width:560px){.verdicts li{grid-template-columns:1fr}}
 .insights{padding:18px 18px 18px 36px;margin:0;display:flex;flex-direction:column;gap:10px}
 .insights li{max-width:72ch}
@@ -316,6 +318,27 @@ function groupTable(d,firstCol){
   const rows=Object.entries(d).map(([g,s])=>`<tr><td>${esc(g)}</td><td class="num">${s.n}</td><td class="num">${s.v}-${s.l}</td><td class="num ${s.wr>=50?"cell-w":"cell-l"}">${s.wr}%</td><td class="num">${fmt2(s.kd)}</td><td class="num">${s.acs}</td><td class="num">${s.adr}</td><td class="num">${s.hs}</td><td class="num">${s.rr==null?"-":sgn(s.rr)}</td></tr>`).join("");
   return `<div class="scroll"><table><thead><tr><th>${firstCol}</th><th class="num">Partidas</th><th class="num">V-D</th><th class="num">% vict.</th><th class="num">K/D</th><th class="num">ACS</th><th class="num">ADR</th><th class="num">HS%</th><th class="num">RR neto</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
+const BADROLE={d:a=>`Con ${a} se espera que abra sitio; lo único que abre es el marcador rival.`,c:a=>`No vale para disparar, pero para tirar humos con ${a} tampoco.`,s:a=>`${a} guarda el flanco, sí, para que no le vea nadie ni a él.`,i:a=>`Tira info con ${a} que nadie usa, y encima falla el flash.`};
+function roastText(p){
+  const c={}; p.g.forEach(x=>c[x.ag]=(c[x.ag]||0)+1);
+  const a=Object.entries(c).sort((x,y)=>y[1]-x[1])[0][0], r=ROLE[a], n=P.length;
+  const iN=P.slice().sort((x,y)=>y.net-x.net).indexOf(p), iK=P.slice().sort((x,y)=>y.kd-x.kd).indexOf(p);
+  const T=[];
+  T.push(iN===0?`Primero en RR con ${a}. Que nadie pregunte cómo.`:iN===n-1?`Último en RR con ${a}: regala puntos como si fuera una ONG.`:p.net>0?`Suma RR con ${a}, aunque no se sabe muy bien cómo.`:`Resta RR con ${a} y se queda tan ancho.`);
+  T.push(iK===0?`Mejor K/D del grupo con ${a}; si lo llevara a las rondas que importan, otro gallo cantaría.`:iK===n-1?(BADROLE[r]||(x=>`Con ${x} no vale ni para mirar.`))(a):`K/D ${fmt2(p.kd)} con ${a}: ni fu ni fa.`);
+  const bg=Object.entries(byGroup(p.g)).filter(([,x])=>x.n>=4).sort((x,y)=>y[1].wr-x[1].wr);
+  if(bg.length>=2&&bg[0][1].wr-bg[bg.length-1][1].wr>=10) T.push(`Solo se le ve bien en ${bg[0][0].toLowerCase()}; en ${bg[bg.length-1][0].toLowerCase()} desaparece.`);
+  return T.join(" ");
+}
+function grpIntro(gl){
+  const rows=Object.keys(gl).map(g=>{
+    const L=P.map(p=>({p,s:byGroup(p.g)[g]})).filter(o=>o.s&&o.s.n>=4).sort((x,y)=>y.s.wr-x.s.wr);
+    if(L.length<2) return "";
+    const b=L[0],w=L[L.length-1];
+    return `<li><b>${esc(g)}</b>: mejor <b>${esc(b.p.n)}</b> (${b.s.wr}% en ${b.s.n} partidas) · peor <b>${esc(w.p.n)}</b> (${w.s.wr}% en ${w.s.n})</li>`;
+  }).join("");
+  return `<div class="panel expl"><p><b>¿Qué es esto?</b> Cada partida se clasifica según cuántos jugadores iban juntos en la misma party y en el mismo equipo: <b>Solo</b> (1), <b>Dúo</b> (2), <b>Trío</b> (3), <b>Cuarteto</b> (4) y <b>Stack de 5</b>. Así se ve cuánto cambia el rendimiento según con cuántos se juega. En la tabla: <b>Partidas</b> = cuántas se jugaron así · <b>V-D</b> = victorias y derrotas · <b>% vict.</b> = porcentaje de partidas ganadas · <b>K/D</b> = kills entre muertes · <b>ACS</b> = puntuación media por ronda · <b>ADR</b> = daño medio por ronda · <b>HS%</b> = porcentaje de disparos a la cabeza · <b>RR neto</b> = RR ganado o perdido.</p>`+(rows?`<p><b>Quién rinde mejor y peor en cada tipo de grupo</b> (mínimo 4 partidas):</p><ul>${rows}</ul>`:"")+`</div>`;
+}
 function secGroups(){
   const gl=byGroup(ALL);
   const mats=Object.keys(FIELD).map(k=>`<button type="button" class="tab" data-metric="${k}" aria-pressed="${k===metric}">${FIELD[k]}</button>`).join("");
@@ -333,7 +356,8 @@ function secGroups(){
     return `<tr><td><b>${esc(p.n)}</b></td>${cells}</tr>`;
   }).join("");
   return `<section><h2>Rendimiento según el tamaño del grupo</h2>
-    <div class="panel">${groupTable(gl,"Grupo (todos)")}</div>
+    ${grpIntro(gl)}
+    <div class="panel" style="margin-top:16px">${groupTable(gl,"Grupo (todos)")}</div>
     <div class="panel" style="margin-top:16px"><div class="tabs">${mats}</div>
       <div class="scroll"><table><thead><tr><th>Jugador</th>${head}</tr></thead><tbody>${rows}</tbody></table></div>
       <p class="small">Entre paréntesis, número de partidas en ese tipo de grupo. Con pocas partidas las cifras no son fiables.</p></div></section>`;
@@ -382,7 +406,7 @@ function playerText(p){
   return T.join(" ");
 }
 function secPlayers(){
-  return `<section><h2>Resumen por jugador</h2><ul class="panel verdicts">`+P.map(p=>`<li><b>${esc(p.n)}</b><p>${esc(playerText(p))}</p></li>`).join("")+`</ul></section>`;
+  return `<section><h2>Resumen por jugador</h2><ul class="panel verdicts">`+P.map(p=>`<li><b>${esc(p.n)}</b><div><p class="roast">${esc(roastText(p))}</p><p class="facts">${esc(playerText(p))}</p></div></li>`).join("")+`</ul></section>`;
 }
 
 function mapStats(){
@@ -392,21 +416,22 @@ function mapStats(){
 function secInsights(){
   const L=[];
   const byNet=P.slice().sort((a,b)=>b.net-a.net);
-  L.push(`${byNet[0].n} es quien más RR suma (${sgn(byNet[0].net)}) y ${byNet[byNet.length-1].n} quien menos (${sgn(byNet[byNet.length-1].net)}).`);
+  const top=byNet[0], bot=byNet[byNet.length-1];
+  L.push(`${top.n} es quien más RR suma (${sgn(top.net)}) y ${bot.n} quien menos (${sgn(bot.net)}). Uno sube en ascensor y el otro se tira por la ventana.`);
   const gv={}; P.forEach(p=>(gv[p.s.wr]=gv[p.s.wr]||[]).push(p));
   const tie=Object.values(gv).filter(a=>a.length>=2).map(a=>({a,sp:Math.max(...a.map(p=>p.net))-Math.min(...a.map(p=>p.net))})).sort((x,y)=>y.sp-x.sp)[0];
-  if(tie&&tie.sp>=10) L.push(`${tie.a.map(p=>`${p.n} (${sgn(p.net)})`).join(", ")} tienen el mismo porcentaje de victorias (${tie.a[0].s.wr}%) y RR netos distintos. El RR depende también del rango oculto, no solo de ganar.`);
+  if(tie&&tie.sp>=10) L.push(`${tie.a.map(p=>`${p.n} (${sgn(p.net)})`).join(", ")} tienen el mismo porcentaje de victorias (${tie.a[0].s.wr}%) y RR netos distintos. El RR depende también del rango oculto, no solo de ganar. Mismas victorias, distinto resultado: alguien gana con más estilo y el otro, con más suerte.`);
   const w=P.filter(p=>p.winRR&&p.lossRR);
   if(w.length>=2){
     const hiW=w.slice().sort((a,b)=>b.winRR-a.winRR)[0], loL=w.slice().sort((a,b)=>b.lossRR-a.lossRR)[0], worst=w.slice().sort((a,b)=>a.lossRR-b.lossRR)[0];
-    L.push(`${hiW.n} gana más RR por victoria (${fmt1(hiW.winRR)} de media), ${loL.n} pierde menos por derrota (${fmt1(-loL.lossRR)}) y ${worst.n} pierde más (${fmt1(-worst.lossRR)}).`);
+    L.push(`${hiW.n} gana más RR por victoria (${fmt1(hiW.winRR)} de media), ${loL.n} pierde menos por derrota (${fmt1(-loL.lossRR)}) y ${worst.n} pierde más (${fmt1(-worst.lossRR)}). Perder con ganas también es una forma de destacar.`);
   }
   const kdTop=P.slice().sort((a,b)=>b.kd-a.kd)[0], pos=byNet.indexOf(kdTop)+1;
-  L.push(`${kdTop.n} tiene el mayor K/D (${fmt2(kdTop.kd)}) y ocupa el puesto ${pos} de ${P.length} en RR neto.`);
+  L.push(`${kdTop.n} tiene el mayor K/D (${fmt2(kdTop.kd)}) y ocupa el puesto ${pos} de ${P.length} en RR neto. ${pos>P.length/2?"Mucho matar y poco ganar: las kills no se canjean por RR.":"Por una vez, las kills sirven para algo."}`);
   const gl=Object.entries(byGroup(ALL)).filter(([,s])=>s.n>=10).sort((a,b)=>b[1].wr-a[1].wr);
-  if(gl.length>=2) L.push(`Con todos los jugadores juntos, el mejor porcentaje de victorias es en ${gl[0][0].toLowerCase()} (${gl[0][1].wr}% en ${gl[0][1].n} partidas) y el peor en ${gl[gl.length-1][0].toLowerCase()} (${gl[gl.length-1][1].wr}% en ${gl[gl.length-1][1].n}).`);
+  if(gl.length>=2) L.push(`Con todos los jugadores juntos, el mejor porcentaje de victorias es en ${gl[0][0].toLowerCase()} (${gl[0][1].wr}% en ${gl[0][1].n} partidas) y el peor en ${gl[gl.length-1][0].toLowerCase()} (${gl[gl.length-1][1].wr}% en ${gl[gl.length-1][1].n}). ${gl[0][0]==="Stack de 5"?"Solos no dan para tanto: necesitan compañía para disimular.":"Cuantos más se juntan, más se estorban entre ellos."}`);
   const ms=mapStats().filter(o=>o.n>=8);
-  if(ms.length>=2) L.push(`${ms[0].map} es el mapa con mayor porcentaje de victorias (${Math.round(ms[0].pct*100)}% en ${ms[0].n} partidas contadas por jugador) y ${ms[ms.length-1].map} el de menor (${Math.round(ms[ms.length-1].pct*100)}% en ${ms[ms.length-1].n}).`);
+  if(ms.length>=2) L.push(`${ms[0].map} es el mapa con mayor porcentaje de victorias (${Math.round(ms[0].pct*100)}% en ${ms[0].n} partidas contadas por jugador) y ${ms[ms.length-1].map} el de menor (${Math.round(ms[ms.length-1].pct*100)}% en ${ms[ms.length-1].n}). En ${ms[ms.length-1].map} ya no vale echarle la culpa al mapa.`);
   return `<section><h2>Lo que se ve en los datos</h2><ul class="panel insights">`+L.map(t=>`<li>${esc(t)}</li>`).join("")+`</ul></section>`;
 }
 function secMapsAgents(){
