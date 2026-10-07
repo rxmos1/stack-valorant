@@ -114,6 +114,102 @@ def datos_basicos(nombre, tag):
     return out
 
 
+def analisis_rondas(m, yo):
+    """Datos que salen de las rondas y de los eventos de kill. Si el esquema cambia, devuelve {} y la web oculta esas secciones."""
+    pu, eq = yo["puuid"], yo["team_id"]
+    out = {}
+    equipos = {p["puuid"]: p["team_id"] for p in m.get("players", [])}
+    kills = m.get("kills") or []
+    rondas = m.get("rounds") or []
+    try:
+        por_ronda = {}
+        for kl in kills:
+            por_ronda.setdefault(kl["round"], []).append(kl)
+        pb = pm = mk = ases = 0
+        arma_k = {}
+        for ks in por_ronda.values():
+            ks.sort(key=lambda z: z.get("time_in_round_in_ms") or 0)
+            if ks[0]["killer"]["puuid"] == pu: pb += 1
+            if ks[0]["victim"]["puuid"] == pu: pm += 1
+            mios = sum(1 for z in ks if z["killer"]["puuid"] == pu)
+            if mios >= 3: mk += 1
+            if mios >= 5: ases += 1
+        for kl in kills:
+            if kl["killer"]["puuid"] == pu:
+                w = (kl.get("weapon") or {}).get("name") or "Habilidad"
+                arma_k[w] = arma_k.get(w, 0) + 1
+        out.update(primeras_bajas=pb, primeras_muertes=pm, multikills=mk, ases=ases, kills_arma=arma_k)
+    except Exception:
+        pass
+    try:
+        # clutches: el jugador queda vivo contra 1 o mas rivales y su equipo gana la ronda
+        ganadora = {r["id"]: r.get("winning_team") for r in rondas}
+        intentos = ganados = 0
+        for rid, ks in por_ronda.items():
+            vivos = {t: {u for u, tt in equipos.items() if tt == t} for t in set(equipos.values())}
+            enfrentado = False
+            for kl in ks:
+                vivos[equipos.get(kl["victim"]["puuid"])].discard(kl["victim"]["puuid"])
+                mi = vivos.get(eq, set())
+                riv = sum(len(v) for t, v in vivos.items() if t != eq)
+                if not enfrentado and mi == {pu} and riv >= 1:
+                    enfrentado = True
+            if enfrentado:
+                intentos += 1
+                if ganadora.get(rid) == eq: ganados += 1
+        out.update(clutch_intentos=intentos, clutch_ganados=ganados)
+    except Exception:
+        pass
+    try:
+        # economia y armas, ronda a ronda
+        armas = {}
+        cara = cara_perdida = eco = eco_ganada = 0
+        gasto = 0
+        for r in rondas:
+            e = next((x for x in r["stats"] if x["player"]["puuid"] == pu), None)
+            if not e or not e.get("economy"):
+                continue
+            gano = r.get("winning_team") == eq
+            lv = e["economy"].get("loadout_value") or 0
+            gasto += lv
+            w = (e["economy"].get("weapon") or {}).get("name") or "Sin arma"
+            a = armas.setdefault(w, [0, 0, 0, 0, 0])   # rondas, ganadas, cabeza, cuerpo, piernas
+            a[0] += 1; a[1] += 1 if gano else 0
+            st = e.get("stats") or {}
+            a[2] += st.get("headshots") or 0; a[3] += st.get("bodyshots") or 0; a[4] += st.get("legshots") or 0
+            if r["id"] not in (0, 12):
+                if lv >= 3900:
+                    cara += 1; cara_perdida += 0 if gano else 1
+                elif lv <= 1500:
+                    eco += 1; eco_ganada += 1 if gano else 0
+        out.update(armas=armas, compra_cara=cara, compra_cara_perdida=cara_perdida,
+                   eco_rondas=eco, eco_ganadas=eco_ganada, gasto=gasto)
+    except Exception:
+        pass
+    try:
+        # ataque/defensa: el equipo que planta en la primera mitad ataca; se invierte en la segunda
+        atq = None
+        for r in rondas:
+            if r["id"] < 12 and r.get("plant") and r["plant"].get("player"):
+                atq = r["plant"]["player"]["team"]; break
+        if atq is None:
+            for r in rondas:
+                if 12 <= r["id"] < 24 and r.get("plant") and r["plant"].get("player"):
+                    atq = [t for t in set(equipos.values()) if t != r["plant"]["player"]["team"]][0]; break
+        if atq is not None:
+            a = [0, 0]; d = [0, 0]
+            for r in rondas:
+                if r["id"] >= 24: continue
+                ataca = atq if r["id"] < 12 else [t for t in set(equipos.values()) if t != atq][0]
+                lado = a if ataca == eq else d
+                lado[1] += 1
+                if r.get("winning_team") == eq: lado[0] += 1
+            out.update(ataque=a, defensa=d)
+    except Exception:
+        pass
+    return out
+
+
 def partidas_jugador(jug, nombres_por_puuid):
     n, t = quote(jug["nombre"], safe=""), quote(jug["tag"], safe="")
     vistos, partidas = set(), []
@@ -159,22 +255,6 @@ def partidas_jugador(jug, nombres_por_puuid):
                 x["party"] = ids.setdefault(x["party"], len(ids) + 1)
             s = yo["stats"]
             tiros = s["headshots"] + s["bodyshots"] + s["legshots"]
-            pb = pm = mk = None
-            try:
-                por_ronda = {}
-                for kl in m.get("kills") or []:
-                    por_ronda.setdefault(kl["round"], []).append(kl)
-                pb = pm = mk = 0
-                for ks in por_ronda.values():
-                    ks.sort(key=lambda z: z.get("time_in_round_in_ms") or 0)
-                    if ks[0]["killer"]["puuid"] == jug["puuid"]:
-                        pb += 1
-                    if ks[0]["victim"]["puuid"] == jug["puuid"]:
-                        pm += 1
-                    if sum(1 for z in ks if z["killer"]["puuid"] == jug["puuid"]) >= 3:
-                        mk += 1
-            except Exception:
-                pb = pm = mk = None
             partidas.append({
                 "match_id": mid,
                 "inicio": m["metadata"]["started_at"],
@@ -192,7 +272,7 @@ def partidas_jugador(jug, nombres_por_puuid):
                 "grupo": etiqueta_grupo(len(en_grupo)),
                 "con": con,
                 "marcador_jugadores": marc,
-                "primeras_bajas": pb, "primeras_muertes": pm, "multikills": mk,
+                **analisis_rondas(m, yo),
             })
         if len(lote) < tam:
             break
