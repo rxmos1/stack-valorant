@@ -92,8 +92,10 @@ th.num button{justify-content:flex-end}
 .award{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:3px;min-width:0}
 .award small{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
 .award .val{font-family:var(--display);font-weight:700;font-size:26px;line-height:1.05;color:var(--accent)}
-.award .nm{font-family:var(--display);font-weight:700;font-size:25px;line-height:1.1;overflow-wrap:anywhere;order:1;margin:2px 0}
-.award small{order:0}.award .val{order:2}.award .sub{order:3}
+.award h3{margin:0 0 2px;font-family:var(--display);font-size:17px;line-height:1.15;letter-spacing:.02em;text-transform:uppercase;color:var(--accent)}
+.award .nm{font-family:var(--display);font-weight:700;font-size:25px;line-height:1.1;overflow-wrap:anywhere;margin:2px 0}
+.award .roast{margin:6px 0 8px;font-size:13px;line-height:1.35;font-style:italic}
+.award .obj{font-size:11px;color:var(--muted);margin-top:auto;padding-top:6px;border-top:1px solid var(--line);overflow-wrap:anywhere}
 .award .sub{font-family:var(--mono);font-size:12px;color:var(--muted);overflow-wrap:anywhere}
 .detail{padding:18px;display:flex;flex-direction:column;gap:18px}
 .dhead{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px}
@@ -262,47 +264,52 @@ function ext(items,f,dir){
 const namesOf=items=>{const ns=items.map(x=>(x.p||x).n);return ns.length>3?ns.length+" jugadores":ns.join(" · ")};
 function secAwards(){
   const A=[];
-  const pl=(label,f,dir,fmt,sub)=>{const e=ext(P,f,dir);A.push({label,val:fmt(e.val),names:namesOf(e.items),sub:e.items.length===1?sub(e.items[0]):""})};
+  const ag=p=>{const c={};p.g.forEach(x=>c[x.ag]=(c[x.ag]||0)+1);return Object.entries(c).sort((a,b)=>b[1]-a[1])[0][0]};
+  const bad={d:a=>`Con ${a} se espera que abra sitio; lo único que abre es el marcador rival.`,c:a=>`No vale para disparar, pero para tirar humos con ${a} tampoco.`,s:a=>`${a} guarda el flanco, sí, para que no le vea nadie ni a él.`,i:a=>`Tira info con ${a} que nadie usa, y encima falla el flash.`};
+  const mk=(title,label,e,fmt,sub,roast,who)=>{const one=e.items.length===1,p=one?e.items[0]:null;
+    A.push({title,label,val:fmt(e.val),names:namesOf(e.items),sub:one&&sub?sub(p):"",roast:one&&roast?roast(p):""})};
+  const pl=(title,label,f,dir,fmt,sub,roast)=>mk(title,label,ext(P,f,dir),fmt,sub,roast&&(p=>{const a=ag(p);return roast(p,a,ROLE[a])}));
+  const ml=(title,label,f,dir,fmt,sub,roast)=>mk(title,label,ext(ALL,f,dir),fmt,sub,roast&&(x=>roast(x,x.ag,ROLE[x.ag])));
   const wr=p=>`${p.s.v}V-${p.s.l}D · ${p.rank}`;
-  pl("Más RR",p=>p.net,1,v=>sgn(v)+" RR",wr);
-  pl("Menos RR",p=>p.net,-1,v=>sgn(v)+" RR",wr);
-  pl("Mayor ACS medio",p=>p.acs,1,v=>String(v),p=>`K/D ${fmt2(p.kd)} · ADR ${p.adr}`);
-  pl("Mayor K/D",p=>Math.round(p.kd*100),1,v=>fmt2(v/100),p=>`ACS ${p.acs}`);
-  pl("Mayor % de headshots",p=>p.hs,1,v=>v+"%",p=>`K/D ${fmt2(p.kd)}`);
-  pl("Mayor % de victorias",p=>p.s.wr,1,v=>v+"%",wr);
-  pl("Mejor racha de victorias",p=>p.streak,1,v=>v+" seguidas",()=>"");
-  pl("Más asistencias por partida",p=>Math.round(p.ast/p.g.length*10),1,v=>fmt1(v/10),p=>`${p.ast} en ${p.g.length} partidas`);
+  pl("Carry sospechoso","Más RR",p=>p.net,1,v=>sgn(v)+" RR",wr,(p,a)=>`Todo ese RR con ${a}. O juega bien, o le ha tocado ganar con cuatro cargando.`);
+  pl("Donante oficial de RR","Menos RR",p=>p.net,-1,v=>sgn(v)+" RR",wr,(p,a)=>`Regala RR a cada rival con ${a}. Los rivales se lo agradecen.`);
+  pl("Mucho ruido, pocas rondas","Mayor ACS medio",p=>p.acs,1,v=>String(v),p=>`K/D ${fmt2(p.kd)} · ADR ${p.adr}`,(p,a)=>`Llena el marcador con ${a}; otra cosa es que sirva para algo.`);
+  pl("Cazador de bots","Mayor K/D",p=>Math.round(p.kd*100),1,v=>fmt2(v/100),p=>`ACS ${p.acs}`,(p,a)=>`Con ${a} farmea kills. Ojalá tuviera la misma puntería cuando importa.`);
+  pl("Apunta a la cabeza (de milagro)","Mayor % de headshots",p=>p.hs,1,v=>v+"%",p=>`K/D ${fmt2(p.kd)}`,(p,a)=>`Con ${a} le sale algún headshot; el resto de balas, al aire.`);
+  pl("Gana sin merecerlo","Mayor % de victorias",p=>p.s.wr,1,v=>v+"%",wr,(p,a)=>`Gana más que nadie con ${a}. Habrá que investigar quién le carrea.`);
+  pl("Racha de suerte","Mejor racha de victorias",p=>p.streak,1,v=>v+" seguidas",()=>"",(p,a)=>`Una racha con ${a}. Que no se acostumbre, que no dura.`);
+  pl("Mayordomo del equipo","Más asistencias por partida",p=>Math.round(p.ast/p.g.length*10),1,v=>fmt1(v/10),p=>`${p.ast} en ${p.g.length} partidas`,(p,a)=>`Asiste a todos con ${a} porque él no remata ni una.`);
   const sd=a=>{const m=mean(a);return Math.sqrt(mean(a.map(x=>(x-m)*(x-m))))};
   const zf=f=>{const v=P.map(f),m=mean(v),s=sd(v)||1;return p=>(f(p)-m)/s};
   const zs=[zf(p=>p.kd),zf(p=>p.acs),zf(p=>p.s.wr)];
   const sc=p=>Math.round(100*zs.reduce((t,g)=>t+g(p),0)/zs.length);
-  const idx="Índice combinado de K/D, ACS y % de victorias (0 = media del grupo)";
-  pl("Mejor rendimiento global",sc,1,v=>(v>0?"+":"")+fmt2(v/100),()=>idx);
-  pl("Menor rendimiento global",sc,-1,v=>(v>0?"+":"")+fmt2(v/100),()=>idx);
-  pl("Más regular (ACS)",p=>-Math.round(sd(p.g.map(x=>x.acs))),1,v=>"±"+(-v),()=>"Menor variación de ACS entre partidas");
-  pl("Más irregular (ACS)",p=>-Math.round(sd(p.g.map(x=>x.acs))),-1,v=>"±"+(-v),()=>"Mayor variación de ACS entre partidas");
-  pl("Más kills por partida",p=>Math.round(mean(p.g.map(x=>x.k))*10),1,v=>fmt1(v/10),p=>"K/D "+fmt2(p.kd));
-  pl("Más muertes por partida",p=>Math.round(mean(p.g.map(x=>x.d))*10),1,v=>fmt1(v/10),p=>"K/D "+fmt2(p.kd));
-  pl("Mayor daño por ronda (ADR)",p=>p.adr,1,v=>String(v),p=>"ACS "+p.acs);
-  const plS=(label,gname,f,dir,fmt)=>{
+  const idx=()=>"Índice combinado de K/D, ACS y % de victorias (0 = media del grupo)";
+  const fi=v=>(v>0?"+":"")+fmt2(v/100);
+  pl("El menos malo","Mejor rendimiento global",sc,1,fi,idx,(p,a)=>`El menos malo con ${a}. En este grupo ya es un mérito.`);
+  pl("El más malo","Menor rendimiento global",sc,-1,fi,idx,(p,a,r)=>(bad[r]||(x=>`Con ${x} no vale ni para mirar.`))(a));
+  pl("Normalito, pero constante","Más regular (ACS)",p=>-Math.round(sd(p.g.map(x=>x.acs))),1,v=>"±"+(-v),()=>"Menor variación de ACS entre partidas",(p,a)=>`Siempre el mismo ACS de relleno con ${a}. Ni sorprende ni asusta.`);
+  pl("Una de cal y otra de rabia","Más irregular (ACS)",p=>-Math.round(sd(p.g.map(x=>x.acs))),-1,v=>"±"+(-v),()=>"Mayor variación de ACS entre partidas",(p,a)=>`Con ${a} igual hace 400 de ACS que no se le ve en toda la partida.`);
+  pl("Gatillo fácil","Más kills por partida",p=>Math.round(mean(p.g.map(x=>x.k))*10),1,v=>fmt1(v/10),p=>"K/D "+fmt2(p.kd),(p,a)=>`Con ${a} dispara a todo lo que se mueve. A veces acierta.`);
+  pl("Mártir del equipo","Más muertes por partida",p=>Math.round(mean(p.g.map(x=>x.d))*10),1,v=>fmt1(v/10),p=>"K/D "+fmt2(p.kd),(p,a)=>`Con ${a} muere más que nadie. Entrar primero no es excusa.`);
+  pl("Hace cosquillas","Mayor daño por ronda (ADR)",p=>p.adr,1,v=>String(v),p=>"ACS "+p.acs,(p,a)=>`Mucho daño con ${a}; rematar ya es otro deporte.`);
+  const plS=(title,label,gname,dir,roast)=>{
     const L=P.map(p=>({p,s:byGroup(p.g)[gname]})).filter(o=>o.s&&o.s.n>=5);
     if(L.length<2) return;
-    const e=ext(L,o=>f(o.s),dir);
-    A.push({label,val:fmt(e.val),names:namesOf(e.items.map(o=>o.p)),sub:e.items.length===1?e.items[0].s.v+"V-"+e.items[0].s.l+"D en "+e.items[0].s.n+" partidas":""});
+    const e=ext(L,o=>o.s.wr,dir), one=e.items.length===1, o=e.items[0];
+    A.push({title,label,val:e.val+"%",names:namesOf(e.items.map(o=>o.p)),sub:one?`${o.s.v}V-${o.s.l}D en ${o.s.n} partidas`:"",roast:one?roast(o.p,ag(o.p)):""});
   };
-  plS("Mejor en solitario","Solo",s=>s.wr,1,v=>v+"%");
-  plS("Peor en solitario","Solo",s=>s.wr,-1,v=>v+"%");
-  plS("Mejor en stack de 5","Stack de 5",s=>s.wr,1,v=>v+"%");
-  plS("Peor en stack de 5","Stack de 5",s=>s.wr,-1,v=>v+"%");
-  const ml=(label,f,dir,fmt,sub)=>{const e=ext(ALL,f,dir);A.push({label,val:fmt(e.val),names:namesOf(e.items),sub:e.items.length===1?sub(e.items[0]):""})};
-  ml("Mejor partida (ACS)",x=>x.acs,1,v=>String(v),x=>`${x.k}/${x.d}/${x.a} · ${x.ag} · ${x.map}`);
+  plS("Lobo solitario (de pega)","Mejor en solitario","Solo",1,(p,a)=>`Solo gana más, con ${a}. Será que así nadie le estorba.`);
+  plS("No vale para jugar solo","Peor en solitario","Solo",-1,(p,a)=>`Apunta fatal en solitario con ${a}. Que busque grupo.`);
+  plS("Solo vale en grupo","Mejor en stack de 5","Stack de 5",1,(p,a)=>`Sin sus amigos no sería nadie con ${a}. Con ellos, sí.`);
+  plS("Estorba hasta con cuatro amigos","Peor en stack de 5","Stack de 5",-1,(p,a)=>`Ni con cuatro compañeros al lado se le ve con ${a}.`);
+  ml("Un día bueno lo tiene cualquiera","Mejor partida (ACS)",x=>x.acs,1,v=>String(v),x=>`${x.k}/${x.d}/${x.a} · ${x.ag} · ${x.map}`,(x,a)=>`Una partida con ${a}. Las otras 29 ya las olvidamos.`);
   const conRR=ALL.filter(x=>x.rr!=null);
   if(conRR.length){
-    const up=ext(conRR,x=>x.rr,1), dn=ext(conRR,x=>x.rr,-1);
-    A.push({label:"Mayor subida en una partida",val:sgn(up.val)+" RR",names:namesOf(up.items),sub:up.items.length===1?`${up.items[0].ag} · ${up.items[0].map} ${up.items[0].sc}`:""});
-    A.push({label:"Mayor bajada en una partida",val:sgn(dn.val)+" RR",names:namesOf(dn.items),sub:dn.items.length===1?`${dn.items[0].ag} · ${dn.items[0].map} ${dn.items[0].sc}`:""});
+    const sb=x=>`${x.ag} · ${x.map} ${x.sc}`;
+    ml("Premio de la lotería","Mayor subida en una partida",x=>x.rr,1,v=>sgn(v)+" RR",sb,(x,a)=>`Con ${a} sube de golpe lo que otros no suben en un mes.`);
+    ml("El hundimiento","Mayor bajada en una partida",x=>x.rr,-1,v=>sgn(v)+" RR",sb,(x,a)=>`Con ${a} pierde todo ese RR de golpe. Hay que tener talento.`);
   }
-  return `<section><h2>Premios del grupo</h2><div class="awards">`+A.map(a=>`<div class="award"><small>${a.label}</small><span class="val">${esc(a.val)}</span><span class="nm">${esc(a.names)}</span>${a.sub?`<span class="sub">${esc(a.sub)}</span>`:""}</div>`).join("")+`</div></section>`;
+  return `<section><h2>Premios del grupo</h2><div class="awards">`+A.map(a=>`<div class="award"><h3>${esc(a.title)}</h3><span class="nm">${esc(a.names)}</span><span class="val">${esc(a.val)}</span>${a.roast?`<p class="roast">${esc(a.roast)}</p>`:""}<span class="obj">${esc(a.label)}${a.sub?" · "+esc(a.sub):""}</span></div>`).join("")+`</div></section>`;
 }
 
 function groupTable(d,firstCol){
