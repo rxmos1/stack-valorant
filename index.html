@@ -823,12 +823,14 @@ function showEmpty(msg){
 }
 function init(j){
   const arr=Array.isArray(j)?j:(j.jugadores||[]); META=Array.isArray(j)?{}:j;
+  const dk=t=>new Date(t).toLocaleDateString("sv-SE",{timeZone:"Europe/Madrid"}), hoy=dk(Date.now()), ayer=dk(Date.now()-864e5);
+  arr.forEach(d=>{d.partidas=(d.partidas||[]).filter(m=>{const k=dk(m.inicio||m.fecha);return k===hoy||k===ayer})});
   ERRS=arr.filter(d=>!(d.partidas&&d.partidas.length)).map(d=>d.id||d.nombre);
   P=arr.filter(d=>d.rango&&d.partidas&&d.partidas.length).map(prep);
-  if(!P.length) return showEmpty("El archivo data.json no contiene partidas.");
+  if(!P.length) return showEmpty("No hay partidas de ayer ni de hoy en data.json.");
   ALL=P.flatMap(p=>p.g.map(x=>Object.assign({p},x)));
   const f=META.actualizado?new Date(META.actualizado).toLocaleString("es-ES",{dateStyle:"long",timeStyle:"short"}):"";
-  document.getElementById("meta").textContent=`${P.length} jugadores · últimas ${META.n_partidas||""} partidas competitivas de cada uno`+(f?` · actualizado el ${f}`:"");
+  document.getElementById("meta").textContent=`${P.length} jugadores · solo partidas competitivas de ayer y hoy`+(f?` · actualizado el ${f}`:"");
   UNI=uniq();
   const parts=[secRend(),secPodium(),secRRAll(),`<section class="sec s12" id="detalle"><h2>Detalle por jugador</h2><div class="panel detail" id="detail"></div></section>`,secCards(),secAwards(),secSyn(),secHorario(),secClutch(),secEco(),secArmas(),secLados(),`<div id="groups" class="s12">${secGroups()}</div>`,secSummary(),secPlayers(),secInsights(),secMapsAgents()];
   document.getElementById("app").innerHTML=parts.join("")+(ERRS.length?`<p class="foot s12">Sin datos de partidas para: ${esc(ERRS.join(", "))}.</p>`:"");
