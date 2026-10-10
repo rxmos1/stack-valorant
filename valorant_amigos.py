@@ -19,7 +19,9 @@ import os
 import sys
 import time
 import webbrowser
+from datetime import datetime, timedelta, timezone
 from urllib.parse import quote
+from zoneinfo import ZoneInfo
 
 import requests
 
@@ -36,6 +38,10 @@ BASE = "https://api.henrikdev.xyz"
 REGION = "eu"
 PLATFORM = "pc"
 N_PARTIDAS = 30          # partidas competitivas recientes por jugador
+MAX_HISTORIAL = 400      # partidas que se conservan acumuladas por jugador
+SILENCIO = (5, 14)       # (hora Madrid) entre 05:00 y 14:00 no se hace ninguna petición en modo --rapido
+VENTANA_ACTIVA_H = 2     # si alguien jugó hace menos de estas horas se comprueba cada 5 min; si no, cada 15
+CONOCIDAS = {}           # id de jugador -> match_id ya guardados (para parar de pedir páginas)
 PAGINA = 10              # partidas que se piden por petición
 PAUSA = float(os.environ.get("HENRIK_PAUSA", "3"))   # segundos entre peticiones
 
@@ -276,6 +282,8 @@ def partidas_jugador(jug, nombres_por_puuid):
             })
         if len(lote) < tam:
             break
+        if CONOCIDAS.get(jug["id"]) and any(m["metadata"]["match_id"] in CONOCIDAS[jug["id"]] for m in lote):
+            break   # ya hemos llegado a partidas guardadas: no hace falta pedir más páginas
     jug["partidas"] = partidas[:N_PARTIDAS]
 
 
@@ -449,7 +457,91 @@ def pagina_html(datos):
 
 
 # ---------------------------------------------------------------------- main
+def cargar_previo():
+    try:
+        with open("data.json", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return None
+
+
+def fusionar(d, prev):
+    """Une las partidas recién descargadas con las ya guardadas (por match_id)."""
+    prev = prev or {}
+    if "rango" not in d and prev.get("rango"):
+        return prev                      # falló la descarga: se conserva lo anterior
+    nuevas = d.get("partidas", [])
+    ids = {m.get("match_id") for m in nuevas}
+    todas = nuevas + [m for m in prev.get("partidas", []) if m.get("match_id") not in ids]
+    todas.sort(key=lambda m: m.get("inicio") or "", reverse=True)
+    d["partidas"] = todas[:MAX_HISTORIAL]
+    return d
+
+
+def guardar_json(datos, puuids):
+    with open("resultados_valorant.json", "w", encoding="utf-8") as f:
+        json.dump({"actualizado": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                   "n_partidas": N_PARTIDAS, "puuids": puuids, "jugadores": datos},
+                  f, ensure_ascii=False, indent=1)
+
+
+def main_rapido(previo, ahora):
+    """Pide 1 partida por jugador; solo descarga a fondo a quien tenga una partida nueva."""
+    prev = {(p["nombre"], p["tag"]): p for p in previo.get("jugadores", [])}
+    ult = max((m.get("inicio") or "" for p in prev.values() for m in p.get("partidas", [])), default="")
+    reciente = False
+    if ult:
+        t = datetime.fromisoformat(ult.replace("Z", "+00:00"))
+        reciente = datetime.now(timezone.utc) - t < timedelta(hours=VENTANA_ACTIVA_H)
+    if not reciente and ahora.minute % 15 >= 5:
+        print("Nadie ha jugado hace poco: toca comprobar solo cada 15 minutos. Salgo sin hacer peticiones.")
+        return
+    cambiados = []
+    for nombre, tag in JUGADORES:
+        n, t = quote(nombre, safe=""), quote(tag, safe="")
+        j, err = get(f"/valorant/v4/matches/{REGION}/{PLATFORM}/{n}/{t}",
+                     {"mode": "competitive", "size": 1})
+        if err or not j.get("data"):
+            print(f" - {nombre}: sin respuesta ({err})")
+            continue
+        mid = j["data"][0]["metadata"]["match_id"]
+        conocidas = {m.get("match_id") for m in prev.get((nombre, tag), {}).get("partidas", [])}
+        if mid not in conocidas:
+            print(f" - {nombre}: partida nueva")
+            cambiados.append((nombre, tag))
+    if not cambiados:
+        print("Sin partidas nuevas. No se cambia nada.")
+        return
+    puuids = dict(previo["puuids"])
+    nuevos = {}
+    for nombre, tag in cambiados:
+        d = datos_basicos(nombre, tag)
+        if "puuid" not in d:
+            continue
+        puuids[d["puuid"]] = nombre
+        CONOCIDAS[d["id"]] = {m.get("match_id") for m in prev.get((nombre, tag), {}).get("partidas", [])}
+        partidas_jugador(d, puuids)
+        d.pop("rr_por_partida", None); d.pop("puuid", None)
+        nuevos[(nombre, tag)] = fusionar(d, prev.get((nombre, tag)))
+    if not nuevos:
+        print("No se pudo descargar a nadie; no se cambia nada.")
+        return
+    datos = [nuevos.get(k) or prev[k] for k in JUGADORES if (k in nuevos or k in prev)]
+    guardar_json(datos, puuids)
+    print(f"Actualizados: {', '.join(k[0] for k in nuevos)}")
+
+
 def main():
+    previo = cargar_previo()
+    if "--rapido" in sys.argv:
+        ahora = datetime.now(ZoneInfo("Europe/Madrid"))
+        if SILENCIO[0] <= ahora.hour < SILENCIO[1]:
+            print(f"Son las {ahora:%H:%M} en Madrid: franja sin peticiones ({SILENCIO[0]}:00-{SILENCIO[1]}:00).")
+            return
+        if previo and previo.get("puuids"):
+            return main_rapido(previo, ahora)
+        print("Aún no hay puuids guardados: hago la actualización completa.")
+
     print("Fase 1/2: rango y RR de cada jugador")
     datos = []
     for nombre, tag in JUGADORES:
@@ -468,6 +560,8 @@ def main():
     for d in datos:
         d.pop("rr_por_partida", None)
         d.pop("puuid", None)
+    prev = {(p["nombre"], p["tag"]): p for p in (previo or {}).get("jugadores", [])}
+    datos = [fusionar(d, prev.get((d["nombre"], d["tag"]))) for d in datos]
 
     todas = [x for d in datos for x in d["partidas"]]
     texto = "# Compañeros de Valorant\n\n"
@@ -478,9 +572,7 @@ def main():
 
     with open("resultados_valorant.md", "w", encoding="utf-8") as f:
         f.write(texto)
-    with open("resultados_valorant.json", "w", encoding="utf-8") as f:
-        json.dump({"actualizado": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-                   "n_partidas": N_PARTIDAS, "jugadores": datos}, f, ensure_ascii=False, indent=1)
+    guardar_json(datos, nombres_por_puuid)
     with open("resultados_valorant.html", "w", encoding="utf-8") as f:
         f.write(pagina_html(datos))
     print(texto)
