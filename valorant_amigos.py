@@ -37,8 +37,8 @@ if not API_KEY:
 BASE = "https://api.henrikdev.xyz"
 REGION = "eu"
 PLATFORM = "pc"
-N_PARTIDAS = 30          # partidas competitivas recientes por jugador
-MAX_HISTORIAL = 400      # partidas que se conservan acumuladas por jugador
+N_PARTIDAS = int(os.environ.get("HENRIK_N") or 30)   # partidas que se piden por jugador en cada descarga completa
+MAX_HISTORIAL = 100000   # historial acumulado por jugador: practicamente sin limite (se guardan todas)
 SILENCIO = (5, 14)       # (hora Madrid) entre 05:00 y 14:00 no se hace ninguna petición en modo --rapido
 VENTANA_ACTIVA_H = 2     # si alguien jugó hace menos de estas horas se comprueba cada 5 min; si no, cada 15
 CONOCIDAS = {}           # id de jugador -> match_id ya guardados (para parar de pedir páginas)
