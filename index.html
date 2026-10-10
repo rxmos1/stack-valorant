@@ -38,6 +38,12 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-
 .nav a{flex:none;white-space:nowrap;text-decoration:none;color:var(--muted);font-size:13px;padding:5px 12px;border-radius:999px;background:var(--chip)}
 .nav a:hover{color:var(--fg)}
 .pad{padding:16px 18px}.small0{color:var(--muted);font-size:12px;margin:10px 0 0}
+.flt{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:end;margin:12px 0 0}
+.flt label{display:flex;flex-direction:column;font-size:11px;color:var(--muted);gap:3px}
+.flt input{font:inherit;font-size:13px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg);color-scheme:light dark}
+.flt button{font:inherit;font-size:12px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--chip);color:var(--fg);cursor:pointer}
+.flt .pri{background:var(--accent);color:#fff;border-color:var(--accent)}
+.flt .pre{display:flex;gap:6px;flex-wrap:wrap}
 .pn{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
 .nn{color:var(--muted);font-size:11px;font-weight:400}
 .legend.big{gap:6px 18px;font-size:13px;color:var(--fg);margin-bottom:10px}
@@ -217,6 +223,7 @@ tr.mdet>td{white-space:normal;background:var(--bg);padding:12px}
   <header>
     <h1><img class="logo" src="data:image/png;base64,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" alt="" width="52" height="76">Vinicers</h1>
     <p id="meta">Cargando datos…</p>
+    <div id="filtro"></div>
   </header>
   <nav class="nav" id="nav" aria-label="Secciones"></nav>
   <div id="app"></div>
@@ -817,20 +824,45 @@ function secRend(){
   return sec("rendimiento",12,"Rendimiento frente a RR",`<div class="rend"><div class="panel pad">${svg}</div><div class="panel"><div class="sub-h pad" style="padding-bottom:0">Diferencia entre el RR real y el esperable por rendimiento</div><div class="rd-list">${bars}</div>${txt}<p class="small">Cada punto es un jugador. La línea discontinua es el RR que sería esperable según su rendimiento, calculada con el propio grupo. Quien queda por encima de la línea sube más de lo que rinde; por debajo, rinde más de lo que sube. El RR también depende de ganar o perder y del rango oculto, así que no es una medida exacta.</p></div></div>`);
 }
 
+const TZM="Europe/Madrid";
+function fmtMad(ms){return new Intl.DateTimeFormat("sv-SE",{timeZone:TZM,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).format(new Date(ms)).replace(" ","T")}
+function msMad(s){const u=Date.parse(s+":00Z"); if(isNaN(u)) return NaN; return u-(Date.parse(fmtMad(u)+":00Z")-u)}
+function fmtTxtF(s){const p=s.split("T"),f=p[0].split("-");return f[2]+"/"+f[1]+" a las "+p[1]}
+function leerFiltro(){
+  const q=new URLSearchParams(location.search), a=q.get("desde")||"", b=q.get("hasta")||"", now=Date.now();
+  if(q.get("todo")) return {d:0,h:Infinity,vd:"",vh:"",txt:"todas las partidas guardadas"};
+  if(a||b){
+    const d=a&&!isNaN(msMad(a))?msMad(a):0, h=b&&!isNaN(msMad(b))?msMad(b):Infinity;
+    return {d,h,vd:a,vh:b,txt:"partidas"+(a?" desde el "+fmtTxtF(a):"")+(b?" hasta el "+fmtTxtF(b):"")};
+  }
+  const d=msMad(fmtMad(now).slice(0,10)+"T00:00")-864e5;
+  return {d,h:Infinity,vd:fmtMad(d),vh:"",txt:"solo partidas de ayer y hoy"};
+}
+function irFiltro(p){const s=new URLSearchParams(p).toString(); location.href=location.pathname+(s?"?"+s:"")}
+function montarFiltro(F){
+  const el=document.getElementById("filtro"); if(!el) return;
+  el.innerHTML=`<form class="flt"><label>Desde<input type="datetime-local" id="f-d" value="${F.vd}"></label><label>Hasta<input type="datetime-local" id="f-h" value="${F.vh}"></label><button class="pri">Aplicar</button><span class="pre"><button type="button" data-p="hoy">Hoy</button><button type="button" data-p="ayer">Ayer y hoy</button><button type="button" data-p="7">7 días</button><button type="button" data-p="todo">Todo</button></span></form>`;
+  el.querySelector("form").addEventListener("submit",e=>{e.preventDefault();const p={},a=document.getElementById("f-d").value,b=document.getElementById("f-h").value;if(a)p.desde=a;if(b)p.hasta=b;irFiltro(p)});
+  el.querySelectorAll("[data-p]").forEach(x=>x.addEventListener("click",()=>{const k=x.dataset.p,n=Date.now();
+    if(k==="hoy") irFiltro({desde:fmtMad(n).slice(0,10)+"T00:00"});
+    else if(k==="7") irFiltro({desde:fmtMad(n-7*864e5)});
+    else if(k==="todo") irFiltro({todo:1});
+    else irFiltro({})}));
+}
 function showEmpty(msg){
   document.getElementById("meta").textContent="";
   document.getElementById("app").innerHTML=`<div class="panel empty"><b>Todavía no hay datos.</b><br>${esc(msg||"")}<br>Ejecuta el workflow "Actualizar datos" desde la pestaña Actions del repositorio y recarga esta página.</div>`;
 }
 function init(j){
   const arr=Array.isArray(j)?j:(j.jugadores||[]); META=Array.isArray(j)?{}:j;
-  const DESDE=Date.parse("2026-10-10T12:00:00+02:00");
-  arr.forEach(d=>{d.partidas=(d.partidas||[]).filter(m=>Date.parse(m.inicio||m.fecha)>=DESDE)});
+  const FLT=leerFiltro(); montarFiltro(FLT);
+  arr.forEach(d=>{d.partidas=(d.partidas||[]).filter(m=>{const t=Date.parse(m.inicio||m.fecha);return t>=FLT.d&&t<=FLT.h})});
   ERRS=arr.filter(d=>!(d.partidas&&d.partidas.length)).map(d=>d.id||d.nombre);
   P=arr.filter(d=>d.rango&&d.partidas&&d.partidas.length).map(prep);
-  if(!P.length) return showEmpty("No hay partidas desde el sábado 10/10 a las 12:00 en data.json.");
+  if(!P.length) return showEmpty("No hay partidas en ese rango de fechas. Prueba a ampliarlo o pulsa «Todo».");
   ALL=P.flatMap(p=>p.g.map(x=>Object.assign({p},x)));
   const f=META.actualizado?new Date(META.actualizado).toLocaleString("es-ES",{dateStyle:"long",timeStyle:"short"}):"";
-  document.getElementById("meta").textContent=`${P.length} jugadores · solo partidas competitivas desde el sábado 10/10 a las 12:00`+(f?` · actualizado el ${f}`:"");
+  document.getElementById("meta").textContent=`${P.length} jugadores · ${FLT.txt}`+(f?` · actualizado el ${f}`:"");
   UNI=uniq();
   const parts=[secRend(),secPodium(),secRRAll(),`<section class="sec s12" id="detalle"><h2>Detalle por jugador</h2><div class="panel detail" id="detail"></div></section>`,secCards(),secAwards(),secSyn(),secHorario(),secClutch(),secEco(),secArmas(),secLados(),`<div id="groups" class="s12">${secGroups()}</div>`,secSummary(),secPlayers(),secInsights(),secMapsAgents()];
   document.getElementById("app").innerHTML=parts.join("")+(ERRS.length?`<p class="foot s12">Sin datos de partidas para: ${esc(ERRS.join(", "))}.</p>`:"");
