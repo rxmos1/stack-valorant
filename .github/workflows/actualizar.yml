@@ -4,6 +4,10 @@ on:
   schedule:
     - cron: "*/5 * * * *"    # comprueba cada 5 min; el script decide si hace peticiones (ver SILENCIO en valorant_amigos.py)
   workflow_dispatch:         # botón "Run workflow": actualización completa
+    inputs:
+      partidas:
+        description: "Partidas a pedir por jugador (30 normal; sube a 100 para recuperar historial)"
+        default: "30"
 
 permissions:
   contents: write
@@ -25,6 +29,7 @@ jobs:
       - name: Descargar datos de Valorant
         env:
           HENRIK_API_KEY: ${{ secrets.HENRIK_API_KEY }}
+          HENRIK_N: ${{ github.event.inputs.partidas }}
           EVENTO: ${{ github.event_name }}
         run: |
           if [ "$EVENTO" = "schedule" ]; then
