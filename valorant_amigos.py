@@ -542,6 +542,11 @@ def main():
             return main_rapido(previo, ahora)
         print("Aún no hay puuids guardados: hago la actualización completa.")
 
+    # En descarga normal no se vuelven a pedir partidas ya guardadas (solo con HENRIK_N > 30 se recupera historial)
+    if previo and N_PARTIDAS <= 30:
+        for p in previo.get("jugadores", []):
+            CONOCIDAS[f"{p['nombre']}#{p['tag']}"] = {m.get("match_id") for m in p.get("partidas", [])}
+
     print("Fase 1/2: rango y RR de cada jugador")
     datos = []
     for nombre, tag in JUGADORES:
