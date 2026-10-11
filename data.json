@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-11T02:04:26Z",
+ "actualizado": "2026-10-11T19:35:28Z",
  "n_partidas": 30,
  "puuids": {
   "5398c793-1500-5ba0-bd11-07f396d665aa": "Bulcaçan BenHazú",
@@ -17,6 +17,428 @@
    "id": "Bulcaçan BenHazú#4017",
    "error": null,
    "partidas": [
+    {
+     "match_id": "3ea60732-c5ca-46a2-9fb9-176611099791",
+     "inicio": "2026-10-11T15:43:49.903Z",
+     "fecha": "2026-10-11",
+     "mapa": "Sunset",
+     "agente": "Sova",
+     "victoria": true,
+     "marcador": "13-6",
+     "k": 12,
+     "d": 13,
+     "a": 8,
+     "acs": 178,
+     "adr": 115,
+     "hs": 24,
+     "rr": 13,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "FrozenMind",
+      "lorcon",
+      "nisk0",
+      "niskEiiiiiiiiiii"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 26,
+       "d": 9,
+       "a": 3,
+       "acs": 361,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 19,
+       "d": 10,
+       "a": 7,
+       "acs": 281,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "Phoenix",
+       "k": 11,
+       "d": 13,
+       "a": 9,
+       "acs": 185,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "Bulcaçan BenHazú",
+       "agente": "Sova",
+       "k": 12,
+       "d": 13,
+       "a": 8,
+       "acs": 178,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Cypher",
+       "k": 9,
+       "d": 13,
+       "a": 8,
+       "acs": 164,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Reyna",
+       "k": 19,
+       "d": 15,
+       "a": 1,
+       "acs": 289,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sova",
+       "k": 13,
+       "d": 17,
+       "a": 1,
+       "acs": 205,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 11,
+       "d": 14,
+       "a": 2,
+       "acs": 183,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Clove",
+       "k": 8,
+       "d": 17,
+       "a": 4,
+       "acs": 131,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Cypher",
+       "k": 7,
+       "d": 14,
+       "a": 1,
+       "acs": 102,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 1,
+     "primeras_muertes": 2,
+     "multikills": 1,
+     "ases": 0,
+     "kills_arma": {
+      "Ghost": 1,
+      "Spectre": 1,
+      "Phantom": 2,
+      "Sheriff": 2,
+      "Vandal": 5,
+      "Stinger": 1
+     },
+     "clutch_intentos": 1,
+     "clutch_ganados": 0,
+     "armas": {
+      "Ghost": [
+       1,
+       1,
+       0,
+       4,
+       0
+      ],
+      "Spectre": [
+       1,
+       0,
+       1,
+       1,
+       0
+      ],
+      "Bandit": [
+       2,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Vandal": [
+       6,
+       5,
+       4,
+       11,
+       0
+      ],
+      "Bulldog": [
+       1,
+       1,
+       0,
+       0,
+       0
+      ],
+      "Phantom": [
+       4,
+       3,
+       2,
+       3,
+       0
+      ],
+      "Sheriff": [
+       2,
+       2,
+       1,
+       2,
+       0
+      ],
+      "Stinger": [
+       2,
+       1,
+       0,
+       4,
+       1
+      ]
+     },
+     "compra_cara": 9,
+     "compra_cara_perdida": 1,
+     "eco_rondas": 2,
+     "eco_ganadas": 0,
+     "gasto": 66200,
+     "ataque": [
+      7,
+      12
+     ],
+     "defensa": [
+      6,
+      7
+     ]
+    },
+    {
+     "match_id": "ffbb5a82-0a7a-4517-bab4-e75a4de971cf",
+     "inicio": "2026-10-11T15:10:54.861Z",
+     "fecha": "2026-10-11",
+     "mapa": "Ascent",
+     "agente": "Sova",
+     "victoria": true,
+     "marcador": "13-7",
+     "k": 20,
+     "d": 12,
+     "a": 4,
+     "acs": 249,
+     "adr": 144,
+     "hs": 20,
+     "rr": 14,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "FrozenMind",
+      "lorcon",
+      "nisk0",
+      "niskEiiiiiiiiiii"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 24,
+       "d": 13,
+       "a": 6,
+       "acs": 316,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "Bulcaçan BenHazú",
+       "agente": "Sova",
+       "k": 20,
+       "d": 12,
+       "a": 4,
+       "acs": 249,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "KAY/O",
+       "k": 17,
+       "d": 11,
+       "a": 13,
+       "acs": 248,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 10,
+       "d": 13,
+       "a": 14,
+       "acs": 160,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Cypher",
+       "k": 9,
+       "d": 12,
+       "a": 8,
+       "acs": 153,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 15,
+       "d": 18,
+       "a": 3,
+       "acs": 218,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Neon",
+       "k": 15,
+       "d": 17,
+       "a": 4,
+       "acs": 217,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sova",
+       "k": 12,
+       "d": 15,
+       "a": 4,
+       "acs": 177,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Omen",
+       "k": 11,
+       "d": 16,
+       "a": 9,
+       "acs": 173,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Cypher",
+       "k": 8,
+       "d": 14,
+       "a": 4,
+       "acs": 119,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 2,
+     "primeras_muertes": 3,
+     "multikills": 3,
+     "ases": 0,
+     "kills_arma": {
+      "Phantom": 3,
+      "Vandal": 3,
+      "Sheriff": 2,
+      "Hunter's Fury": 2,
+      "Spectre": 1,
+      "Odin": 9
+     },
+     "clutch_intentos": 2,
+     "clutch_ganados": 0,
+     "armas": {
+      "Ghost": [
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Classic": [
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Phantom": [
+       4,
+       4,
+       2,
+       4,
+       0
+      ],
+      "Vandal": [
+       4,
+       1,
+       3,
+       1,
+       0
+      ],
+      "Sheriff": [
+       3,
+       2,
+       1,
+       4,
+       0
+      ],
+      "Stinger": [
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Spectre": [
+       1,
+       1,
+       1,
+       3,
+       0
+      ],
+      "Odin": [
+       5,
+       5,
+       2,
+       19,
+       6
+      ]
+     },
+     "compra_cara": 13,
+     "compra_cara_perdida": 3,
+     "eco_rondas": 3,
+     "eco_ganadas": 1,
+     "gasto": 74000,
+     "ataque": [
+      5,
+      12
+     ],
+     "defensa": [
+      8,
+      8
+     ]
+    },
     {
      "match_id": "6b9a3c24-99ee-4f07-b035-f5b515b5b2c4",
      "inicio": "2026-10-09T23:04:21.2Z",
@@ -20266,8 +20688,8 @@
     }
    ],
    "rango": "Diamond 2",
-   "rr": 67,
-   "ultimo_cambio": -13,
+   "rr": 94,
+   "ultimo_cambio": 13,
    "pico": "Ascendant 1 (e8a2)"
   },
   {
@@ -20276,6 +20698,796 @@
    "id": "nisk0#kono",
    "error": null,
    "partidas": [
+    {
+     "match_id": "ad20b7df-5cec-4b48-8627-0658674ae442",
+     "inicio": "2026-10-11T17:31:03.554Z",
+     "fecha": "2026-10-11",
+     "mapa": "Abyss",
+     "agente": "Neon",
+     "victoria": false,
+     "marcador": "8-13",
+     "k": 23,
+     "d": 16,
+     "a": 1,
+     "acs": 281,
+     "adr": 175,
+     "hs": 32,
+     "rr": -14,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "FrenchPedicureค",
+      "FrozenMind",
+      "lorcon",
+      "niskEiiiiiiiiiii"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "Neon",
+       "k": 23,
+       "d": 16,
+       "a": 1,
+       "acs": 281,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 16,
+       "d": 18,
+       "a": 4,
+       "acs": 205,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 12,
+       "d": 16,
+       "a": 8,
+       "acs": 183,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrenchPedicureค",
+       "agente": "Breach",
+       "k": 13,
+       "d": 17,
+       "a": 8,
+       "acs": 178,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Vyse",
+       "k": 2,
+       "d": 17,
+       "a": 9,
+       "acs": 69,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Raze",
+       "k": 18,
+       "d": 16,
+       "a": 4,
+       "acs": 258,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 20,
+       "d": 14,
+       "a": 4,
+       "acs": 257,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sage",
+       "k": 18,
+       "d": 12,
+       "a": 9,
+       "acs": 229,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Astra",
+       "k": 16,
+       "d": 14,
+       "a": 4,
+       "acs": 209,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Gekko",
+       "k": 12,
+       "d": 13,
+       "a": 5,
+       "acs": 151,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 4,
+     "primeras_muertes": 2,
+     "multikills": 1,
+     "ases": 0,
+     "kills_arma": {
+      "Bandit": 5,
+      "Guardian": 3,
+      "Vandal": 7,
+      "Phantom": 6,
+      "Habilidad": 2
+     },
+     "clutch_intentos": 2,
+     "clutch_ganados": 0,
+     "armas": {
+      "Bandit": [
+       6,
+       2,
+       4,
+       7,
+       2
+      ],
+      "Guardian": [
+       2,
+       2,
+       2,
+       3,
+       0
+      ],
+      "Operator": [
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Vandal": [
+       5,
+       2,
+       4,
+       6,
+       2
+      ],
+      "Phantom": [
+       6,
+       2,
+       3,
+       9,
+       0
+      ],
+      "Classic": [
+       1,
+       0,
+       4,
+       7,
+       0
+      ]
+     },
+     "compra_cara": 12,
+     "compra_cara_perdida": 8,
+     "eco_rondas": 4,
+     "eco_ganadas": 1,
+     "gasto": 70050,
+     "ataque": [
+      3,
+      9
+     ],
+     "defensa": [
+      5,
+      12
+     ]
+    },
+    {
+     "match_id": "324d3d0b-9ac2-4f59-9906-e5d42fa26655",
+     "inicio": "2026-10-11T16:59:39.511Z",
+     "fecha": "2026-10-11",
+     "mapa": "Abyss",
+     "agente": "Sova",
+     "victoria": false,
+     "marcador": "5-13",
+     "k": 10,
+     "d": 16,
+     "a": 3,
+     "acs": 175,
+     "adr": 126,
+     "hs": 18,
+     "rr": -15,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "FrenchPedicureค",
+      "FrozenMind",
+      "lorcon",
+      "niskEiiiiiiiiiii"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 15,
+       "d": 15,
+       "a": 3,
+       "acs": 244,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrenchPedicureค",
+       "agente": "Breach",
+       "k": 12,
+       "d": 16,
+       "a": 2,
+       "acs": 190,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "Sova",
+       "k": 10,
+       "d": 16,
+       "a": 3,
+       "acs": 175,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Vyse",
+       "k": 6,
+       "d": 16,
+       "a": 6,
+       "acs": 149,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 5,
+       "d": 16,
+       "a": 8,
+       "acs": 94,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Waylay",
+       "k": 24,
+       "d": 7,
+       "a": 8,
+       "acs": 378,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Yoru",
+       "k": 18,
+       "d": 10,
+       "a": 7,
+       "acs": 248,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Omen",
+       "k": 15,
+       "d": 12,
+       "a": 7,
+       "acs": 205,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Cypher",
+       "k": 12,
+       "d": 10,
+       "a": 2,
+       "acs": 192,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sova",
+       "k": 9,
+       "d": 10,
+       "a": 5,
+       "acs": 139,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 2,
+     "primeras_muertes": 1,
+     "multikills": 0,
+     "ases": 0,
+     "kills_arma": {
+      "Shorty": 1,
+      "Phantom": 7,
+      "Hunter's Fury": 1,
+      "Bulldog": 1
+     },
+     "clutch_intentos": 4,
+     "clutch_ganados": 1,
+     "armas": {
+      "Sheriff": [
+       1,
+       0,
+       0,
+       1,
+       0
+      ],
+      "Shorty": [
+       1,
+       0,
+       2,
+       11,
+       0
+      ],
+      "Phantom": [
+       7,
+       3,
+       5,
+       16,
+       0
+      ],
+      "Marshal": [
+       2,
+       0,
+       0,
+       4,
+       0
+      ],
+      "Stinger": [
+       2,
+       1,
+       0,
+       2,
+       0
+      ],
+      "Odin": [
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Classic": [
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Vandal": [
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Bulldog": [
+       2,
+       1,
+       1,
+       2,
+       0
+      ]
+     },
+     "compra_cara": 9,
+     "compra_cara_perdida": 6,
+     "eco_rondas": 3,
+     "eco_ganadas": 0,
+     "gasto": 55000,
+     "ataque": [
+      1,
+      6
+     ],
+     "defensa": [
+      4,
+      12
+     ]
+    },
+    {
+     "match_id": "3ea60732-c5ca-46a2-9fb9-176611099791",
+     "inicio": "2026-10-11T15:43:49.903Z",
+     "fecha": "2026-10-11",
+     "mapa": "Sunset",
+     "agente": "Phoenix",
+     "victoria": true,
+     "marcador": "13-6",
+     "k": 11,
+     "d": 13,
+     "a": 9,
+     "acs": 185,
+     "adr": 125,
+     "hs": 46,
+     "rr": 12,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "Bulcaçan BenHazú",
+      "FrozenMind",
+      "lorcon",
+      "niskEiiiiiiiiiii"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 26,
+       "d": 9,
+       "a": 3,
+       "acs": 361,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 19,
+       "d": 10,
+       "a": 7,
+       "acs": 281,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "Phoenix",
+       "k": 11,
+       "d": 13,
+       "a": 9,
+       "acs": 185,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "Bulcaçan BenHazú",
+       "agente": "Sova",
+       "k": 12,
+       "d": 13,
+       "a": 8,
+       "acs": 178,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Cypher",
+       "k": 9,
+       "d": 13,
+       "a": 8,
+       "acs": 164,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Reyna",
+       "k": 19,
+       "d": 15,
+       "a": 1,
+       "acs": 289,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sova",
+       "k": 13,
+       "d": 17,
+       "a": 1,
+       "acs": 205,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 11,
+       "d": 14,
+       "a": 2,
+       "acs": 183,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Clove",
+       "k": 8,
+       "d": 17,
+       "a": 4,
+       "acs": 131,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Cypher",
+       "k": 7,
+       "d": 14,
+       "a": 1,
+       "acs": 102,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 2,
+     "primeras_muertes": 2,
+     "multikills": 1,
+     "ases": 0,
+     "kills_arma": {
+      "Bulldog": 1,
+      "Phantom": 6,
+      "Bandit": 1,
+      "Vandal": 1,
+      "Spectre": 2
+     },
+     "clutch_intentos": 1,
+     "clutch_ganados": 0,
+     "armas": {
+      "Bandit": [
+       5,
+       3,
+       4,
+       1,
+       0
+      ],
+      "Spectre": [
+       3,
+       1,
+       2,
+       3,
+       0
+      ],
+      "Phantom": [
+       9,
+       7,
+       7,
+       8,
+       1
+      ],
+      "Vandal": [
+       2,
+       2,
+       0,
+       2,
+       0
+      ]
+     },
+     "compra_cara": 13,
+     "compra_cara_perdida": 3,
+     "eco_rondas": 3,
+     "eco_ganadas": 1,
+     "gasto": 67500,
+     "ataque": [
+      7,
+      12
+     ],
+     "defensa": [
+      6,
+      7
+     ]
+    },
+    {
+     "match_id": "ffbb5a82-0a7a-4517-bab4-e75a4de971cf",
+     "inicio": "2026-10-11T15:10:54.861Z",
+     "fecha": "2026-10-11",
+     "mapa": "Ascent",
+     "agente": "KAY/O",
+     "victoria": true,
+     "marcador": "13-7",
+     "k": 17,
+     "d": 11,
+     "a": 13,
+     "acs": 248,
+     "adr": 149,
+     "hs": 24,
+     "rr": 14,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "Bulcaçan BenHazú",
+      "FrozenMind",
+      "lorcon",
+      "niskEiiiiiiiiiii"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 24,
+       "d": 13,
+       "a": 6,
+       "acs": 316,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "Bulcaçan BenHazú",
+       "agente": "Sova",
+       "k": 20,
+       "d": 12,
+       "a": 4,
+       "acs": 249,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "KAY/O",
+       "k": 17,
+       "d": 11,
+       "a": 13,
+       "acs": 248,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 10,
+       "d": 13,
+       "a": 14,
+       "acs": 160,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Cypher",
+       "k": 9,
+       "d": 12,
+       "a": 8,
+       "acs": 153,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 15,
+       "d": 18,
+       "a": 3,
+       "acs": 218,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Neon",
+       "k": 15,
+       "d": 17,
+       "a": 4,
+       "acs": 217,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sova",
+       "k": 12,
+       "d": 15,
+       "a": 4,
+       "acs": 177,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Omen",
+       "k": 11,
+       "d": 16,
+       "a": 9,
+       "acs": 173,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Cypher",
+       "k": 8,
+       "d": 14,
+       "a": 4,
+       "acs": 119,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 4,
+     "primeras_muertes": 1,
+     "multikills": 0,
+     "ases": 0,
+     "kills_arma": {
+      "Bandit": 3,
+      "Phantom": 6,
+      "Operator": 1,
+      "Spectre": 1,
+      "Vandal": 6
+     },
+     "clutch_intentos": 1,
+     "clutch_ganados": 0,
+     "armas": {
+      "Bandit": [
+       3,
+       1,
+       1,
+       1,
+       0
+      ],
+      "Phantom": [
+       8,
+       5,
+       4,
+       17,
+       1
+      ],
+      "Stinger": [
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Judge": [
+       1,
+       0,
+       0,
+       2,
+       0
+      ],
+      "Spectre": [
+       2,
+       2,
+       0,
+       6,
+       0
+      ],
+      "Vandal": [
+       5,
+       5,
+       6,
+       8,
+       0
+      ]
+     },
+     "compra_cara": 12,
+     "compra_cara_perdida": 3,
+     "eco_rondas": 1,
+     "eco_ganadas": 0,
+     "gasto": 74550,
+     "ataque": [
+      5,
+      12
+     ],
+     "defensa": [
+      8,
+      8
+     ]
+    },
     {
      "match_id": "ab8888e0-215f-4e4b-b2b5-72df82e36d27",
      "inicio": "2026-10-10T23:31:17.137Z",
@@ -40923,7 +42135,7 @@
     }
    ],
    "rango": "Diamond 3",
-   "rr": 62,
+   "rr": 59,
    "ultimo_cambio": -14,
    "pico": "Ascendant 3 (e5a2)"
   },
@@ -40933,6 +42145,981 @@
    "id": "FrozenMind#9811",
    "error": null,
    "partidas": [
+    {
+     "match_id": "283b7f92-b53c-405a-b85c-c50e0b770cc5",
+     "inicio": "2026-10-11T19:03:20.569Z",
+     "fecha": "2026-10-11",
+     "mapa": "Split",
+     "agente": "Astra",
+     "victoria": true,
+     "marcador": "13-5",
+     "k": 14,
+     "d": 13,
+     "a": 12,
+     "acs": 238,
+     "adr": 144,
+     "hs": 20,
+     "rr": 14,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "Bulcaçan BenHazú",
+      "lorcon",
+      "nisk0",
+      "niskEiiiiiiiiiii"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "Raze",
+       "k": 27,
+       "d": 9,
+       "a": 3,
+       "acs": 419,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 14,
+       "d": 13,
+       "a": 12,
+       "acs": 238,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 12,
+       "d": 14,
+       "a": 6,
+       "acs": 210,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Cypher",
+       "k": 13,
+       "d": 9,
+       "a": 4,
+       "acs": 190,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "Bulcaçan BenHazú",
+       "agente": "Breach",
+       "k": 9,
+       "d": 11,
+       "a": 7,
+       "acs": 140,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "KAY/O",
+       "k": 23,
+       "d": 14,
+       "a": 1,
+       "acs": 343,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sage",
+       "k": 10,
+       "d": 16,
+       "a": 5,
+       "acs": 171,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 10,
+       "d": 15,
+       "a": 2,
+       "acs": 154,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Phoenix",
+       "k": 9,
+       "d": 15,
+       "a": 2,
+       "acs": 145,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Omen",
+       "k": 4,
+       "d": 15,
+       "a": 3,
+       "acs": 96,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 0,
+     "primeras_muertes": 0,
+     "multikills": 0,
+     "ases": 0,
+     "kills_arma": {
+      "Classic": 3,
+      "Phantom": 6,
+      "Bandit": 1,
+      "Ghost": 1,
+      "Spectre": 3
+     },
+     "clutch_intentos": 2,
+     "clutch_ganados": 0,
+     "armas": {
+      "Classic": [
+       2,
+       0,
+       4,
+       5,
+       0
+      ],
+      "Phantom": [
+       11,
+       9,
+       5,
+       15,
+       3
+      ],
+      "Bandit": [
+       2,
+       1,
+       0,
+       7,
+       0
+      ],
+      "Ghost": [
+       1,
+       1,
+       1,
+       1,
+       0
+      ],
+      "Spectre": [
+       2,
+       2,
+       1,
+       12,
+       1
+      ]
+     },
+     "compra_cara": 11,
+     "compra_cara_perdida": 2,
+     "eco_rondas": 3,
+     "eco_ganadas": 1,
+     "gasto": 59400,
+     "ataque": [
+      7,
+      12
+     ],
+     "defensa": [
+      6,
+      6
+     ]
+    },
+    {
+     "match_id": "ad20b7df-5cec-4b48-8627-0658674ae442",
+     "inicio": "2026-10-11T17:31:03.554Z",
+     "fecha": "2026-10-11",
+     "mapa": "Abyss",
+     "agente": "Astra",
+     "victoria": false,
+     "marcador": "8-13",
+     "k": 12,
+     "d": 16,
+     "a": 8,
+     "acs": 183,
+     "adr": 128,
+     "hs": 22,
+     "rr": -14,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "FrenchPedicureค",
+      "lorcon",
+      "nisk0",
+      "niskEiiiiiiiiiii"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "Neon",
+       "k": 23,
+       "d": 16,
+       "a": 1,
+       "acs": 281,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 16,
+       "d": 18,
+       "a": 4,
+       "acs": 205,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 12,
+       "d": 16,
+       "a": 8,
+       "acs": 183,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrenchPedicureค",
+       "agente": "Breach",
+       "k": 13,
+       "d": 17,
+       "a": 8,
+       "acs": 178,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Vyse",
+       "k": 2,
+       "d": 17,
+       "a": 9,
+       "acs": 69,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Raze",
+       "k": 18,
+       "d": 16,
+       "a": 4,
+       "acs": 258,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 20,
+       "d": 14,
+       "a": 4,
+       "acs": 257,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sage",
+       "k": 18,
+       "d": 12,
+       "a": 9,
+       "acs": 229,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Astra",
+       "k": 16,
+       "d": 14,
+       "a": 4,
+       "acs": 209,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Gekko",
+       "k": 12,
+       "d": 13,
+       "a": 5,
+       "acs": 151,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 1,
+     "primeras_muertes": 1,
+     "multikills": 1,
+     "ases": 0,
+     "kills_arma": {
+      "Phantom": 6,
+      "Sheriff": 3,
+      "Bandit": 1,
+      "Vandal": 2
+     },
+     "clutch_intentos": 3,
+     "clutch_ganados": 0,
+     "armas": {
+      "Ghost": [
+       1,
+       1,
+       0,
+       0,
+       0
+      ],
+      "Spectre": [
+       2,
+       2,
+       0,
+       2,
+       1
+      ],
+      "Phantom": [
+       9,
+       3,
+       4,
+       17,
+       5
+      ],
+      "Sheriff": [
+       2,
+       0,
+       3,
+       1,
+       0
+      ],
+      "Classic": [
+       3,
+       1,
+       2,
+       4,
+       1
+      ],
+      "Bandit": [
+       1,
+       0,
+       0,
+       2,
+       0
+      ],
+      "Vandal": [
+       3,
+       1,
+       1,
+       3,
+       0
+      ]
+     },
+     "compra_cara": 11,
+     "compra_cara_perdida": 7,
+     "eco_rondas": 4,
+     "eco_ganadas": 1,
+     "gasto": 66550,
+     "ataque": [
+      3,
+      9
+     ],
+     "defensa": [
+      5,
+      12
+     ]
+    },
+    {
+     "match_id": "324d3d0b-9ac2-4f59-9906-e5d42fa26655",
+     "inicio": "2026-10-11T16:59:39.511Z",
+     "fecha": "2026-10-11",
+     "mapa": "Abyss",
+     "agente": "Astra",
+     "victoria": false,
+     "marcador": "5-13",
+     "k": 5,
+     "d": 16,
+     "a": 8,
+     "acs": 94,
+     "adr": 74,
+     "hs": 15,
+     "rr": -14,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "FrenchPedicureค",
+      "lorcon",
+      "nisk0",
+      "niskEiiiiiiiiiii"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 15,
+       "d": 15,
+       "a": 3,
+       "acs": 244,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrenchPedicureค",
+       "agente": "Breach",
+       "k": 12,
+       "d": 16,
+       "a": 2,
+       "acs": 190,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "Sova",
+       "k": 10,
+       "d": 16,
+       "a": 3,
+       "acs": 175,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Vyse",
+       "k": 6,
+       "d": 16,
+       "a": 6,
+       "acs": 149,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 5,
+       "d": 16,
+       "a": 8,
+       "acs": 94,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Waylay",
+       "k": 24,
+       "d": 7,
+       "a": 8,
+       "acs": 378,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Yoru",
+       "k": 18,
+       "d": 10,
+       "a": 7,
+       "acs": 248,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Omen",
+       "k": 15,
+       "d": 12,
+       "a": 7,
+       "acs": 205,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Cypher",
+       "k": 12,
+       "d": 10,
+       "a": 2,
+       "acs": 192,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sova",
+       "k": 9,
+       "d": 10,
+       "a": 5,
+       "acs": 139,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 0,
+     "primeras_muertes": 3,
+     "multikills": 0,
+     "ases": 0,
+     "kills_arma": {
+      "Ghost": 1,
+      "Phantom": 3,
+      "Habilidad": 1,
+      "Bulldog": 1
+     },
+     "clutch_intentos": 1,
+     "clutch_ganados": 0,
+     "armas": {
+      "Ghost": [
+       1,
+       0,
+       1,
+       0,
+       0
+      ],
+      "Classic": [
+       3,
+       0,
+       0,
+       1,
+       0
+      ],
+      "Phantom": [
+       6,
+       3,
+       3,
+       5,
+       2
+      ],
+      "Bandit": [
+       2,
+       1,
+       0,
+       1,
+       0
+      ],
+      "Stinger": [
+       2,
+       0,
+       0,
+       5,
+       0
+      ],
+      "Bulldog": [
+       4,
+       1,
+       0,
+       8,
+       0
+      ]
+     },
+     "compra_cara": 5,
+     "compra_cara_perdida": 2,
+     "eco_rondas": 5,
+     "eco_ganadas": 1,
+     "gasto": 46600,
+     "ataque": [
+      1,
+      6
+     ],
+     "defensa": [
+      4,
+      12
+     ]
+    },
+    {
+     "match_id": "3ea60732-c5ca-46a2-9fb9-176611099791",
+     "inicio": "2026-10-11T15:43:49.903Z",
+     "fecha": "2026-10-11",
+     "mapa": "Sunset",
+     "agente": "Astra",
+     "victoria": true,
+     "marcador": "13-6",
+     "k": 19,
+     "d": 10,
+     "a": 7,
+     "acs": 281,
+     "adr": 168,
+     "hs": 25,
+     "rr": 14,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "Bulcaçan BenHazú",
+      "lorcon",
+      "nisk0",
+      "niskEiiiiiiiiiii"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 26,
+       "d": 9,
+       "a": 3,
+       "acs": 361,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 19,
+       "d": 10,
+       "a": 7,
+       "acs": 281,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "Phoenix",
+       "k": 11,
+       "d": 13,
+       "a": 9,
+       "acs": 185,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "Bulcaçan BenHazú",
+       "agente": "Sova",
+       "k": 12,
+       "d": 13,
+       "a": 8,
+       "acs": 178,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Cypher",
+       "k": 9,
+       "d": 13,
+       "a": 8,
+       "acs": 164,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Reyna",
+       "k": 19,
+       "d": 15,
+       "a": 1,
+       "acs": 289,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sova",
+       "k": 13,
+       "d": 17,
+       "a": 1,
+       "acs": 205,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 11,
+       "d": 14,
+       "a": 2,
+       "acs": 183,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Clove",
+       "k": 8,
+       "d": 17,
+       "a": 4,
+       "acs": 131,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Cypher",
+       "k": 7,
+       "d": 14,
+       "a": 1,
+       "acs": 102,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 3,
+     "primeras_muertes": 0,
+     "multikills": 1,
+     "ases": 0,
+     "kills_arma": {
+      "Classic": 3,
+      "Phantom": 11,
+      "Vandal": 3,
+      "Spectre": 2
+     },
+     "clutch_intentos": 4,
+     "clutch_ganados": 2,
+     "armas": {
+      "Classic": [
+       3,
+       1,
+       3,
+       8,
+       4
+      ],
+      "Bulldog": [
+       1,
+       0,
+       1,
+       0,
+       1
+      ],
+      "Phantom": [
+       9,
+       7,
+       8,
+       17,
+       0
+      ],
+      "Bandit": [
+       1,
+       1,
+       0,
+       0,
+       0
+      ],
+      "Vandal": [
+       2,
+       2,
+       1,
+       4,
+       0
+      ],
+      "Ghost": [
+       1,
+       1,
+       0,
+       0,
+       0
+      ],
+      "Spectre": [
+       2,
+       1,
+       1,
+       6,
+       1
+      ]
+     },
+     "compra_cara": 12,
+     "compra_cara_perdida": 3,
+     "eco_rondas": 3,
+     "eco_ganadas": 1,
+     "gasto": 62450,
+     "ataque": [
+      7,
+      12
+     ],
+     "defensa": [
+      6,
+      7
+     ]
+    },
+    {
+     "match_id": "ffbb5a82-0a7a-4517-bab4-e75a4de971cf",
+     "inicio": "2026-10-11T15:10:54.861Z",
+     "fecha": "2026-10-11",
+     "mapa": "Ascent",
+     "agente": "Astra",
+     "victoria": true,
+     "marcador": "13-7",
+     "k": 10,
+     "d": 13,
+     "a": 14,
+     "acs": 160,
+     "adr": 112,
+     "hs": 28,
+     "rr": 13,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "Bulcaçan BenHazú",
+      "lorcon",
+      "nisk0",
+      "niskEiiiiiiiiiii"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 24,
+       "d": 13,
+       "a": 6,
+       "acs": 316,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "Bulcaçan BenHazú",
+       "agente": "Sova",
+       "k": 20,
+       "d": 12,
+       "a": 4,
+       "acs": 249,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "KAY/O",
+       "k": 17,
+       "d": 11,
+       "a": 13,
+       "acs": 248,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 10,
+       "d": 13,
+       "a": 14,
+       "acs": 160,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Cypher",
+       "k": 9,
+       "d": 12,
+       "a": 8,
+       "acs": 153,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 15,
+       "d": 18,
+       "a": 3,
+       "acs": 218,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Neon",
+       "k": 15,
+       "d": 17,
+       "a": 4,
+       "acs": 217,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sova",
+       "k": 12,
+       "d": 15,
+       "a": 4,
+       "acs": 177,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Omen",
+       "k": 11,
+       "d": 16,
+       "a": 9,
+       "acs": 173,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Cypher",
+       "k": 8,
+       "d": 14,
+       "a": 4,
+       "acs": 119,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 0,
+     "primeras_muertes": 1,
+     "multikills": 0,
+     "ases": 0,
+     "kills_arma": {
+      "Phantom": 7,
+      "Ghost": 1,
+      "Spectre": 2
+     },
+     "clutch_intentos": 1,
+     "clutch_ganados": 1,
+     "armas": {
+      "Classic": [
+       2,
+       0,
+       1,
+       2,
+       0
+      ],
+      "Phantom": [
+       13,
+       10,
+       6,
+       17,
+       0
+      ],
+      "Sheriff": [
+       1,
+       0,
+       0,
+       1,
+       0
+      ],
+      "Spectre": [
+       3,
+       2,
+       4,
+       9,
+       0
+      ],
+      "Ghost": [
+       1,
+       1,
+       1,
+       2,
+       0
+      ]
+     },
+     "compra_cara": 13,
+     "compra_cara_perdida": 3,
+     "eco_rondas": 1,
+     "eco_ganadas": 0,
+     "gasto": 70250,
+     "ataque": [
+      5,
+      12
+     ],
+     "defensa": [
+      8,
+      8
+     ]
+    },
     {
      "match_id": "ab8888e0-215f-4e4b-b2b5-72df82e36d27",
      "inicio": "2026-10-10T23:31:17.137Z",
@@ -60620,6 +62807,1145 @@
    "error": null,
    "partidas": [
     {
+     "match_id": "283b7f92-b53c-405a-b85c-c50e0b770cc5",
+     "inicio": "2026-10-11T19:03:20.569Z",
+     "fecha": "2026-10-11",
+     "mapa": "Split",
+     "agente": "Cypher",
+     "victoria": true,
+     "marcador": "13-5",
+     "k": 13,
+     "d": 9,
+     "a": 4,
+     "acs": 190,
+     "adr": 116,
+     "hs": 6,
+     "rr": 17,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "Bulcaçan BenHazú",
+      "FrozenMind",
+      "nisk0",
+      "niskEiiiiiiiiiii"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "Raze",
+       "k": 27,
+       "d": 9,
+       "a": 3,
+       "acs": 419,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 14,
+       "d": 13,
+       "a": 12,
+       "acs": 238,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 12,
+       "d": 14,
+       "a": 6,
+       "acs": 210,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Cypher",
+       "k": 13,
+       "d": 9,
+       "a": 4,
+       "acs": 190,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "Bulcaçan BenHazú",
+       "agente": "Breach",
+       "k": 9,
+       "d": 11,
+       "a": 7,
+       "acs": 140,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "KAY/O",
+       "k": 23,
+       "d": 14,
+       "a": 1,
+       "acs": 343,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sage",
+       "k": 10,
+       "d": 16,
+       "a": 5,
+       "acs": 171,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 10,
+       "d": 15,
+       "a": 2,
+       "acs": 154,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Phoenix",
+       "k": 9,
+       "d": 15,
+       "a": 2,
+       "acs": 145,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Omen",
+       "k": 4,
+       "d": 15,
+       "a": 3,
+       "acs": 96,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 2,
+     "primeras_muertes": 2,
+     "multikills": 1,
+     "ases": 0,
+     "kills_arma": {
+      "Ghost": 2,
+      "Vandal": 9,
+      "Bulldog": 2
+     },
+     "clutch_intentos": 1,
+     "clutch_ganados": 0,
+     "armas": {
+      "Ghost": [
+       2,
+       1,
+       1,
+       3,
+       0
+      ],
+      "Classic": [
+       2,
+       1,
+       0,
+       1,
+       0
+      ],
+      "Vandal": [
+       11,
+       9,
+       1,
+       28,
+       6
+      ],
+      "Bandit": [
+       1,
+       0,
+       0,
+       0,
+       1
+      ],
+      "Bulldog": [
+       2,
+       2,
+       1,
+       6,
+       2
+      ]
+     },
+     "compra_cara": 9,
+     "compra_cara_perdida": 1,
+     "eco_rondas": 3,
+     "eco_ganadas": 1,
+     "gasto": 53300,
+     "ataque": [
+      7,
+      12
+     ],
+     "defensa": [
+      6,
+      6
+     ]
+    },
+    {
+     "match_id": "cfe8d15d-1993-4c99-b091-168d39a8c457",
+     "inicio": "2026-10-11T18:16:58.729Z",
+     "fecha": "2026-10-11",
+     "mapa": "Split",
+     "agente": "Cypher",
+     "victoria": false,
+     "marcador": "11-13",
+     "k": 15,
+     "d": 20,
+     "a": 11,
+     "acs": 207,
+     "adr": 131,
+     "hs": 11,
+     "rr": -17,
+     "grupo_n": 1,
+     "grupo": "Solo",
+     "con": [],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Sova",
+       "k": 29,
+       "d": 17,
+       "a": 3,
+       "acs": 325,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Phoenix",
+       "k": 21,
+       "d": 20,
+       "a": 4,
+       "acs": 247,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Cypher",
+       "k": 15,
+       "d": 20,
+       "a": 11,
+       "acs": 207,
+       "party": 2
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Astra",
+       "k": 17,
+       "d": 19,
+       "a": 7,
+       "acs": 198,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Veto",
+       "k": 8,
+       "d": 22,
+       "a": 3,
+       "acs": 107,
+       "party": 3
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 30,
+       "d": 17,
+       "a": 6,
+       "acs": 345,
+       "party": 4
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Fade",
+       "k": 21,
+       "d": 16,
+       "a": 7,
+       "acs": 272,
+       "party": 5
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Neon",
+       "k": 20,
+       "d": 20,
+       "a": 5,
+       "acs": 226,
+       "party": 5
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Cypher",
+       "k": 18,
+       "d": 16,
+       "a": 4,
+       "acs": 200,
+       "party": 6
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Brimstone",
+       "k": 9,
+       "d": 21,
+       "a": 12,
+       "acs": 127,
+       "party": 7
+      }
+     ],
+     "primeras_bajas": 3,
+     "primeras_muertes": 3,
+     "multikills": 1,
+     "ases": 0,
+     "kills_arma": {
+      "Ghost": 1,
+      "Vandal": 13,
+      "Classic": 1
+     },
+     "clutch_intentos": 2,
+     "clutch_ganados": 1,
+     "armas": {
+      "Ghost": [
+       3,
+       1,
+       2,
+       2,
+       0
+      ],
+      "Classic": [
+       3,
+       1,
+       1,
+       6,
+       2
+      ],
+      "Vandal": [
+       16,
+       9,
+       5,
+       45,
+       9
+      ],
+      "Spectre": [
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Bandit": [
+       1,
+       0,
+       0,
+       0,
+       0
+      ]
+     },
+     "compra_cara": 12,
+     "compra_cara_perdida": 6,
+     "eco_rondas": 5,
+     "eco_ganadas": 2,
+     "gasto": 70900,
+     "ataque": [
+      6,
+      12
+     ],
+     "defensa": [
+      5,
+      12
+     ]
+    },
+    {
+     "match_id": "ad20b7df-5cec-4b48-8627-0658674ae442",
+     "inicio": "2026-10-11T17:31:03.554Z",
+     "fecha": "2026-10-11",
+     "mapa": "Abyss",
+     "agente": "Vyse",
+     "victoria": false,
+     "marcador": "8-13",
+     "k": 2,
+     "d": 17,
+     "a": 9,
+     "acs": 69,
+     "adr": 56,
+     "hs": 12,
+     "rr": -16,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "FrenchPedicureค",
+      "FrozenMind",
+      "nisk0",
+      "niskEiiiiiiiiiii"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "Neon",
+       "k": 23,
+       "d": 16,
+       "a": 1,
+       "acs": 281,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 16,
+       "d": 18,
+       "a": 4,
+       "acs": 205,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 12,
+       "d": 16,
+       "a": 8,
+       "acs": 183,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrenchPedicureค",
+       "agente": "Breach",
+       "k": 13,
+       "d": 17,
+       "a": 8,
+       "acs": 178,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Vyse",
+       "k": 2,
+       "d": 17,
+       "a": 9,
+       "acs": 69,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Raze",
+       "k": 18,
+       "d": 16,
+       "a": 4,
+       "acs": 258,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 20,
+       "d": 14,
+       "a": 4,
+       "acs": 257,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sage",
+       "k": 18,
+       "d": 12,
+       "a": 9,
+       "acs": 229,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Astra",
+       "k": 16,
+       "d": 14,
+       "a": 4,
+       "acs": 209,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Gekko",
+       "k": 12,
+       "d": 13,
+       "a": 5,
+       "acs": 151,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 0,
+     "primeras_muertes": 2,
+     "multikills": 0,
+     "ases": 0,
+     "kills_arma": {
+      "Vandal": 2
+     },
+     "clutch_intentos": 2,
+     "clutch_ganados": 0,
+     "armas": {
+      "Classic": [
+       1,
+       1,
+       0,
+       0,
+       0
+      ],
+      "Bulldog": [
+       2,
+       1,
+       0,
+       2,
+       0
+      ],
+      "Sheriff": [
+       3,
+       1,
+       0,
+       4,
+       0
+      ],
+      "Vandal": [
+       11,
+       4,
+       2,
+       9,
+       1
+      ],
+      "Bandit": [
+       3,
+       0,
+       0,
+       2,
+       0
+      ],
+      "Sin arma": [
+       1,
+       1,
+       1,
+       4,
+       0
+      ]
+     },
+     "compra_cara": 10,
+     "compra_cara_perdida": 7,
+     "eco_rondas": 5,
+     "eco_ganadas": 2,
+     "gasto": 56550,
+     "ataque": [
+      3,
+      9
+     ],
+     "defensa": [
+      5,
+      12
+     ]
+    },
+    {
+     "match_id": "324d3d0b-9ac2-4f59-9906-e5d42fa26655",
+     "inicio": "2026-10-11T16:59:39.511Z",
+     "fecha": "2026-10-11",
+     "mapa": "Abyss",
+     "agente": "Vyse",
+     "victoria": false,
+     "marcador": "5-13",
+     "k": 6,
+     "d": 16,
+     "a": 6,
+     "acs": 149,
+     "adr": 118,
+     "hs": 18,
+     "rr": -14,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "FrenchPedicureค",
+      "FrozenMind",
+      "nisk0",
+      "niskEiiiiiiiiiii"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 15,
+       "d": 15,
+       "a": 3,
+       "acs": 244,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrenchPedicureค",
+       "agente": "Breach",
+       "k": 12,
+       "d": 16,
+       "a": 2,
+       "acs": 190,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "Sova",
+       "k": 10,
+       "d": 16,
+       "a": 3,
+       "acs": 175,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Vyse",
+       "k": 6,
+       "d": 16,
+       "a": 6,
+       "acs": 149,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 5,
+       "d": 16,
+       "a": 8,
+       "acs": 94,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Waylay",
+       "k": 24,
+       "d": 7,
+       "a": 8,
+       "acs": 378,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Yoru",
+       "k": 18,
+       "d": 10,
+       "a": 7,
+       "acs": 248,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Omen",
+       "k": 15,
+       "d": 12,
+       "a": 7,
+       "acs": 205,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Cypher",
+       "k": 12,
+       "d": 10,
+       "a": 2,
+       "acs": 192,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sova",
+       "k": 9,
+       "d": 10,
+       "a": 5,
+       "acs": 139,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 1,
+     "primeras_muertes": 1,
+     "multikills": 0,
+     "ases": 0,
+     "kills_arma": {
+      "Bandit": 1,
+      "Vandal": 3,
+      "Bulldog": 1,
+      "Spectre": 1
+     },
+     "clutch_intentos": 1,
+     "clutch_ganados": 0,
+     "armas": {
+      "Classic": [
+       2,
+       0,
+       1,
+       2,
+       0
+      ],
+      "Vandal": [
+       9,
+       3,
+       2,
+       18,
+       2
+      ],
+      "Bandit": [
+       2,
+       0,
+       1,
+       1,
+       0
+      ],
+      "Stinger": [
+       1,
+       1,
+       0,
+       0,
+       0
+      ],
+      "Bulldog": [
+       2,
+       1,
+       1,
+       4,
+       0
+      ],
+      "Spectre": [
+       1,
+       0,
+       2,
+       4,
+       0
+      ],
+      "Sheriff": [
+       1,
+       0,
+       0,
+       1,
+       0
+      ]
+     },
+     "compra_cara": 7,
+     "compra_cara_perdida": 4,
+     "eco_rondas": 3,
+     "eco_ganadas": 0,
+     "gasto": 46400,
+     "ataque": [
+      1,
+      6
+     ],
+     "defensa": [
+      4,
+      12
+     ]
+    },
+    {
+     "match_id": "3ea60732-c5ca-46a2-9fb9-176611099791",
+     "inicio": "2026-10-11T15:43:49.903Z",
+     "fecha": "2026-10-11",
+     "mapa": "Sunset",
+     "agente": "Cypher",
+     "victoria": true,
+     "marcador": "13-6",
+     "k": 9,
+     "d": 13,
+     "a": 8,
+     "acs": 164,
+     "adr": 113,
+     "hs": 13,
+     "rr": 14,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "Bulcaçan BenHazú",
+      "FrozenMind",
+      "nisk0",
+      "niskEiiiiiiiiiii"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 26,
+       "d": 9,
+       "a": 3,
+       "acs": 361,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 19,
+       "d": 10,
+       "a": 7,
+       "acs": 281,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "Phoenix",
+       "k": 11,
+       "d": 13,
+       "a": 9,
+       "acs": 185,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "Bulcaçan BenHazú",
+       "agente": "Sova",
+       "k": 12,
+       "d": 13,
+       "a": 8,
+       "acs": 178,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Cypher",
+       "k": 9,
+       "d": 13,
+       "a": 8,
+       "acs": 164,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Reyna",
+       "k": 19,
+       "d": 15,
+       "a": 1,
+       "acs": 289,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sova",
+       "k": 13,
+       "d": 17,
+       "a": 1,
+       "acs": 205,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 11,
+       "d": 14,
+       "a": 2,
+       "acs": 183,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Clove",
+       "k": 8,
+       "d": 17,
+       "a": 4,
+       "acs": 131,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Cypher",
+       "k": 7,
+       "d": 14,
+       "a": 1,
+       "acs": 102,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 1,
+     "primeras_muertes": 2,
+     "multikills": 1,
+     "ases": 0,
+     "kills_arma": {
+      "Bulldog": 2,
+      "Bandit": 1,
+      "Vandal": 5,
+      "Ghost": 1
+     },
+     "clutch_intentos": 1,
+     "clutch_ganados": 0,
+     "armas": {
+      "Ghost": [
+       2,
+       2,
+       1,
+       3,
+       0
+      ],
+      "Bulldog": [
+       3,
+       1,
+       1,
+       7,
+       0
+      ],
+      "Classic": [
+       2,
+       0,
+       2,
+       3,
+       0
+      ],
+      "Vandal": [
+       11,
+       9,
+       2,
+       26,
+       0
+      ],
+      "Sheriff": [
+       1,
+       1,
+       0,
+       0,
+       0
+      ]
+     },
+     "compra_cara": 10,
+     "compra_cara_perdida": 2,
+     "eco_rondas": 3,
+     "eco_ganadas": 1,
+     "gasto": 57950,
+     "ataque": [
+      7,
+      12
+     ],
+     "defensa": [
+      6,
+      7
+     ]
+    },
+    {
+     "match_id": "ffbb5a82-0a7a-4517-bab4-e75a4de971cf",
+     "inicio": "2026-10-11T15:10:54.861Z",
+     "fecha": "2026-10-11",
+     "mapa": "Ascent",
+     "agente": "Cypher",
+     "victoria": true,
+     "marcador": "13-7",
+     "k": 9,
+     "d": 12,
+     "a": 8,
+     "acs": 153,
+     "adr": 101,
+     "hs": 12,
+     "rr": 14,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "Bulcaçan BenHazú",
+      "FrozenMind",
+      "nisk0",
+      "niskEiiiiiiiiiii"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 24,
+       "d": 13,
+       "a": 6,
+       "acs": 316,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "Bulcaçan BenHazú",
+       "agente": "Sova",
+       "k": 20,
+       "d": 12,
+       "a": 4,
+       "acs": 249,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "KAY/O",
+       "k": 17,
+       "d": 11,
+       "a": 13,
+       "acs": 248,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 10,
+       "d": 13,
+       "a": 14,
+       "acs": 160,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Cypher",
+       "k": 9,
+       "d": 12,
+       "a": 8,
+       "acs": 153,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 15,
+       "d": 18,
+       "a": 3,
+       "acs": 218,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Neon",
+       "k": 15,
+       "d": 17,
+       "a": 4,
+       "acs": 217,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sova",
+       "k": 12,
+       "d": 15,
+       "a": 4,
+       "acs": 177,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Omen",
+       "k": 11,
+       "d": 16,
+       "a": 9,
+       "acs": 173,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Cypher",
+       "k": 8,
+       "d": 14,
+       "a": 4,
+       "acs": 119,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 0,
+     "primeras_muertes": 0,
+     "multikills": 1,
+     "ases": 0,
+     "kills_arma": {
+      "Ghost": 2,
+      "Vandal": 4,
+      "Bandit": 1,
+      "Bulldog": 2
+     },
+     "clutch_intentos": 3,
+     "clutch_ganados": 0,
+     "armas": {
+      "Ghost": [
+       2,
+       1,
+       2,
+       1,
+       0
+      ],
+      "Classic": [
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Vandal": [
+       14,
+       10,
+       2,
+       30,
+       1
+      ],
+      "Bandit": [
+       1,
+       0,
+       0,
+       4,
+       0
+      ],
+      "Bulldog": [
+       2,
+       2,
+       1,
+       2,
+       0
+      ]
+     },
+     "compra_cara": 14,
+     "compra_cara_perdida": 4,
+     "eco_rondas": 1,
+     "eco_ganadas": 0,
+     "gasto": 67400,
+     "ataque": [
+      5,
+      12
+     ],
+     "defensa": [
+      8,
+      8
+     ]
+    },
+    {
      "match_id": "4843d43f-1da2-4505-9027-c595b8520dad",
      "inicio": "2026-10-10T14:45:13.498Z",
      "fecha": "2026-10-10",
@@ -79770,8 +83096,8 @@
     }
    ],
    "rango": "Platinum 3",
-   "rr": 2,
-   "ultimo_cambio": -11,
+   "rr": 10,
+   "ultimo_cambio": 17,
    "pico": "Platinum 3 (e11a5)"
   },
   {
@@ -99658,6 +102984,1060 @@
    "id": "niskEiiiiiiiiiii#EAZY",
    "error": null,
    "partidas": [
+    {
+     "match_id": "283b7f92-b53c-405a-b85c-c50e0b770cc5",
+     "inicio": "2026-10-11T19:03:20.569Z",
+     "fecha": "2026-10-11",
+     "mapa": "Split",
+     "agente": "Jett",
+     "victoria": true,
+     "marcador": "13-5",
+     "k": 12,
+     "d": 14,
+     "a": 6,
+     "acs": 210,
+     "adr": 151,
+     "hs": 20,
+     "rr": 11,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "Bulcaçan BenHazú",
+      "FrozenMind",
+      "lorcon",
+      "nisk0"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "Raze",
+       "k": 27,
+       "d": 9,
+       "a": 3,
+       "acs": 419,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 14,
+       "d": 13,
+       "a": 12,
+       "acs": 238,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 12,
+       "d": 14,
+       "a": 6,
+       "acs": 210,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Cypher",
+       "k": 13,
+       "d": 9,
+       "a": 4,
+       "acs": 190,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "Bulcaçan BenHazú",
+       "agente": "Breach",
+       "k": 9,
+       "d": 11,
+       "a": 7,
+       "acs": 140,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "KAY/O",
+       "k": 23,
+       "d": 14,
+       "a": 1,
+       "acs": 343,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sage",
+       "k": 10,
+       "d": 16,
+       "a": 5,
+       "acs": 171,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 10,
+       "d": 15,
+       "a": 2,
+       "acs": 154,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Phoenix",
+       "k": 9,
+       "d": 15,
+       "a": 2,
+       "acs": 145,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Omen",
+       "k": 4,
+       "d": 15,
+       "a": 3,
+       "acs": 96,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 1,
+     "primeras_muertes": 2,
+     "multikills": 1,
+     "ases": 0,
+     "kills_arma": {
+      "Spectre": 1,
+      "Phantom": 2,
+      "Stinger": 1,
+      "Guardian": 1,
+      "Vandal": 4,
+      "Marshal": 1,
+      "Operator": 2
+     },
+     "clutch_intentos": 3,
+     "clutch_ganados": 1,
+     "armas": {
+      "Frenzy": [
+       1,
+       0,
+       0,
+       5,
+       0
+      ],
+      "Sheriff": [
+       3,
+       1,
+       0,
+       3,
+       0
+      ],
+      "Spectre": [
+       1,
+       1,
+       1,
+       4,
+       1
+      ],
+      "Phantom": [
+       5,
+       3,
+       1,
+       3,
+       0
+      ],
+      "Stinger": [
+       1,
+       1,
+       3,
+       2,
+       1
+      ],
+      "Vandal": [
+       2,
+       2,
+       3,
+       9,
+       0
+      ],
+      "Marshal": [
+       2,
+       2,
+       0,
+       2,
+       0
+      ],
+      "Operator": [
+       3,
+       3,
+       0,
+       3,
+       0
+      ]
+     },
+     "compra_cara": 10,
+     "compra_cara_perdida": 2,
+     "eco_rondas": 1,
+     "eco_ganadas": 0,
+     "gasto": 63050,
+     "ataque": [
+      7,
+      12
+     ],
+     "defensa": [
+      6,
+      6
+     ]
+    },
+    {
+     "match_id": "ad20b7df-5cec-4b48-8627-0658674ae442",
+     "inicio": "2026-10-11T17:31:03.554Z",
+     "fecha": "2026-10-11",
+     "mapa": "Abyss",
+     "agente": "Jett",
+     "victoria": false,
+     "marcador": "8-13",
+     "k": 16,
+     "d": 18,
+     "a": 4,
+     "acs": 205,
+     "adr": 133,
+     "hs": 30,
+     "rr": -16,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "FrenchPedicureค",
+      "FrozenMind",
+      "lorcon",
+      "nisk0"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "Neon",
+       "k": 23,
+       "d": 16,
+       "a": 1,
+       "acs": 281,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 16,
+       "d": 18,
+       "a": 4,
+       "acs": 205,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 12,
+       "d": 16,
+       "a": 8,
+       "acs": 183,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrenchPedicureค",
+       "agente": "Breach",
+       "k": 13,
+       "d": 17,
+       "a": 8,
+       "acs": 178,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Vyse",
+       "k": 2,
+       "d": 17,
+       "a": 9,
+       "acs": 69,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Raze",
+       "k": 18,
+       "d": 16,
+       "a": 4,
+       "acs": 258,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 20,
+       "d": 14,
+       "a": 4,
+       "acs": 257,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sage",
+       "k": 18,
+       "d": 12,
+       "a": 9,
+       "acs": 229,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Astra",
+       "k": 16,
+       "d": 14,
+       "a": 4,
+       "acs": 209,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Gekko",
+       "k": 12,
+       "d": 13,
+       "a": 5,
+       "acs": 151,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 2,
+     "primeras_muertes": 4,
+     "multikills": 1,
+     "ases": 0,
+     "kills_arma": {
+      "Sheriff": 3,
+      "Marshal": 3,
+      "Vandal": 4,
+      "Blade Storm": 2,
+      "Operator": 3,
+      "Phantom": 1
+     },
+     "clutch_intentos": 4,
+     "clutch_ganados": 1,
+     "armas": {
+      "Sheriff": [
+       4,
+       2,
+       3,
+       4,
+       0
+      ],
+      "Marshal": [
+       2,
+       2,
+       0,
+       4,
+       0
+      ],
+      "Vandal": [
+       5,
+       1,
+       4,
+       4,
+       1
+      ],
+      "Operator": [
+       3,
+       1,
+       1,
+       7,
+       0
+      ],
+      "Phantom": [
+       4,
+       1,
+       1,
+       0,
+       0
+      ],
+      "Frenzy": [
+       1,
+       0,
+       1,
+       0,
+       0
+      ],
+      "Shorty": [
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Spectre": [
+       1,
+       1,
+       0,
+       1,
+       2
+      ]
+     },
+     "compra_cara": 12,
+     "compra_cara_perdida": 9,
+     "eco_rondas": 3,
+     "eco_ganadas": 2,
+     "gasto": 70800,
+     "ataque": [
+      3,
+      9
+     ],
+     "defensa": [
+      5,
+      12
+     ]
+    },
+    {
+     "match_id": "324d3d0b-9ac2-4f59-9906-e5d42fa26655",
+     "inicio": "2026-10-11T16:59:39.511Z",
+     "fecha": "2026-10-11",
+     "mapa": "Abyss",
+     "agente": "Jett",
+     "victoria": false,
+     "marcador": "5-13",
+     "k": 15,
+     "d": 15,
+     "a": 3,
+     "acs": 244,
+     "adr": 158,
+     "hs": 22,
+     "rr": -15,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "FrenchPedicureค",
+      "FrozenMind",
+      "lorcon",
+      "nisk0"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 15,
+       "d": 15,
+       "a": 3,
+       "acs": 244,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrenchPedicureค",
+       "agente": "Breach",
+       "k": 12,
+       "d": 16,
+       "a": 2,
+       "acs": 190,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "Sova",
+       "k": 10,
+       "d": 16,
+       "a": 3,
+       "acs": 175,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Vyse",
+       "k": 6,
+       "d": 16,
+       "a": 6,
+       "acs": 149,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 5,
+       "d": 16,
+       "a": 8,
+       "acs": 94,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Waylay",
+       "k": 24,
+       "d": 7,
+       "a": 8,
+       "acs": 378,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Yoru",
+       "k": 18,
+       "d": 10,
+       "a": 7,
+       "acs": 248,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Omen",
+       "k": 15,
+       "d": 12,
+       "a": 7,
+       "acs": 205,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Cypher",
+       "k": 12,
+       "d": 10,
+       "a": 2,
+       "acs": 192,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sova",
+       "k": 9,
+       "d": 10,
+       "a": 5,
+       "acs": 139,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 6,
+     "primeras_muertes": 2,
+     "multikills": 0,
+     "ases": 0,
+     "kills_arma": {
+      "Sheriff": 2,
+      "Blade Storm": 3,
+      "Vandal": 4,
+      "Operator": 2,
+      "Classic": 1,
+      "Frenzy": 1,
+      "Spectre": 2
+     },
+     "clutch_intentos": 4,
+     "clutch_ganados": 0,
+     "armas": {
+      "Sheriff": [
+       3,
+       0,
+       1,
+       3,
+       1
+      ],
+      "Marshal": [
+       1,
+       0,
+       0,
+       1,
+       0
+      ],
+      "Phantom": [
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Operator": [
+       4,
+       1,
+       1,
+       5,
+       0
+      ],
+      "Classic": [
+       1,
+       1,
+       2,
+       1,
+       0
+      ],
+      "Vandal": [
+       4,
+       2,
+       4,
+       11,
+       0
+      ],
+      "Frenzy": [
+       1,
+       0,
+       1,
+       7,
+       0
+      ],
+      "Spectre": [
+       3,
+       1,
+       1,
+       6,
+       0
+      ]
+     },
+     "compra_cara": 8,
+     "compra_cara_perdida": 5,
+     "eco_rondas": 3,
+     "eco_ganadas": 0,
+     "gasto": 60450,
+     "ataque": [
+      1,
+      6
+     ],
+     "defensa": [
+      4,
+      12
+     ]
+    },
+    {
+     "match_id": "3ea60732-c5ca-46a2-9fb9-176611099791",
+     "inicio": "2026-10-11T15:43:49.903Z",
+     "fecha": "2026-10-11",
+     "mapa": "Sunset",
+     "agente": "Jett",
+     "victoria": true,
+     "marcador": "13-6",
+     "k": 26,
+     "d": 9,
+     "a": 3,
+     "acs": 361,
+     "adr": 228,
+     "hs": 25,
+     "rr": 13,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "Bulcaçan BenHazú",
+      "FrozenMind",
+      "lorcon",
+      "nisk0"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 26,
+       "d": 9,
+       "a": 3,
+       "acs": 361,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 19,
+       "d": 10,
+       "a": 7,
+       "acs": 281,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "Phoenix",
+       "k": 11,
+       "d": 13,
+       "a": 9,
+       "acs": 185,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "Bulcaçan BenHazú",
+       "agente": "Sova",
+       "k": 12,
+       "d": 13,
+       "a": 8,
+       "acs": 178,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Cypher",
+       "k": 9,
+       "d": 13,
+       "a": 8,
+       "acs": 164,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Reyna",
+       "k": 19,
+       "d": 15,
+       "a": 1,
+       "acs": 289,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sova",
+       "k": 13,
+       "d": 17,
+       "a": 1,
+       "acs": 205,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 11,
+       "d": 14,
+       "a": 2,
+       "acs": 183,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Clove",
+       "k": 8,
+       "d": 17,
+       "a": 4,
+       "acs": 131,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Cypher",
+       "k": 7,
+       "d": 14,
+       "a": 1,
+       "acs": 102,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 4,
+     "primeras_muertes": 2,
+     "multikills": 4,
+     "ases": 0,
+     "kills_arma": {
+      "Ghost": 2,
+      "Phantom": 5,
+      "Vandal": 5,
+      "Blade Storm": 2,
+      "Stinger": 1,
+      "Operator": 6,
+      "Sheriff": 3,
+      "Marshal": 1,
+      "Shorty": 1
+     },
+     "clutch_intentos": 2,
+     "clutch_ganados": 1,
+     "armas": {
+      "Ghost": [
+       1,
+       1,
+       3,
+       1,
+       0
+      ],
+      "Spectre": [
+       1,
+       0,
+       0,
+       1,
+       0
+      ],
+      "Sheriff": [
+       2,
+       1,
+       0,
+       7,
+       0
+      ],
+      "Phantom": [
+       6,
+       4,
+       6,
+       16,
+       0
+      ],
+      "Vandal": [
+       3,
+       2,
+       2,
+       4,
+       0
+      ],
+      "Stinger": [
+       1,
+       1,
+       0,
+       5,
+       1
+      ],
+      "Operator": [
+       3,
+       3,
+       3,
+       5,
+       2
+      ],
+      "Marshal": [
+       2,
+       1,
+       0,
+       1,
+       0
+      ]
+     },
+     "compra_cara": 10,
+     "compra_cara_perdida": 2,
+     "eco_rondas": 1,
+     "eco_ganadas": 0,
+     "gasto": 71850,
+     "ataque": [
+      7,
+      12
+     ],
+     "defensa": [
+      6,
+      7
+     ]
+    },
+    {
+     "match_id": "ffbb5a82-0a7a-4517-bab4-e75a4de971cf",
+     "inicio": "2026-10-11T15:10:54.861Z",
+     "fecha": "2026-10-11",
+     "mapa": "Ascent",
+     "agente": "Jett",
+     "victoria": true,
+     "marcador": "13-7",
+     "k": 24,
+     "d": 13,
+     "a": 6,
+     "acs": 316,
+     "adr": 196,
+     "hs": 23,
+     "rr": 12,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "Bulcaçan BenHazú",
+      "FrozenMind",
+      "lorcon",
+      "nisk0"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 24,
+       "d": 13,
+       "a": 6,
+       "acs": 316,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "Bulcaçan BenHazú",
+       "agente": "Sova",
+       "k": 20,
+       "d": 12,
+       "a": 4,
+       "acs": 249,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "KAY/O",
+       "k": 17,
+       "d": 11,
+       "a": 13,
+       "acs": 248,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 10,
+       "d": 13,
+       "a": 14,
+       "acs": 160,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Cypher",
+       "k": 9,
+       "d": 12,
+       "a": 8,
+       "acs": 153,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 15,
+       "d": 18,
+       "a": 3,
+       "acs": 218,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Neon",
+       "k": 15,
+       "d": 17,
+       "a": 4,
+       "acs": 217,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sova",
+       "k": 12,
+       "d": 15,
+       "a": 4,
+       "acs": 177,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Omen",
+       "k": 11,
+       "d": 16,
+       "a": 9,
+       "acs": 173,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Cypher",
+       "k": 8,
+       "d": 14,
+       "a": 4,
+       "acs": 119,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 5,
+     "primeras_muertes": 4,
+     "multikills": 3,
+     "ases": 0,
+     "kills_arma": {
+      "Spectre": 2,
+      "Marshal": 3,
+      "Phantom": 8,
+      "Classic": 2,
+      "Sheriff": 3,
+      "Operator": 5,
+      "Blade Storm": 1
+     },
+     "clutch_intentos": 1,
+     "clutch_ganados": 0,
+     "armas": {
+      "Frenzy": [
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Sheriff": [
+       2,
+       1,
+       3,
+       0,
+       0
+      ],
+      "Spectre": [
+       2,
+       2,
+       1,
+       2,
+       0
+      ],
+      "Phantom": [
+       6,
+       3,
+       5,
+       17,
+       2
+      ],
+      "Shorty": [
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Operator": [
+       6,
+       5,
+       0,
+       11,
+       1
+      ],
+      "Marshal": [
+       2,
+       2,
+       2,
+       4,
+       0
+      ]
+     },
+     "compra_cara": 11,
+     "compra_cara_perdida": 3,
+     "eco_rondas": 1,
+     "eco_ganadas": 0,
+     "gasto": 80700,
+     "ataque": [
+      5,
+      12
+     ],
+     "defensa": [
+      8,
+      8
+     ]
+    },
     {
      "match_id": "ab8888e0-215f-4e4b-b2b5-72df82e36d27",
      "inicio": "2026-10-10T23:31:17.137Z",
@@ -120915,8 +125295,8 @@
     }
    ],
    "rango": "Ascendant 2",
-   "rr": 1,
-   "ultimo_cambio": -17,
+   "rr": 11,
+   "ultimo_cambio": 11,
    "pico": "Immortal 2 (e3a3)"
   },
   {
@@ -120925,6 +125305,410 @@
    "id": "FrenchPedicureค#0104",
    "error": null,
    "partidas": [
+    {
+     "match_id": "ad20b7df-5cec-4b48-8627-0658674ae442",
+     "inicio": "2026-10-11T17:31:03.554Z",
+     "fecha": "2026-10-11",
+     "mapa": "Abyss",
+     "agente": "Breach",
+     "victoria": false,
+     "marcador": "8-13",
+     "k": 13,
+     "d": 17,
+     "a": 8,
+     "acs": 178,
+     "adr": 125,
+     "hs": 26,
+     "rr": -11,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "FrozenMind",
+      "lorcon",
+      "nisk0",
+      "niskEiiiiiiiiiii"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "Neon",
+       "k": 23,
+       "d": 16,
+       "a": 1,
+       "acs": 281,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 16,
+       "d": 18,
+       "a": 4,
+       "acs": 205,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 12,
+       "d": 16,
+       "a": 8,
+       "acs": 183,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrenchPedicureค",
+       "agente": "Breach",
+       "k": 13,
+       "d": 17,
+       "a": 8,
+       "acs": 178,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Vyse",
+       "k": 2,
+       "d": 17,
+       "a": 9,
+       "acs": 69,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Raze",
+       "k": 18,
+       "d": 16,
+       "a": 4,
+       "acs": 258,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 20,
+       "d": 14,
+       "a": 4,
+       "acs": 257,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sage",
+       "k": 18,
+       "d": 12,
+       "a": 9,
+       "acs": 229,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Astra",
+       "k": 16,
+       "d": 14,
+       "a": 4,
+       "acs": 209,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Gekko",
+       "k": 12,
+       "d": 13,
+       "a": 5,
+       "acs": 151,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 2,
+     "primeras_muertes": 3,
+     "multikills": 1,
+     "ases": 0,
+     "kills_arma": {
+      "Bulldog": 2,
+      "Vandal": 5,
+      "Phantom": 5,
+      "Marshal": 1
+     },
+     "clutch_intentos": 3,
+     "clutch_ganados": 0,
+     "armas": {
+      "Ghost": [
+       2,
+       1,
+       0,
+       0,
+       0
+      ],
+      "Bulldog": [
+       2,
+       2,
+       2,
+       2,
+       0
+      ],
+      "Vandal": [
+       6,
+       2,
+       2,
+       17,
+       0
+      ],
+      "Sheriff": [
+       3,
+       0,
+       0,
+       2,
+       0
+      ],
+      "Phantom": [
+       6,
+       2,
+       5,
+       5,
+       0
+      ],
+      "Marshal": [
+       1,
+       1,
+       1,
+       0,
+       0
+      ],
+      "Bandit": [
+       1,
+       0,
+       0,
+       2,
+       0
+      ]
+     },
+     "compra_cara": 13,
+     "compra_cara_perdida": 8,
+     "eco_rondas": 3,
+     "eco_ganadas": 1,
+     "gasto": 72450,
+     "ataque": [
+      3,
+      9
+     ],
+     "defensa": [
+      5,
+      12
+     ]
+    },
+    {
+     "match_id": "324d3d0b-9ac2-4f59-9906-e5d42fa26655",
+     "inicio": "2026-10-11T16:59:39.511Z",
+     "fecha": "2026-10-11",
+     "mapa": "Abyss",
+     "agente": "Breach",
+     "victoria": false,
+     "marcador": "5-13",
+     "k": 12,
+     "d": 16,
+     "a": 2,
+     "acs": 190,
+     "adr": 118,
+     "hs": 18,
+     "rr": -11,
+     "grupo_n": 5,
+     "grupo": "Stack de 5",
+     "con": [
+      "FrozenMind",
+      "lorcon",
+      "nisk0",
+      "niskEiiiiiiiiiii"
+     ],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 15,
+       "d": 15,
+       "a": 3,
+       "acs": 244,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrenchPedicureค",
+       "agente": "Breach",
+       "k": 12,
+       "d": 16,
+       "a": 2,
+       "acs": 190,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "nisk0",
+       "agente": "Sova",
+       "k": 10,
+       "d": 16,
+       "a": 3,
+       "acs": 175,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "lorcon",
+       "agente": "Vyse",
+       "k": 6,
+       "d": 16,
+       "a": 6,
+       "acs": 149,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrozenMind",
+       "agente": "Astra",
+       "k": 5,
+       "d": 16,
+       "a": 8,
+       "acs": 94,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Waylay",
+       "k": 24,
+       "d": 7,
+       "a": 8,
+       "acs": 378,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Yoru",
+       "k": 18,
+       "d": 10,
+       "a": 7,
+       "acs": 248,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Omen",
+       "k": 15,
+       "d": 12,
+       "a": 7,
+       "acs": 205,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Cypher",
+       "k": 12,
+       "d": 10,
+       "a": 2,
+       "acs": 192,
+       "party": 2
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sova",
+       "k": 9,
+       "d": 10,
+       "a": 5,
+       "acs": 139,
+       "party": 2
+      }
+     ],
+     "primeras_bajas": 1,
+     "primeras_muertes": 1,
+     "multikills": 1,
+     "ases": 0,
+     "kills_arma": {
+      "Sheriff": 2,
+      "Vandal": 7,
+      "Ghost": 2,
+      "Guardian": 1
+     },
+     "clutch_intentos": 5,
+     "clutch_ganados": 1,
+     "armas": {
+      "Ghost": [
+       2,
+       0,
+       2,
+       1,
+       0
+      ],
+      "Classic": [
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Vandal": [
+       10,
+       4,
+       3,
+       23,
+       5
+      ],
+      "Sheriff": [
+       2,
+       1,
+       2,
+       0,
+       0
+      ],
+      "Phantom": [
+       1,
+       0,
+       0,
+       1,
+       0
+      ],
+      "Marshal": [
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Guardian": [
+       1,
+       0,
+       0,
+       1,
+       0
+      ]
+     },
+     "compra_cara": 10,
+     "compra_cara_perdida": 7,
+     "eco_rondas": 3,
+     "eco_ganadas": 0,
+     "gasto": 57250,
+     "ataque": [
+      1,
+      6
+     ],
+     "defensa": [
+      4,
+      12
+     ]
+    },
     {
      "match_id": "ab8888e0-215f-4e4b-b2b5-72df82e36d27",
      "inicio": "2026-10-10T23:31:17.137Z",
@@ -141252,8 +146036,8 @@
     }
    ],
    "rango": "Platinum 3",
-   "rr": 30,
-   "ultimo_cambio": -13,
+   "rr": 8,
+   "ultimo_cambio": -11,
    "pico": "Ascendant 2 (e7a3)"
   }
  ]
