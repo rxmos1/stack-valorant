@@ -281,6 +281,45 @@ html::before{content:"";position:fixed;inset:-25%;z-index:0;pointer-events:none;
 body::after{inset:0;width:auto;height:auto;right:0;bottom:0;background:var(--logo) right -90px bottom -110px/520px 750px no-repeat,var(--logo) left -110px top 42%/340px 494px no-repeat,var(--logo) right 20% top -70px/240px 348px no-repeat,var(--logo) left 24% bottom -90px/220px 320px no-repeat;opacity:.1}
 @media (prefers-color-scheme: dark){html::before{opacity:.05}body::after{opacity:.13}}
 @media (max-width:700px){body::after{width:auto;height:auto;background-size:300px 440px,200px 290px,150px 218px,140px 203px}html::before{background-size:96px auto,96px auto;background-position:0 0,48px 70px}}
+
+/* === v5: premios, informe, cara a cara, insignias, animaciones === */
+.aw2{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-bottom:14px}
+.aw2c{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;position:relative;overflow:hidden}
+.aw2c::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--brand)}
+.aw2h{font:600 12px var(--body);letter-spacing:.09em;text-transform:uppercase;background:var(--brand);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.aw2p{display:flex;align-items:center;gap:10px;margin:8px 0 4px;font-size:16px}
+.aw2v{font:600 18px var(--display);letter-spacing:.02em}.aw2d{font-size:12px;color:var(--muted)}
+.inf-t{font:600 22px var(--display);letter-spacing:.03em}
+.shr{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.shb{font:inherit;font-size:13px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--chip);color:var(--fg);cursor:pointer}
+.shb.pri{background:var(--brand);color:#fff;border-color:transparent}.shb:hover{filter:brightness(1.1)}
+.shm{font-size:12px;color:var(--muted)}
+.vsbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px}.vsbar span{color:var(--muted)}
+.vsbar select{font:inherit;font-size:14px;padding:7px 10px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--fg)}
+.vshead{display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;padding:6px 18px 12px;text-align:center}
+.vshead>div{display:flex;flex-direction:column;align-items:center;gap:4px}.vshead b{font:600 22px var(--display)}.vshead small{color:var(--muted)}
+.vsx{font:700 28px var(--display);background:var(--brand);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.vsr{display:grid;grid-template-columns:1fr minmax(120px,1.4fr) 1fr;align-items:center;gap:12px;padding:7px 18px;border-top:1px solid var(--line)}
+.vsv{font:600 15px var(--mono);color:var(--muted)}.vsv.r{text-align:right}.vsv.win{color:var(--fg);font-size:17px}
+.vsm{text-align:center}.vsm small{display:block;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.vsb{display:flex;height:7px;border-radius:4px;overflow:hidden;gap:2px;background:var(--chip)}.vsb i{background:var(--vio)}.vsb u{background:var(--mag);text-decoration:none}
+.bdr{display:grid;grid-template-columns:200px 1fr;gap:6px 14px;padding:12px 18px;border-top:1px solid var(--line);align-items:start}.bdr:first-child{border-top:0}
+.bdn{display:flex;flex-direction:column;gap:2px}.bdn small{color:var(--muted);font-family:var(--mono)}
+.bdc{display:flex;flex-wrap:wrap;gap:6px}
+.bdg{font-size:12px;padding:3px 10px;border-radius:999px;border:1px dashed var(--line);color:var(--muted);white-space:nowrap}.bdg small{font-family:var(--mono);opacity:.8}
+.bdg.on{border:0;color:#fff;background:var(--brand);box-shadow:0 2px 10px color-mix(in srgb,var(--mag) 30%,transparent);font-weight:600}
+@media (max-width:700px){.bdr{grid-template-columns:1fr}.vsr{grid-template-columns:1fr 1fr 1fr;padding:7px 10px}}
+.fd[data-map]{background-image:linear-gradient(115deg,color-mix(in srgb,var(--mc,transparent) 16%,transparent),transparent 58%)}
+.fd[data-map="Abyss"]{--mc:#5b6cff}.fd[data-map="Haven"]{--mc:#d6a82a}.fd[data-map="Sunset"]{--mc:#ff7a45}.fd[data-map="Ascent"]{--mc:#2ec4b6}.fd[data-map="Lotus"]{--mc:#e84a8a}.fd[data-map="Split"]{--mc:#e0533a}.fd[data-map="Summit"]{--mc:#7fd3ff}.fd[data-map="Bind"]{--mc:#d9822b}.fd[data-map="Icebox"]{--mc:#6ec6ff}.fd[data-map="Breeze"]{--mc:#19c37d}.fd[data-map="Fracture"]{--mc:#a3e635}.fd[data-map="Pearl"]{--mc:#3b82f6}.fd[data-map="Corrode"]{--mc:#b4d455}
+.kpi,.card,.fd,.aw2c{transition:transform .18s ease,box-shadow .18s ease}
+.kpi:hover,.card:hover,.fd:hover,.aw2c:hover{transform:translateY(-2px);box-shadow:0 10px 26px color-mix(in srgb,var(--vio) 22%,transparent)}
+@keyframes rev{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes fup{from{opacity:0;transform:translateY(12px)}}
+@media (prefers-reduced-motion:no-preference){
+ .bar-cell .t i,.rg i,.vsb i,.vsb u{animation:rev .85s cubic-bezier(.2,.7,.2,1) both}
+ .sec{animation:fup .45s ease both}
+ .kpis .kpi:nth-child(2){animation-delay:.04s}
+}
 </style>
 </head>
 <body>
@@ -1026,7 +1065,7 @@ function secFeed(){
   const M=Object.values(by).sort((a,b)=>String(b[0].at).localeCompare(String(a[0].at))).slice(0,14); if(!M.length) return "";
   const cards=M.map(rs=>{ const f=rs[0], mv=rs.slice().sort((a,b)=>b.acs-a.acs)[0];
     const pl=rs.slice().sort((a,b)=>b.acs-a.acs).map(x=>`<li>${pname(x.p)}<span class="fv">${x.k}/${x.d}/${x.a}</span><span class="fa">${x===mv&&rs.length>1?"★ ":""}${Math.round(x.acs)}</span><span class="fr ${x.rr==null?"":x.rr>=0?"pos-t":"neg-t"}">${x.rr==null?"":sgn(x.rr)}</span></li>`).join("");
-    return `<div class="fd ${f.w?"w":"l"}"><div class="fd-h"><b>${f.w?"Victoria":"Derrota"} ${esc(f.sc)}</b><span>${esc(f.map)} · ${fshort(f.at)}</span><em>${esc(f.grp||"")}</em></div><ul>${pl}</ul></div>`; }).join("");
+    return `<div class="fd ${f.w?"w":"l"}" data-map="${esc(f.map)}"><div class="fd-h"><b>${f.w?"Victoria":"Derrota"} ${esc(f.sc)}</b><span>${esc(f.map)} · ${fshort(f.at)}</span><em>${esc(f.grp||"")}</em></div><ul>${pl}</ul></div>`; }).join("");
   return sec("feed",12,"Últimas partidas",`<div class="feed">${cards}</div><p class="small0">Cada tarjeta es una partida. Por jugador: kills/muertes/asistencias, ACS (★ el mejor del grupo en esa partida) y RR.</p>`);
 }
 
@@ -1176,11 +1215,194 @@ function secRRTotal(){
   return sec("rrtotal",12,"RR ganado y RR perdido",`<div class="panel"><div class="scroll"><table class="wraph"><thead><tr><th>Jugador</th><th>RR ganado en total</th><th>RR perdido en total</th><th class="num">Partidas que suben / bajan</th></tr></thead><tbody>${body}<tr class="syn-f"><td><b>Todo el grupo</b></td><td class="num pos-t" style="text-align:left"><b>+${G}</b></td><td class="num neg-t" style="text-align:left"><b>−${L}</b></td><td></td></tr></tbody></table></div><p class="small0 pad" style="padding-top:0">Suma de todo el RR que subió y de todo el que bajó, cada cosa por separado, sin restar. Cuenta las partidas con dato de RR del periodo elegido.</p></div>`);
 }
 
+/* ===== v5: premios, informe de sesión, cara a cara, insignias, mapas, evolución RR, compartir, animaciones ===== */
+function pstat(ms){
+  const n=ms.length; if(!n) return null;
+  const w=ms.filter(x=>x.w).length, rr=ms.filter(x=>x.rr!=null);
+  return {n,w,wr:pcs(w,n),kd:sum(ms,x=>x.k)/Math.max(sum(ms,x=>x.d),1),acs:mean(ms.map(x=>x.acs)),adr:mean(ms.map(x=>x.adr||0)),hs:mean(ms.map(x=>x.hs||0)),
+    rr:sum(rr,x=>x.rr),rrN:rr.length,fb:sum(ms,x=>x.fb||0),fd:sum(ms,x=>x.fd||0),cg:sum(ms,x=>x.cg||0),mk:sum(ms,x=>x.mk||0),ases:sum(ms,x=>x.ases||0),best:Math.max(...ms.map(x=>x.acs))};
+}
+function ultimaSesion(){
+  const U=HIST.U.map(x=>({t:new Date(x.at).getTime(),x})).filter(o=>!isNaN(o.t)).sort((a,b)=>a.t-b.t);
+  if(!U.length) return null;
+  let i=U.length-1; while(i>0&&U[i].t-U[i-1].t<=3*36e5) i--;
+  const s=U.slice(i); return {t0:s[0].t,t1:s[s.length-1].t,n:s.length,w:s.filter(o=>o.x.w).length};
+}
+const enVentana=(t0,t1)=>HIST.P.map(p=>({p,ms:p.g.filter(x=>{const t=new Date(x.at).getTime();return t>=t0-1000&&t<=t1+1000})})).filter(r=>r.ms.length);
+
+/* ---------- premios ---------- */
+function premiosDe(list){
+  const R=list.map(r=>Object.assign({p:r.p},pstat(r.ms)));
+  if(R.length<2) return [];
+  const pick=(f,cond,label,fmt,desc)=>{ const c=R.filter(cond); if(!c.length) return null; const b=c.slice().sort((x,y)=>f(y)-f(x))[0]; return {label,p:b.p,v:fmt(b),desc}; };
+  return [
+    pick(r=>r.acs,r=>r.n>=2,"MVP",r=>Math.round(r.acs)+" ACS","Mejor ACS medio"),
+    pick(r=>r.kd,r=>r.n>=2,"Máquina de kills",r=>fmt2(r.kd)+" K/D","Mejor K/D"),
+    pick(r=>r.rr,r=>r.rrN>0&&r.rr>0,"Rey del RR",r=>sgn(r.rr)+" RR","Más RR ganado"),
+    pick(r=>-r.rr,r=>r.rrN>0&&r.rr<0,"El que se hunde",r=>sgn(r.rr)+" RR","Más RR perdido"),
+    pick(r=>r.fb,r=>r.fb>0,"Abre las rondas",r=>r.fb+" primeras bajas","Más primeras bajas"),
+    pick(r=>r.fd,r=>r.fd>0,"Primero en caer",r=>r.fd+" primeras muertes","Más primeras muertes"),
+    pick(r=>r.cg,r=>r.cg>0,"Rey del clutch",r=>r.cg+" clutches","Más clutches ganados"),
+    pick(r=>r.best,r=>true,"Partidón",r=>Math.round(r.best)+" ACS","Mejor partida suelta")
+  ].filter(Boolean);
+}
+function secPremios(){
+  const S=ultimaSesion(); if(!S) return "";
+  const cards=a=>`<div class="aw2">${a.map(x=>`<div class="aw2c"><div class="aw2h">${esc(x.label)}</div><div class="aw2p">${av(x.p,40)}<b>${esc(x.p.n)}</b></div><div class="aw2v">${esc(x.v)}</div><div class="aw2d">${esc(x.desc)}</div></div>`).join("")}</div>`;
+  const a1=premiosDe(enVentana(S.t0,S.t1));
+  const now=Date.now(), a2=premiosDe(enVentana(now-7*864e5,now));
+  if(!a1.length&&!a2.length) return "";
+  return sec("mvp",12,"Premios",`${a1.length?`<div class="sub-h pad" style="padding-left:0">Última sesión · ${fshort(S.t0)}</div>${cards(a1)}`:""}${a2.length?`<div class="sub-h pad" style="padding-left:0">Últimos 7 días</div>${cards(a2)}`:""}<p class="small0">Se calculan con todo el historial guardado, sin depender del filtro de fechas. Una sesión es una tanda de partidas sin parones de más de 3 horas.</p>`);
+}
+
+/* ---------- informe de sesión + compartir ---------- */
+let SES=null;
+function secInforme(){
+  const S=ultimaSesion(); if(!S){SES=null;return "";}
+  const rows=enVentana(S.t0,S.t1).map(r=>Object.assign({p:r.p},pstat(r.ms))).sort((a,b)=>b.acs-a.acs);
+  const rrG=sum(rows,r=>r.rr), pc=pcs(S.w,S.n);
+  const mvp=rows[0], low=rows.length>1?rows[rows.length-1]:null;
+  const h=ms=>hhmm(ms), dia=new Date(S.t0).toLocaleDateString("es-ES",{timeZone:"Europe/Madrid",weekday:"long",day:"numeric",month:"long"});
+  SES={S,rows,rrG,pc,dia,h0:h(S.t0),h1:h(S.t1)};
+  const body=rows.map(r=>`<tr><td>${pname(r.p)}</td><td class="num">${r.n}</td><td class="num">${r.w}-${r.n-r.w}</td><td class="num">${fmt2(r.kd)}</td><td class="num">${Math.round(r.acs)}</td><td class="num ${r.rr>=0?"pos-t":"neg-t"}"><b>${r.rrN?sgn(r.rr):"-"}</b></td></tr>`).join("");
+  const frase=`${S.n} partida${S.n>1?"s":""}, ${S.w} ganada${S.w!==1?"s":""} y ${S.n-S.w} perdida${S.n-S.w!==1?"s":""} (${pc}%). El grupo ${rrG>=0?"sube":"baja"} ${Math.abs(rrG)} RR en total.`;
+  return sec("informe",12,"Informe de la última sesión",`<div class="panel"><div class="pad" style="padding-bottom:6px"><b class="inf-t">${esc(dia)} · de ${SES.h0} a ${SES.h1}</b><p class="syn-p" style="padding:6px 0 0">${frase}${mvp?` MVP: <b>${esc(mvp.p.n)}</b> con ${Math.round(mvp.acs)} de ACS.`:""}${low&&low!==mvp?` El que menos brilló: <b>${esc(low.p.n)}</b> (${Math.round(low.acs)}).`:""}</p></div><div class="scroll"><table class="wraph"><thead><tr><th>Jugador</th><th class="num">Partidas</th><th class="num">V-D</th><th class="num">K/D</th><th class="num">ACS</th><th class="num">RR</th></tr></thead><tbody>${body}</tbody></table></div><div class="shr pad"><button class="shb pri" data-share="img">Descargar imagen para compartir</button><button class="shb" data-share="txt">Copiar resumen en texto</button><span class="shm" id="shm"></span></div></div>`);
+}
+function sesionTexto(){
+  if(!SES) return "";
+  const {S,rows,rrG,pc,dia,h0,h1}=SES;
+  const l=rows.map(r=>`${r.p.n}: ${r.w}-${r.n-r.w}, ${fmt2(r.kd)} K/D, ${Math.round(r.acs)} ACS${r.rrN?", "+sgn(r.rr)+" RR":""}`).join("\n");
+  return `Vinicers · ${dia}, de ${h0} a ${h1}\n${S.n} partidas · ${S.w}V-${S.n-S.w}D (${pc}%) · RR del grupo ${sgn(rrG)}\n\n${l}`;
+}
+function avisar(t){ const e=document.getElementById("shm"); if(e){ e.textContent=t; setTimeout(()=>{ if(e.textContent===t) e.textContent=""; },3500); } }
+async function sesionImagen(){
+  if(!SES) return;
+  const {S,rows,rrG,pc,dia,h0,h1}=SES;
+  try{ if(document.fonts&&document.fonts.ready) await document.fonts.ready; }catch(e){}
+  const W=1080, rowH=84, H=Math.max(1100,520+rows.length*rowH+120), c=document.createElement("canvas"); c.width=W; c.height=H; const g=c.getContext("2d");
+  const bg=g.createLinearGradient(0,0,W,H); bg.addColorStop(0,"#1b0f3d"); bg.addColorStop(.55,"#0d1a1f"); bg.addColorStop(1,"#3d0f2b"); g.fillStyle=bg; g.fillRect(0,0,W,H);
+  const img=new Image(); img.src=document.querySelector("header h1 .logo").src; try{ await img.decode(); }catch(e){}
+  if(img.naturalWidth){ g.globalAlpha=.09; g.drawImage(img,W-470,H-690,440,640); g.globalAlpha=1; g.drawImage(img,60,56,78,113); }
+  const gr=g.createLinearGradient(160,0,560,0); gr.addColorStop(0,"#7642ff"); gr.addColorStop(1,"#fe2b88");
+  g.fillStyle=gr; g.font='700 110px "Barlow Condensed",Impact,"Arial Narrow",sans-serif'; g.textBaseline="alphabetic"; g.fillText("Vinicers",166,150);
+  g.fillStyle="#cfd8dc"; g.font='500 34px "IBM Plex Sans",Arial,sans-serif'; g.fillText(`Sesión del ${dia} · ${h0}–${h1}`,66,236);
+  const kp=[[String(S.n),"partidas"],[`${S.w}-${S.n-S.w}`,`victorias (${pc}%)`],[sgn(rrG),"RR del grupo"]];
+  kp.forEach((k,i)=>{ const x=66+i*316; g.fillStyle="rgba(255,255,255,.07)"; g.beginPath(); g.roundRect(x,280,290,150,22); g.fill();
+    g.fillStyle=i===2?(rrG>=0?"#4cc27f":"#f06b6b"):"#fff"; g.font='700 72px "Barlow Condensed",Impact,sans-serif'; g.fillText(k[0],x+26,365);
+    g.fillStyle="#9fb0b8"; g.font='500 26px "IBM Plex Sans",Arial,sans-serif'; g.fillText(k[1],x+26,408); });
+  g.fillStyle="#9fb0b8"; g.font='600 24px "IBM Plex Sans",Arial,sans-serif'; g.fillText("JUGADOR",66,490); g.textAlign="right"; g.fillText("K/D",640,490); g.fillText("ACS",780,490); g.fillText("RR",1010,490); g.textAlign="left";
+  rows.forEach((r,i)=>{ const y=500+i*rowH; g.fillStyle=i%2?"rgba(255,255,255,.03)":"rgba(255,255,255,.06)"; g.fillRect(50,y,980,rowH-8);
+    g.fillStyle="#fff"; g.font='600 36px "IBM Plex Sans",Arial,sans-serif'; g.fillText((i===0?"★ ":"")+r.p.n.slice(0,18),66,y+52);
+    g.textAlign="right"; g.font='500 34px "IBM Plex Mono",monospace'; g.fillText(fmt2(r.kd),640,y+52); g.fillText(String(Math.round(r.acs)),780,y+52);
+    g.fillStyle=r.rr>=0?"#4cc27f":"#f06b6b"; g.fillText(r.rrN?sgn(r.rr):"-",1010,y+52); g.textAlign="left"; });
+  g.fillStyle="#6f838c"; g.font='500 24px "IBM Plex Sans",Arial,sans-serif'; g.fillText("rxmos1.github.io/stack-valorant",66,H-44);
+  c.toBlob(async b=>{ if(!b){ avisar("No se pudo crear la imagen."); return; }
+    const f=new File([b],"vinicers-sesion.png",{type:"image/png"});
+    try{ if(navigator.canShare&&navigator.canShare({files:[f]})&&/Android|iPhone|iPad/i.test(navigator.userAgent)){ await navigator.share({files:[f],title:"Vinicers"}); return; } }catch(e){}
+    const a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download="vinicers-sesion.png"; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),4000); avisar("Imagen descargada.");
+  },"image/png");
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-share]"); if(!b) return;
+  if(b.dataset.share==="img") sesionImagen();
+  else { const t=sesionTexto(); (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>avisar("Resumen copiado."),()=>{ const ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); avisar("Resumen copiado."); }catch(_){ avisar("No se pudo copiar."); } ta.remove(); }); }
+});
+
+/* ---------- cara a cara ---------- */
+let vsA=0, vsB=1;
+function secVS(){
+  if(P.length<2) return "";
+  const o=P.map((p,i)=>`<option value="${i}">${esc(p.n)}</option>`).join("");
+  const s=`<div class="panel"><div class="vsbar pad"><select data-vs="a" aria-label="Jugador A">${o}</select><span>contra</span><select data-vs="b" aria-label="Jugador B">${o}</select></div><div id="vsbody"></div></div>`;
+  return sec("vs",12,"Cara a cara",s);
+}
+function renderVS(){
+  const box=document.getElementById("vsbody"); if(!box) return;
+  document.querySelectorAll("select[data-vs]").forEach(s=>{ s.value=s.dataset.vs==="a"?vsA:vsB; });
+  const A=P[vsA], B=P[vsB]; if(!A||!B){ box.innerHTML=""; return; }
+  if(A===B){ box.innerHTML=`<p class="syn-p">Elige dos jugadores distintos.</p>`; return; }
+  const a=pstat(A.g), b=pstat(B.g);
+  const T=porPartida().filter(rs=>rs.some(r=>r.p===A)&&rs.some(r=>r.p===B));
+  const tw=T.filter(rs=>rs[0].w).length;
+  const R=[["Partidas",x=>x.n,x=>x.n,1],["Victorias",x=>x.wr,x=>x.wr+"%",1],["K/D",x=>x.kd,x=>fmt2(x.kd),1],["ACS",x=>x.acs,x=>Math.round(x.acs),1],["ADR",x=>x.adr,x=>Math.round(x.adr),1],["Headshots",x=>x.hs,x=>Math.round(x.hs)+"%",1],
+    ["Primeras bajas",x=>x.fb/x.n,x=>fmt2(x.fb/x.n)+" / partida",1],["Clutches",x=>x.cg,x=>x.cg,1],["RR neto",x=>x.rr,x=>x.rrN?sgn(x.rr):"-",0]];
+  const rows=R.map(([l,f,fm,share])=>{ const va=f(a), vb=f(b), win=va===vb?0:va>vb?1:2;
+    const tot=Math.max(va,0)+Math.max(vb,0), pa=share&&tot>0?100*Math.max(va,0)/tot:50;
+    return `<div class="vsr"><span class="vsv ${win===1?"win":""}">${fm(a)}</span><div class="vsm"><small>${l}</small><div class="vsb"><i style="width:${pa.toFixed(1)}%"></i><u style="width:${(100-pa).toFixed(1)}%"></u></div></div><span class="vsv r ${win===2?"win":""}">${fm(b)}</span></div>`; }).join("");
+  const fav=p=>{ const o={}; p.g.forEach(x=>{ const r=o[x.map]||(o[x.map]={m:x.map,n:0,w:0}); r.n++; if(x.w) r.w++; }); const L=Object.values(o).filter(r=>r.n>=3).sort((x,y)=>y.w/y.n-x.w/x.n||y.n-x.n); return L.length?`${esc(L[0].m)} (${pcs(L[0].w,L[0].n)}%)`:"-"; };
+  const juntos=T.length?`Han jugado <b>${T.length}</b> partida${T.length>1?"s":""} juntos: <b>${tw}-${T.length-tw}</b> (${pcs(tw,T.length)}% de victorias).`:"No hay partidas guardadas en las que hayan jugado juntos.";
+  box.innerHTML=`<div class="vshead"><div>${av(A,56)}<b>${esc(A.n)}</b><small>${esc(A.rank)}</small></div><div class="vsx">VS</div><div>${av(B,56)}<b>${esc(B.n)}</b><small>${esc(B.rank)}</small></div></div>${rows}<p class="syn-p">${juntos}</p><p class="syn-p" style="padding-top:0">Mejor mapa: <b>${esc(A.n)}</b> ${fav(A)} · <b>${esc(B.n)}</b> ${fav(B)}.</p>`;
+}
+document.addEventListener("change",e=>{ const s=e.target.closest&&e.target.closest("select[data-vs]"); if(!s) return; if(s.dataset.vs==="a") vsA=+s.value; else vsB=+s.value; renderVS(); });
+
+/* ---------- insignias ---------- */
+function secInsignias(){
+  if(!HIST.P.length) return "";
+  const night=p=>p.g.filter(x=>{ const l=localParts(x.at); return l&&l.h<6; }).length;
+  const bestMap=p=>{ const o={}; p.g.forEach(x=>{ const r=o[x.map]||(o[x.map]={n:0,w:0}); r.n++; if(x.w) r.w++; }); return Math.max(0,...Object.values(o).filter(r=>r.n>=10).map(r=>r.w/r.n)); };
+  const B=[
+    ["Racha de 5",p=>p.streak,5,"5 victorias seguidas"],["Racha de 10",p=>p.streak,10,"10 victorias seguidas"],
+    ["50 partidas",p=>p.g.length,50,"50 partidas guardadas"],["100 partidas",p=>p.g.length,100,"100 partidas guardadas"],
+    ["Primer ace",p=>p.ases,1,"Un ace en una partida"],["Cazaaces",p=>p.ases,5,"5 aces"],
+    ["Clutch x5",p=>p.cg,5,"5 clutches ganados"],["Clutch x20",p=>p.cg,20,"20 clutches ganados"],
+    ["300 de ACS",p=>Math.max(...p.g.map(x=>x.acs)),300,"Una partida con 300 de ACS"],
+    ["Abrelatas",p=>p.fb,50,"50 primeras bajas"],["Multikiller",p=>p.mk,10,"10 rondas con 3 o más kills"],
+    ["Noctámbulo",night,10,"10 partidas entre las 00:00 y las 06:00"],["Dueño del mapa",p=>Math.round(100*bestMap(p)),60,"60% de victorias en un mapa con 10 o más partidas"]
+  ];
+  const rows=HIST.P.map(p=>{ const done=B.filter(b=>b[1](p)>=b[2]), todo=B.filter(b=>b[1](p)<b[2]);
+    const chip=(b,on)=>{ const v=Math.round(b[1](p)); return `<span class="bdg ${on?"on":""}" title="${esc(b[3])}${on?"":" · "+v+"/"+b[2]}">${on?"★ ":""}${esc(b[0])}${on?"":` <small>${v}/${b[2]}</small>`}</span>`; };
+    return {p,n:done.length,html:done.map(b=>chip(b,true)).join("")+todo.map(b=>chip(b,false)).join("")}; }).sort((a,b)=>b.n-a.n);
+  return sec("insignias",12,"Insignias",`<div class="panel">${rows.map(r=>`<div class="bdr"><div class="bdn">${pname(r.p)}<small>${r.n}/${B.length}</small></div><div class="bdc">${r.html}</div></div>`).join("")}<p class="small0 pad" style="padding-top:0">Las que brillan ya están ganadas; las apagadas muestran lo que llevas. Cuenta todo el historial guardado.</p></div>`);
+}
+
+/* ---------- mejor y peor mapa ---------- */
+function secMapasRes(){
+  const o={}; UNI.forEach(x=>{ const r=o[x.map]||(o[x.map]={m:x.map,n:0,w:0}); r.n++; if(x.w) r.w++; });
+  const L=Object.values(o).filter(r=>r.n>=3).sort((a,b)=>b.w/b.n-a.w/a.n||b.n-a.n); if(L.length<3) return "";
+  const li=r=>`<li><b>${esc(r.m)}</b>: ${r.w}-${r.n-r.w} (${pcs(r.w,r.n)}%)</li>`;
+  const k=Math.min(3,Math.floor(L.length/2));
+  const rows=P.map(p=>{ const m={}; p.g.forEach(x=>{ const r=m[x.map]||(m[x.map]={m:x.map,n:0,w:0}); r.n++; if(x.w) r.w++; });
+    const l=Object.values(m).filter(r=>r.n>=3).sort((a,b)=>b.w/b.n-a.w/a.n||b.n-a.n); if(l.length<2) return "";
+    const f=r=>`${esc(r.m)} <small class="nn">${pcs(r.w,r.n)}% · ${r.n}p</small>`;
+    return `<tr><td>${pname(p)}</td><td>${f(l[0])}</td><td>${f(l[l.length-1])}</td></tr>`; }).join("");
+  return sec("mapasres",12,"Qué mapas pisar y cuáles no",`<div class="two"><div class="panel"><div class="sub-h pad" style="padding-bottom:0;color:var(--win)">Los mapas del grupo</div><ul class="syn-t">${L.slice(0,k).map(li).join("")}</ul></div><div class="panel"><div class="sub-h pad" style="padding-bottom:0;color:var(--loss)">Mejor evitarlos</div><ul class="syn-t">${L.slice(-k).reverse().map(li).join("")}</ul></div></div>${rows?`<div class="panel" style="margin-top:16px"><div class="scroll"><table class="wraph"><thead><tr><th>Jugador</th><th>Su mejor mapa</th><th>Su peor mapa</th></tr></thead><tbody>${rows}</tbody></table></div></div>`:""}<p class="small0">Solo mapas con 3 o más partidas. Partidas únicas del periodo elegido.</p>`);
+}
+
+/* ---------- evolución de RR por semanas ---------- */
+function secEvolRR(){
+  const wk=ms=>{ const d=new Date(dayKey(ms)+"T12:00:00Z"); const wd=(d.getUTCDay()+6)%7; return new Date(d.getTime()-wd*864e5).toISOString().slice(0,10); };
+  const all=new Set(); HIST.P.forEach(p=>p.g.forEach(x=>{ if(x.rr!=null){ const t=new Date(x.at).getTime(); if(!isNaN(t)) all.add(wk(t)); } }));
+  const ks=[...all].sort().slice(-12); if(ks.length<2) return "";
+  const rows=HIST.P.map(p=>{ const w={}; p.g.forEach(x=>{ if(x.rr==null) return; const t=new Date(x.at).getTime(); if(isNaN(t)) return; const k=wk(t); if(k>=ks[0]) w[k]=(w[k]||0)+x.rr; });
+    let c=0; const pts=ks.map(k=>{ c+=w[k]||0; return c; }); return {p,pts,tot:c}; }).filter(r=>r.pts.some(v=>v!==0));
+  if(!rows.length) return "";
+  const body=rows.sort((a,b)=>b.tot-a.tot).map(r=>{ const mn=Math.min(0,...r.pts), mx=Math.max(0,...r.pts), W=170, H=40, rg=(mx-mn)||1;
+    const X=i=>(2+i*(W-4)/(r.pts.length-1)).toFixed(1), Y=v=>(H-3-(H-6)*(v-mn)/rg).toFixed(1);
+    const line=r.pts.map((v,i)=>`${X(i)},${Y(v)}`).join(" ");
+    return `<tr><td>${pname(r.p)}</td><td>${rb(r.p.rank,20)} <small class="nn">${esc(r.p.rank)}</small></td><td><svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="RR acumulado por semana"><line x1="0" x2="${W}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--line)" stroke-dasharray="3 3"/><polyline points="${line}" fill="none" stroke="${r.tot>=0?"var(--win)":"var(--loss)"}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="${X(r.pts.length-1)}" cy="${Y(r.pts[r.pts.length-1])}" r="3.4" fill="${r.tot>=0?"var(--win)":"var(--loss)"}"/></svg></td><td class="num ${r.tot>=0?"pos-t":"neg-t"}"><b>${sgn(r.tot)}</b></td></tr>`; }).join("");
+  return sec("evolrr",12,"Evolución del RR por semanas",`<div class="panel"><div class="scroll"><table class="wraph"><thead><tr><th>Jugador</th><th>Rango actual</th><th>RR acumulado, últimas ${ks.length} semanas</th><th class="num">Total</th></tr></thead><tbody>${body}</tbody></table></div><p class="small0 pad" style="padding-top:0">Cada línea suma el RR semana a semana desde el principio del tramo. Cuenta todo el historial guardado.</p></div>`);
+}
+
+/* ---------- animaciones ---------- */
+function animar(){
+  if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  document.querySelectorAll(".kpi b").forEach(el=>{
+    if(el.closest("[hidden]")) return;
+    const t=el.dataset.v||el.textContent; el.dataset.v=t;
+    const m=/^(\D*)(\d+(?:,\d+)?)(\D*)$/.exec(t); if(!m) return;
+    const num=parseFloat(m[2].replace(",",".")), dec=m[2].includes(",")?m[2].split(",")[1].length:0, t0=performance.now();
+    const step=now=>{ const k=Math.min(1,(now-t0)/700), e=1-Math.pow(1-k,3), v=num*e;
+      el.textContent=m[1]+(dec?v.toFixed(dec).replace(".",","):Math.round(v))+m[3]; if(k<1) requestAnimationFrame(step); else el.textContent=t; };
+    requestAnimationFrame(step);
+  });
+}
+window.addEventListener("hashchange",()=>setTimeout(animar,40));
+
 const TABS=[
-  ["resumen","Resumen",["kpi","rendimiento","podio","rrtotal","rr","feed"]],
-  ["jugadores","Jugadores",["detalle","tarjetas","rachas","actividad","agentes","carry","regularidad","records","comparativa","resumenes"]],
-  ["equipo","Equipo",["sinergia","grupos","premios","alineaciones","talisman","marcadores","matrizmapas","mapas","datos"]],
-  ["habitos","Hábitos",["horario","calendario","sesiones","diasrr","semanas"]],
+  ["resumen","Resumen",["kpi","mvp","informe","rendimiento","podio","rrtotal","rr","feed"]],
+  ["jugadores","Jugadores",["detalle","tarjetas","vs","insignias","rachas","actividad","agentes","carry","regularidad","records","comparativa","resumenes"]],
+  ["equipo","Equipo",["sinergia","grupos","premios","alineaciones","talisman","marcadores","matrizmapas","mapasres","mapas","datos"]],
+  ["habitos","Hábitos",["horario","calendario","sesiones","diasrr","semanas","evolrr"]],
   ["combate","Combate",["clutch","eco","armas","lados"]]
 ];
 function tabActual(){ const m=/t=([a-z]+)/.exec(location.hash); return m&&(m[1]==="todo"||TABS.some(t=>t[0]===m[1]))?m[1]:"resumen"; }
@@ -1212,10 +1434,10 @@ function init(j){
   const f=META.actualizado?new Date(META.actualizado).toLocaleString("es-ES",{dateStyle:"long",timeStyle:"short"}):"";
   document.getElementById("meta").textContent=`${P.length} jugadores · ${FLT.txt}`+(f?` · actualizado el ${f}`:"");
   UNI=uniq();
-  const parts=[secKPI(),secRend(),secPodium(),secRRTotal(),secRRAll(),secFeed(),`<section class="sec s12" id="detalle"><h2>Detalle por jugador</h2><div class="panel detail" id="detail"></div></section>`,secCards(),secRachas(),secActividad(),secAgentes(),secCarry(),secRegularidad(),secRecords(),secSummary(),secPlayers(),secSyn(),`<div id="groups" class="s12">${secGroups()}</div>`,secAlineaciones(),secTalisman(),secMarcadores(),secAwards(),secMatrizMapas(),secMapsAgents(),secInsights(),secHorario(),`<div class="stack s7">${secCalendario()}${secSemanas()}</div>`,secSesiones(),secDiasRR(),secClutch(),secEco(),secArmas(),secLados()];
+  const parts=[secKPI(),secPremios(),secInforme(),secRend(),secPodium(),secRRTotal(),secRRAll(),secFeed(),`<section class="sec s12" id="detalle"><h2>Detalle por jugador</h2><div class="panel detail" id="detail"></div></section>`,secCards(),secVS(),secInsignias(),secRachas(),secActividad(),secAgentes(),secCarry(),secRegularidad(),secRecords(),secSummary(),secPlayers(),secSyn(),`<div id="groups" class="s12">${secGroups()}</div>`,secAlineaciones(),secTalisman(),secMarcadores(),secMapasRes(),secAwards(),secMatrizMapas(),secMapsAgents(),secInsights(),secHorario(),`<div class="stack s7">${secCalendario()}${secSemanas()}</div>`,secSesiones(),secDiasRR(),secEvolRR(),secClutch(),secEco(),secArmas(),secLados()];
   document.getElementById("app").innerHTML=parts.join("")+(ERRS.length?`<p class="foot s12">Sin datos de partidas para: ${esc(ERRS.join(", "))}.</p>`:"");
   montarTabs();
-  renderSummary(); renderDetail();
+  renderSummary(); renderDetail(); renderVS(); animar();
 }
 
 document.addEventListener("keydown",e=>{ if((e.key==="Enter"||e.key===" ")&&e.target.matches&&e.target.matches("tr.exp")){e.preventDefault();toggleMatch(e.target)} });
