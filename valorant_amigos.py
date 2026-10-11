@@ -485,6 +485,46 @@ def guardar_json(datos, puuids):
                   f, ensure_ascii=False, indent=1)
 
 
+def avisar_discord(nuevos, prev):
+    """Manda a Discord un aviso por cada partida nueva (si hay webhook configurado)."""
+    url = os.environ.get("DISCORD_WEBHOOK_URL", "").strip()
+    if not url:
+        return
+    ahora = datetime.now(timezone.utc)
+    por = {}
+    for k, d in nuevos.items():
+        vistos = {m.get("match_id") for m in prev.get(k, {}).get("partidas", [])}
+        for m in d.get("partidas", []):
+            if m.get("match_id") in vistos:
+                continue
+            try:
+                t = datetime.fromisoformat((m.get("inicio") or "").replace("Z", "+00:00"))
+            except ValueError:
+                continue
+            if ahora - t > timedelta(hours=6):
+                continue
+            por.setdefault(m["match_id"], []).append((k[0], m))
+    embeds = []
+    for lst in por.values():
+        m0 = lst[0][1]
+        gano = m0.get("victoria")
+        lineas = []
+        for nombre, m in sorted(lst, key=lambda x: -(x[1].get("acs") or 0)):
+            rr = m.get("rr")
+            lineas.append(f"**{nombre}** · {m.get('agente', '?')} · {m.get('k')}/{m.get('d')}/{m.get('a')} · ACS {round(m.get('acs') or 0)}"
+                          + (f" · {rr:+.0f} RR" if rr is not None else ""))
+        embeds.append({
+            "title": f"{'Victoria' if gano else 'Derrota'} {m0.get('marcador', '')} · {m0.get('mapa', '')}",
+            "description": "\n".join(lineas),
+            "color": 0x4CC27F if gano else 0xF06B6B,
+            "footer": {"text": f"{m0.get('grupo', '')} · rxmos1.github.io/stack-valorant"},
+        })
+    for i in range(0, len(embeds), 10):
+        r = requests.post(url, json={"username": "Vinicers", "embeds": embeds[i:i + 10]},
+                          headers={"User-Agent": "VinicersBot/1.0"}, timeout=15)
+        print(f"Discord: {r.status_code}")
+
+
 def main_rapido(previo, ahora):
     """Pide 1 partida por jugador; solo descarga a fondo a quien tenga una partida nueva."""
     prev = {(p["nombre"], p["tag"]): p for p in previo.get("jugadores", [])}
@@ -529,6 +569,10 @@ def main_rapido(previo, ahora):
     datos = [nuevos.get(k) or prev[k] for k in JUGADORES if (k in nuevos or k in prev)]
     guardar_json(datos, puuids)
     print(f"Actualizados: {', '.join(k[0] for k in nuevos)}")
+    try:
+        avisar_discord(nuevos, prev)
+    except Exception as e:
+        print(f"Aviso a Discord fallido: {e}")
 
 
 def main():
