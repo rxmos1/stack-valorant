@@ -68,6 +68,36 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-
 .wraph th{white-space:normal;vertical-align:bottom;line-height:1.2}
 .syn-p{margin:0;padding:12px 18px;font-size:13px}
 .expl{padding:16px 18px}
+[hidden]{display:none!important}
+.nav a{font-size:14px;padding:7px 16px}.nav a.on{background:var(--accent);color:#fff}
+.pos-t{color:var(--win)}.neg-t{color:var(--loss)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.kpi small{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.kpi b{font-family:var(--display);font-size:30px;line-height:1.1;overflow-wrap:anywhere}
+.kpi span{font-size:12px;color:var(--muted)}
+.chip-r{display:inline-block;min-width:34px;text-align:center;padding:2px 8px;border-radius:999px;font:600 12px var(--mono);color:var(--surface)}
+.chip-r.w{background:var(--win)}.chip-r.l{background:var(--loss)}
+.cal-wrap{overflow-x:auto;padding-bottom:4px}
+.cal-m{position:relative;height:14px;font-size:10px;color:var(--muted);margin-bottom:3px}.cal-m span{position:absolute;top:0}
+.cal{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,18px);grid-auto-columns:18px;gap:4px;width:max-content}
+.cal i{display:block;width:18px;height:18px;border-radius:4px;background:var(--chip)}
+.stack{display:flex;flex-direction:column;gap:26px;min-width:0}
+.recs{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.rec{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.rec small{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.rec b{font-family:var(--display);font-size:32px;line-height:1.05}
+.rec span{font-size:12px;color:var(--muted)}
+.feed{align-items:start;display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.fd{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--line);border-radius:12px;padding:12px 14px;min-width:0}
+.fd.w{border-left-color:var(--win)}.fd.l{border-left-color:var(--loss)}
+.fd-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;margin-bottom:8px}
+.fd-h b{font-size:15px}.fd.w .fd-h b{color:var(--win)}.fd.l .fd-h b{color:var(--loss)}
+.fd-h span{font-size:12px;color:var(--muted)}.fd-h em{font-size:11px;color:var(--muted);font-style:normal;margin-left:auto;background:var(--chip);padding:1px 8px;border-radius:999px}
+.fd ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
+.fd li{display:grid;grid-template-columns:1fr auto 44px 40px;gap:8px;align-items:center;font-size:13px}
+.fd .fv,.fd .fa,.fd .fr{font-family:var(--mono);font-size:12px;text-align:right;white-space:nowrap}
+.spark .ax{fill:var(--muted);font-size:10px}
 .kpi .rkl{flex-wrap:wrap}
 .rkl span{white-space:nowrap}
 .bar-cell{min-width:90px!important}
@@ -838,7 +868,7 @@ function leerFiltro(){
   const d=msMad(fmtMad(now).slice(0,10)+"T00:00")-864e5;
   return {d,h:Infinity,vd:fmtMad(d),vh:"",txt:"solo partidas de ayer y hoy"};
 }
-function irFiltro(p){const s=new URLSearchParams(p).toString(); location.href=location.pathname+(s?"?"+s:"")}
+function irFiltro(p){const s=new URLSearchParams(p).toString(); location.href=location.pathname+(s?"?"+s:"")+location.hash}
 function montarFiltro(F){
   const el=document.getElementById("filtro"); if(!el) return;
   el.innerHTML=`<form class="flt"><label>Desde<input type="datetime-local" id="f-d" value="${F.vd}"></label><label>Hasta<input type="datetime-local" id="f-h" value="${F.vh}"></label><button class="pri">Aplicar</button><span class="pre"><button type="button" data-p="hoy">Hoy</button><button type="button" data-p="ayer">Ayer y hoy</button><button type="button" data-p="7">7 días</button><button type="button" data-p="todo">Todo</button></span></form>`;
@@ -849,12 +879,172 @@ function montarFiltro(F){
     else if(k==="todo") irFiltro({todo:1});
     else irFiltro({})}));
 }
+/* ===== v3: panel, rachas, calendario, sesiones, récords, feed, semanas, matriz de mapas, pestañas ===== */
+let HIST={P:[],U:[]};
+const dayKey=ms=>fmtMad(ms).slice(0,10);
+const fshort=at=>{ try{ return new Date(at).toLocaleString("es-ES",{timeZone:"Europe/Madrid",weekday:"short",day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).replace(",",""); }catch(e){ return fdate(at); } };
+const hhmm=ms=>fmtMad(ms).slice(11,16);
+const uniqOf=rows=>{ const seen=new Set(); return rows.filter(x=>{const k=x.id||(x.date+x.map+x.sc+x.at); if(seen.has(k)) return false; seen.add(k); return true;}); };
+const mixc=(c,pc)=>`color-mix(in srgb,var(${c}) ${pc}%,var(--chip))`;
+const kdOf=x=>x.k/Math.max(x.d,1);
+
+/* ---------- panel de cifras ---------- */
+function secKPI(){
+  const U=UNI, n=U.length; if(!n) return "";
+  const w=U.filter(x=>x.w).length, K=sum(ALL,x=>x.k), D=sum(ALL,x=>x.d);
+  const days=new Set(U.map(x=>dayKey(new Date(x.at).getTime()))).size;
+  const net=sum(P,p=>p.net), acs=Math.round(mean(ALL.map(x=>x.acs)));
+  const last=U.slice().sort((a,b)=>String(b.at).localeCompare(String(a.at)))[0];
+  const stackN=U.filter(x=>x.gn>=3).length;
+  const T=[
+    ["Partidas del grupo",n,`${days} día${days===1?"":"s"} con partidas`],
+    ["Victorias",Math.round(100*w/n)+"%",`${w} ganadas · ${n-w} perdidas`],
+    ["RR neto del grupo",sgn(net),net>=0?"el grupo sube":"el grupo baja"],
+    ["K/D medio",fmt2(K/Math.max(D,1)),`ACS medio ${acs}`],
+    ["En grupo de 3 o más",stackN,`${Math.round(100*stackN/n)}% de las partidas`],
+    ["Última partida",last?fshort(last.at):"-",last?`${esc(last.map)} · ${last.w?"victoria":"derrota"} ${esc(last.sc)}`:""]
+  ];
+  return sec("kpi",12,"Resumen del periodo",`<div class="kpis">${T.map(t=>`<div class="kpi"><small>${t[0]}</small><b>${t[1]}</b><span>${t[2]}</span></div>`).join("")}</div>`);
+}
+
+/* ---------- rachas ---------- */
+function secRachas(){
+  const rows=P.map(p=>{
+    const g=p.g; let cur=0,curW=g.length?g[0].w:true; for(const x of g){ if(x.w===curW) cur++; else break; }
+    let bw=0,bl=0,c=0,pw=null; g.slice().reverse().forEach(x=>{ if(pw===x.w) c++; else {c=1;pw=x.w}; if(x.w) bw=Math.max(bw,c); else bl=Math.max(bl,c); });
+    const pips=g.slice(0,20).reverse().map(x=>`<span class="pip ${x.w?"w":"l"}" title="${fdate(x.date)} ${esc(x.map)} ${esc(x.sc)}">${x.w?"V":"D"}</span>`).join("");
+    return {p,cur,curW,bw,bl,pips};
+  });
+  const hot=rows.filter(r=>r.curW).sort((a,b)=>b.cur-a.cur)[0], cold=rows.filter(r=>!r.curW).sort((a,b)=>b.cur-a.cur)[0];
+  let t=`<ul class="syn-t">`;
+  if(hot&&hot.cur>=2) t+=`<li><b>${esc(hot.p.n)}</b> está on fire: ${hot.cur} victorias seguidas.</li>`;
+  if(cold&&cold.cur>=2) t+=`<li><b>${esc(cold.p.n)}</b> acumula ${cold.cur} derrotas seguidas. Que respire.</li>`;
+  const bw=rows.slice().sort((a,b)=>b.bw-a.bw)[0]; if(bw&&bw.bw>=3) t+=`<li>Mejor racha del periodo: <b>${esc(bw.p.n)}</b> con ${bw.bw} victorias seguidas.</li>`;
+  t+=`</ul>`;
+  const body=rows.map(r=>`<tr><td>${pname(r.p)}</td><td><span class="chip-r ${r.curW?"w":"l"}">${r.cur}${r.curW?"V":"D"}</span></td><td class="num">${r.bw}</td><td class="num">${r.bl}</td><td><div class="pips">${r.pips}</div></td></tr>`).join("");
+  return sec("rachas",12,"Rachas y forma",`<div class="panel"><div class="scroll"><table class="wraph"><thead><tr><th>Jugador</th><th>Racha actual</th><th class="num">Mejor racha V</th><th class="num">Peor racha D</th><th>Últimas 20 (antigua → reciente)</th></tr></thead><tbody>${body}</tbody></table></div>${t}</div>`);
+}
+
+/* ---------- calendario de actividad (todo el historial) ---------- */
+function secCalendario(){
+  const U=HIST.U; if(U.length<3) return "";
+  const per={}; U.forEach(x=>{ const k=dayKey(new Date(x.at).getTime()); const o=per[k]||(per[k]={n:0,w:0}); o.n++; if(x.w) o.w++; });
+  const ks=Object.keys(per).sort(); const last=new Date(ks[ks.length-1]+"T12:00:00Z");
+  const WEEKS=Math.min(26,Math.max(16,Math.ceil((last-new Date(ks[0]+"T12:00:00Z"))/6048e5)+1));
+  const wd=(last.getUTCDay()+6)%7; const end=new Date(last.getTime()+(6-wd)*864e5); const start=new Date(end.getTime()-(WEEKS*7-1)*864e5);
+  const mx=Math.max(...Object.values(per).map(o=>o.n)); const cells=[]; const months=[]; let lastM=-1;
+  for(let i=0;i<WEEKS*7;i++){
+    const d=new Date(start.getTime()+i*864e5), k=d.toISOString().slice(0,10), o=per[k], col=Math.floor(i/7);
+    if(i%7===0){ const m=d.getUTCMonth(); if(m!==lastM){ months.push([col,["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"][m]]); lastM=m; } }
+    let st="", tt=`${k.slice(8)}/${k.slice(5,7)}: sin partidas`;
+    if(o){ const wr=o.w/o.n; const a=25+Math.round(55*o.n/mx); st=`background:${wr>=.5?mixc("--win",a):mixc("--loss",a)}`; tt=`${k.slice(8)}/${k.slice(5,7)}: ${o.n} partida${o.n>1?"s":""} (${o.w}V-${o.n-o.w}D)`; }
+    if(d>end) break; cells.push(`<i style="${st}" title="${tt}"></i>`);
+  }
+  const mh=months.map(([c,t])=>`<span style="left:${c*22}px">${t}</span>`).join("");
+  const busy=Object.entries(per).sort((a,b)=>b[1].n-a[1].n)[0];
+  return sec("calendario",12,"Calendario de actividad",`<div class="panel pad"><div class="cal-wrap"><div class="cal-m">${mh}</div><div class="cal">${cells.join("")}</div></div><div class="legend" style="margin-top:10px"><span class="lg"><i style="background:${mixc("--win",60)}"></i>más victorias</span><span class="lg"><i style="background:${mixc("--loss",60)}"></i>más derrotas</span><span class="lg"><i style="background:var(--chip)"></i>sin partidas</span></div><p class="small0">Cada cuadro es un día; cuanto más intenso, más partidas del grupo. Día más cargado: <b>${busy[0].slice(8)}/${busy[0].slice(5,7)}</b> con ${busy[1].n} partidas. Muestra todo el historial guardado, sin filtro.</p></div>`);
+}
+
+/* ---------- sesiones y cansancio ---------- */
+function sesiones(U){
+  const a=U.slice().sort((x,y)=>String(x.at).localeCompare(String(y.at))); const S=[]; let cur=null;
+  a.forEach(x=>{ const t=new Date(x.at).getTime(); if(!cur||t-cur.last>135*60000){ cur={ms:[],start:t,last:t}; S.push(cur); } cur.ms.push(x); cur.last=t; });
+  return S;
+}
+function secSesiones(){
+  const S=sesiones(UNI); if(!S.length) return "";
+  const rrBy={}, whoBy={}; ALL.forEach(x=>{ const k=x.id||(x.date+x.map+x.sc+x.at); if(x.rr!=null) rrBy[k]=(rrBy[k]||0)+x.rr; (whoBy[k]||(whoBy[k]=new Set())).add(x.p.n); });
+  const kk=x=>x.id||(x.date+x.map+x.sc+x.at);
+  const rows=S.slice(-8).reverse().map(s=>{ const w=s.ms.filter(x=>x.w).length, n=s.ms.length; const who=new Set(); s.ms.forEach(x=>(whoBy[kk(x)]||[]).forEach(p=>who.add(p)));
+    const rr=sum(s.ms,x=>rrBy[kk(x)]||0); const pc=Math.round(100*w/n);
+    return `<tr><td>${dayKey(s.start).slice(8)}/${dayKey(s.start).slice(5,7)} · ${hhmm(s.start)}–${hhmm(s.last)}</td><td class="num">${n}</td><td class="num">${w}-${n-w}</td><td class="num ${pc>=50?"pos-t":"neg-t"}">${pc}%</td><td class="num ${rr>=0?"pos-t":"neg-t"}">${sgn(rr)}</td><td style="white-space:normal;min-width:140px">${esc([...who].join(", "))}</td></tr>`; }).join("");
+  const H=sesiones(HIST.U), idx=Array.from({length:5},()=>({n:0,w:0})); H.forEach(s=>s.ms.forEach((x,i)=>{ const o=idx[Math.min(i,4)]; o.n++; if(x.w) o.w++; }));
+  const bars=idx.map((o,i)=>{ const p=o.n?Math.round(100*o.w/o.n):0; return `<tr><td>${i<4?"Partida "+(i+1):"5ª o más"}</td><td class="num">${o.n?`${o.w}-${o.n-o.w}`:"-"}</td><td><div class="bar-cell"><div class="t"><i style="width:${p}%;${o.n&&p<45?"background:var(--loss)":o.n&&p>=55?"background:var(--win)":""}"></i></div><span class="num" style="width:62px">${o.n?p+"%":"-"}<small class="nn"> (${o.n})</small></span></div></td></tr>`; }).join("");
+  const ok=idx.filter(o=>o.n>=6); let verd="";
+  if(ok.length>=3){ const f=idx[0], l=idx.slice(3).reduce((a,o)=>({n:a.n+o.n,w:a.w+o.w}),{n:0,w:0}); if(f.n>=6&&l.n>=6){ const d=Math.round(100*l.w/l.n)-Math.round(100*f.w/f.n); verd=d<=-8?`Cuanto más se alarga la sesión, peor: la 4ª partida o más rinde ${Math.abs(d)} puntos menos que la primera. A dormir a tiempo.`:d>=8?`Curiosamente mejoran según avanza la noche (${d} puntos más a partir de la 4ª). Calientan despacio.`:`No se nota cansancio: el porcentaje se mantiene parecido de la primera partida a la cuarta.`; } }
+  return sec("sesiones",12,"Sesiones de juego y cansancio",`<div class="two"><div class="panel"><div class="sub-h pad" style="padding-bottom:0">Últimas sesiones (hueco de más de 2 h = sesión nueva)</div><div class="scroll"><table class="wraph"><thead><tr><th>Sesión</th><th class="num">Partidas</th><th class="num">V-D</th><th class="num">%</th><th class="num">RR</th><th>Quién jugó</th></tr></thead><tbody>${rows}</tbody></table></div></div><div class="panel pad"><div class="sub-h">¿Se tiltan? Victorias según el orden de la partida en la sesión</div><table><tbody>${bars}</tbody></table>${verd?`<p class="syn-p" style="padding:10px 0 0">${verd}</p>`:""}<p class="small0">Calculado con todo el historial guardado. Entre paréntesis, partidas; con pocas la cifra no es fiable.</p></div></div>`);
+}
+
+/* ---------- récords ---------- */
+function secRecords(){
+  if(ALL.length<5) return "";
+  const best=(f,ok=null,dir=1)=>{ let b=null,bv=null; ALL.forEach(x=>{ if(ok&&!ok(x)) return; const v=f(x); if(v==null) return; if(bv==null||(dir>0?v>bv:v<bv)){ bv=v; b=x; } }); return b?{x:b,v:bv}:null; };
+  const R=[
+    ["Mayor ACS",best(x=>x.acs),v=>String(Math.round(v))],
+    ["Más kills",best(x=>x.k),v=>String(v)],
+    ["Mejor K/D",best(x=>kdOf(x),x=>x.k>=10),v=>fmt2(v)],
+    ["Más asistencias",best(x=>x.a),v=>String(v)],
+    ["Mayor ADR",best(x=>x.adr),v=>String(Math.round(v))],
+    ["Mejor % cabezazos",best(x=>x.hs,x=>x.k>=10),v=>Math.round(v)+"%"],
+    ["Más RR ganado en una partida",best(x=>x.rr),v=>sgn(v)],
+    ["Más RR perdido en una partida",best(x=>x.rr,null,-1),v=>sgn(v)],
+    ["Más clutches en una partida",best(x=>x.cg||null),v=>String(v)],
+    ["Más primeras bajas",best(x=>x.fb),v=>String(v)]
+  ].filter(r=>r[1]&&r[1].v!=null&&!(r[0].includes("RR")&&r[1].v===0));
+  const card=([t,r,f])=>{ const x=r.x; return `<div class="rec"><small>${t}</small><b>${f(r.v)}</b><div class="rec-w">${pname(x.p)}</div><span>${esc(x.map)} · ${esc(x.ag)} · ${fdate(x.at)} · ${x.w?"V":"D"} ${esc(x.sc)}</span></div>`; };
+  return sec("records",12,"Récords del periodo",`<div class="recs">${R.map(card).join("")}</div>`);
+}
+
+/* ---------- últimas partidas (feed) ---------- */
+function secFeed(){
+  const by={}; ALL.forEach(x=>{ const k=x.id||(x.date+x.map+x.sc+x.at); (by[k]||(by[k]=[])).push(x); });
+  const M=Object.values(by).sort((a,b)=>String(b[0].at).localeCompare(String(a[0].at))).slice(0,14); if(!M.length) return "";
+  const cards=M.map(rs=>{ const f=rs[0], mv=rs.slice().sort((a,b)=>b.acs-a.acs)[0];
+    const pl=rs.slice().sort((a,b)=>b.acs-a.acs).map(x=>`<li>${pname(x.p)}<span class="fv">${x.k}/${x.d}/${x.a}</span><span class="fa">${x===mv&&rs.length>1?"★ ":""}${Math.round(x.acs)}</span><span class="fr ${x.rr==null?"":x.rr>=0?"pos-t":"neg-t"}">${x.rr==null?"":sgn(x.rr)}</span></li>`).join("");
+    return `<div class="fd ${f.w?"w":"l"}"><div class="fd-h"><b>${f.w?"Victoria":"Derrota"} ${esc(f.sc)}</b><span>${esc(f.map)} · ${fshort(f.at)}</span><em>${esc(f.grp||"")}</em></div><ul>${pl}</ul></div>`; }).join("");
+  return sec("feed",12,"Últimas partidas",`<div class="feed">${cards}</div><p class="small0">Cada tarjeta es una partida. Por jugador: kills/muertes/asistencias, ACS (★ el mejor del grupo en esa partida) y RR.</p>`);
+}
+
+/* ---------- tendencia semanal (todo el historial) ---------- */
+function secSemanas(){
+  const U=HIST.U; if(U.length<8) return "";
+  const wk=ms=>{ const d=new Date(dayKey(ms)+"T12:00:00Z"); const wd=(d.getUTCDay()+6)%7; return new Date(d.getTime()-wd*864e5).toISOString().slice(0,10); };
+  const o={}; U.forEach(x=>{ const k=wk(new Date(x.at).getTime()); const r=o[k]||(o[k]={n:0,w:0}); r.n++; if(x.w) r.w++; });
+  const ks=Object.keys(o).sort().slice(-16); if(ks.length<2) return "";
+  const W=ks.length*44+44, H=210, L=34, B=34, T=10, bw=30;
+  const Y=p=>T+(H-T-B)*(1-p/100);
+  const bars=ks.map((k,i)=>{ const r=o[k], p=Math.round(100*r.w/r.n), x=L+i*44+7;
+    return `<rect x="${x}" y="${Y(p).toFixed(1)}" width="${bw}" height="${(H-B-Y(p)).toFixed(1)}" rx="3" fill="${p>=55?"var(--win)":p<45?"var(--loss)":"var(--accent)"}" opacity=".85"><title>Semana del ${k.slice(8)}/${k.slice(5,7)}: ${r.w}V-${r.n-r.w}D (${p}%)</title></rect><text x="${x+bw/2}" y="${(Y(p)-4).toFixed(1)}" text-anchor="middle">${p}</text><text x="${x+bw/2}" y="${H-18}" text-anchor="middle" class="ax">${k.slice(8)}/${k.slice(5,7)}</text><text x="${x+bw/2}" y="${H-6}" text-anchor="middle" class="ax">n=${r.n}</text>`; }).join("");
+  return sec("semanas",12,"Tendencia semanal",`<div class="panel pad"><svg class="spark" style="width:${Math.round(W*1.3)}px;max-width:100%;height:auto" viewBox="0 0 ${W} ${H}" role="img" aria-label="Porcentaje de victorias por semana"><line class="grid" x1="${L}" x2="${W-4}" y1="${Y(50)}" y2="${Y(50)}" stroke-dasharray="4 4"/><text x="${L-6}" y="${Y(50)+4}" text-anchor="end">50</text>${bars}</svg><p class="small0">% de victorias del grupo por semana (el lunes marca la semana). Verde: 55% o más; rojo: menos del 45%. Todo el historial guardado.</p></div>`);
+}
+
+/* ---------- matriz jugador x mapa ---------- */
+function secMatrizMapas(){
+  const maps=[...new Set(ALL.map(x=>x.map))]; if(maps.length<2) return "";
+  const tot={}; ALL.forEach(x=>tot[x.map]=(tot[x.map]||0)+1); maps.sort((a,b)=>tot[b]-tot[a]);
+  const head=maps.map(m=>`<th class="syn-h">${esc(m)}</th>`).join("");
+  const body=P.map(p=>`<tr><td class="syn-r">${pname(p)}</td>`+maps.map(m=>{ const g=p.g.filter(x=>x.map===m); if(!g.length) return `<td class="syn-na">·</td>`; const w=g.filter(x=>x.w).length, pc=Math.round(100*w/g.length); return `<td class="syn-c" style="${tint(pc-50,40)}"><b>${pc}%</b><small>${w}-${g.length-w}</small></td>`; }).join("")+`</tr>`).join("");
+  return sec("matrizmapas",12,"Quién rinde en qué mapa",`<div class="panel scroll"><table class="syn"><thead><tr><th></th>${head}</tr></thead><tbody>${body}</tbody></table></div><p class="small0">Porcentaje de victorias de cada jugador en cada mapa y, debajo, victorias-derrotas. Verde por encima del 50%, rojo por debajo.</p>`);
+}
+
+/* ---------- pestañas ---------- */
+const TABS=[
+  ["resumen","Resumen",["kpi","rendimiento","podio","rr","feed"]],
+  ["jugadores","Jugadores",["detalle","tarjetas","rachas","records","comparativa","resumenes"]],
+  ["equipo","Equipo",["sinergia","grupos","premios","matrizmapas","mapas","datos"]],
+  ["habitos","Hábitos",["horario","calendario","sesiones","semanas"]],
+  ["combate","Combate",["clutch","eco","armas","lados"]]
+];
+function tabActual(){ const m=/t=([a-z]+)/.exec(location.hash); return m&&(m[1]==="todo"||TABS.some(t=>t[0]===m[1]))?m[1]:"resumen"; }
+function aplicarTab(){
+  const t=tabActual();
+  TABS.forEach(([k,,ids])=>ids.forEach(id=>{ const el=document.getElementById(id); if(!el) return; const box=el.closest("#app>*")||el; box.dataset.tab=k; box.hidden=!(t==="todo"||t===k); }));
+  document.querySelectorAll("#nav [data-tabbtn]").forEach(a=>a.classList.toggle("on",a.dataset.tabbtn===t));
+}
+function montarTabs(){
+  const n=document.getElementById("nav"); if(!n) return;
+  n.innerHTML=TABS.map(([k,l])=>`<a href="#t=${k}" data-tabbtn="${k}">${l}</a>`).join("")+`<a href="#t=todo" data-tabbtn="todo">Todo</a>`;
+  aplicarTab();
+}
+window.addEventListener("hashchange",()=>{ aplicarTab(); window.scrollTo({top:0}); });
+
 function showEmpty(msg){
   document.getElementById("meta").textContent="";
   document.getElementById("app").innerHTML=`<div class="panel empty"><b>Todavía no hay datos.</b><br>${esc(msg||"")}<br>Ejecuta el workflow "Actualizar datos" desde la pestaña Actions del repositorio y recarga esta página.</div>`;
 }
 function init(j){
   const arr=Array.isArray(j)?j:(j.jugadores||[]); META=Array.isArray(j)?{}:j;
+  HIST.P=arr.filter(d=>d.rango&&d.partidas&&d.partidas.length).map(prep); HIST.U=uniqOf(HIST.P.flatMap(p=>p.g.map(x=>Object.assign({p},x))));
   const FLT=leerFiltro(); montarFiltro(FLT);
   arr.forEach(d=>{d.partidas=(d.partidas||[]).filter(m=>{const t=Date.parse(m.inicio||m.fecha);return t>=FLT.d&&t<=FLT.h})});
   ERRS=arr.filter(d=>!(d.partidas&&d.partidas.length)).map(d=>d.id||d.nombre);
@@ -864,10 +1054,9 @@ function init(j){
   const f=META.actualizado?new Date(META.actualizado).toLocaleString("es-ES",{dateStyle:"long",timeStyle:"short"}):"";
   document.getElementById("meta").textContent=`${P.length} jugadores · ${FLT.txt}`+(f?` · actualizado el ${f}`:"");
   UNI=uniq();
-  const parts=[secRend(),secPodium(),secRRAll(),`<section class="sec s12" id="detalle"><h2>Detalle por jugador</h2><div class="panel detail" id="detail"></div></section>`,secCards(),secAwards(),secSyn(),secHorario(),secClutch(),secEco(),secArmas(),secLados(),`<div id="groups" class="s12">${secGroups()}</div>`,secSummary(),secPlayers(),secInsights(),secMapsAgents()];
+  const parts=[secKPI(),secRend(),secPodium(),secRRAll(),secFeed(),`<section class="sec s12" id="detalle"><h2>Detalle por jugador</h2><div class="panel detail" id="detail"></div></section>`,secCards(),secRachas(),secRecords(),secSummary(),secPlayers(),secSyn(),`<div id="groups" class="s12">${secGroups()}</div>`,secAwards(),secMatrizMapas(),secMapsAgents(),secInsights(),secHorario(),`<div class="stack s7">${secCalendario()}${secSemanas()}</div>`,secSesiones(),secClutch(),secEco(),secArmas(),secLados()];
   document.getElementById("app").innerHTML=parts.join("")+(ERRS.length?`<p class="foot s12">Sin datos de partidas para: ${esc(ERRS.join(", "))}.</p>`:"");
-  const NAV=[["rendimiento","Rendimiento"],["podio","Podio"],["rr","RR"],["detalle","Detalle"],["tarjetas","Tarjetas"],["premios","Premios"],["sinergia","Sinergias"],["horario","Horario"],["clutch","Clutches"],["eco","Economía"],["armas","Armas"],["lados","Ataque/Defensa"],["grupos","Grupos"],["comparativa","Comparativa"],["resumenes","Resúmenes"],["mapas","Mapas"]];
-  document.getElementById("nav").innerHTML=NAV.filter(([id])=>document.getElementById(id)).map(([id,t])=>`<a href="#${id}">${t}</a>`).join("");
+  montarTabs();
   renderSummary(); renderDetail();
 }
 
