@@ -275,6 +275,12 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;bac
 body::after{width:520px;height:750px;right:-90px;bottom:-110px;opacity:.07;filter:drop-shadow(0 0 40px color-mix(in srgb,var(--mag) 50%,transparent))}
 @media (prefers-color-scheme: dark){body::before{opacity:1}body::after{opacity:.09}}
 @media (max-width:700px){body::after{width:300px;height:440px}}
+
+/* === más logos de fondo === */
+html::before{content:"";position:fixed;inset:-25%;z-index:0;pointer-events:none;background:var(--logo) 0 0/130px auto,var(--logo) 65px 95px/130px auto;opacity:.035;transform:rotate(-14deg)}
+body::after{inset:0;width:auto;height:auto;right:0;bottom:0;background:var(--logo) right -90px bottom -110px/520px 750px no-repeat,var(--logo) left -110px top 42%/340px 494px no-repeat,var(--logo) right 20% top -70px/240px 348px no-repeat,var(--logo) left 24% bottom -90px/220px 320px no-repeat;opacity:.1}
+@media (prefers-color-scheme: dark){html::before{opacity:.05}body::after{opacity:.13}}
+@media (max-width:700px){body::after{width:auto;height:auto;background-size:300px 440px,200px 290px,150px 218px,140px 203px}html::before{background-size:96px auto,96px auto;background-position:0 0,48px 70px}}
 </style>
 </head>
 <body>
