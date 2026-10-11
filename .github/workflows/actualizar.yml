@@ -31,7 +31,7 @@ jobs:
           HENRIK_API_KEY: ${{ secrets.HENRIK_API_KEY }}
           HENRIK_N: ${{ github.event.inputs.partidas }}
           EVENTO: ${{ github.event_name }}
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD }}
         run: |
           if [ "$EVENTO" = "schedule" ]; then
             python valorant_amigos.py --no-abrir --rapido
