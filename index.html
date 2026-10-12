@@ -320,6 +320,10 @@ body::after{inset:0;width:auto;height:auto;right:0;bottom:0;background:var(--log
  .sec{animation:fup .45s ease both}
  .kpis .kpi:nth-child(2){animation-delay:.04s}
 }
+
+/* === v6: predicciones === */
+.pbl{display:flex;align-items:center;gap:8px}.pbl span{font:600 13px var(--mono);width:40px;text-align:right}
+.pb{flex:1;height:8px;border-radius:4px;background:var(--chip);overflow:hidden}.pb i{display:block;height:100%;border-radius:4px}
 </style>
 </head>
 <body>
@@ -1398,12 +1402,61 @@ function animar(){
 }
 window.addEventListener("hashchange",()=>setTimeout(animar,40));
 
+/* ===== v6: predicciones de subir o bajar de rango ===== */
+function binomAtLeast(n,p,f){ // P(éxito) sumando sobre k victorias en n partidas; f(k) dice si con k victorias se cumple
+  let tot=0; const C=(a,b)=>{ let r=1; for(let i=1;i<=b;i++) r=r*(a-b+i)/i; return r; };
+  for(let k=0;k<=n;k++) if(f(k)) tot+=C(n,k)*Math.pow(p,k)*Math.pow(1-p,n-k);
+  return tot;
+}
+function prediccionDe(p){
+  const g=p.g; if(g.length<10) return null;
+  const r10=g.slice(0,10), wr10=r10.filter(x=>x.w).length/10, wrAll=g.filter(x=>x.w).length/g.length;
+  const sh=(w,n)=>(w*n+0.5*8)/(n+8);
+  const pw=Math.min(.78,Math.max(.22,.55*sh(wr10,10)+.45*sh(wrAll,g.length)));
+  const gw=g.filter(x=>x.w&&x.rr!=null).slice(0,30).map(x=>x.rr), gl=g.filter(x=>!x.w&&x.rr!=null).slice(0,30).map(x=>x.rr);
+  const wRR=gw.length>=3?mean(gw):18, lRR=gl.length>=3?mean(gl):-16;
+  const exp=pw*wRR+(1-pw)*lRR, rr=p.rr, top=/Radiante|Inmortal/.test(p.rank)||rr==null;
+  const N=5, up=top?null:binomAtLeast(N,pw,k=>rr+k*wRR+(N-k)*lRR>=100), down=top?null:binomAtLeast(N,pw,k=>rr+k*wRR+(N-k)*lRR<0);
+  const toUp=top?null:Math.max(1,Math.ceil((100-rr)/Math.max(wRR,1))), toDown=top?null:Math.max(1,Math.floor(rr/Math.max(-lRR,1))+1);
+  const sum10=sum(r10.filter(x=>x.rr!=null),x=>x.rr);
+  const veredicto=sum10>=25&&pw>=.5?"Subiendo":sum10<=-25&&pw<=.5?"Bajando":"Estable";
+  return {p,pw,wr10,wrAll,wRR,lRR,exp,up,down,toUp,toDown,sum10,veredicto,r10,top,n:g.length};
+}
+function secPrediccion(){
+  const R=HIST.P.map(prediccionDe).filter(Boolean); if(!R.length) return "";
+  R.sort((a,b)=>b.exp-a.exp);
+  const pct=x=>Math.round(100*x)+"%", bar=(x,c)=>`<div class="pb"><i style="width:${Math.max(2,Math.round(100*x))}%;background:${c}"></i></div>`;
+  const body=R.map(r=>{
+    const pips=r.r10.slice().reverse().map(x=>`<span class="pip ${x.w?"w":"l"}">${x.w?"V":"D"}</span>`).join("");
+    const cls=r.veredicto==="Subiendo"?"pos-t":r.veredicto==="Bajando"?"neg-t":"";
+    return `<tr><td>${pname(r.p)}</td>
+      <td style="white-space:nowrap">${rb(r.p.rank,20)} ${esc(r.p.rank)}${r.p.rr!=null?` <small class="nn">${r.p.rr} RR</small>`:""}</td>
+      <td><div class="pips">${pips}</div></td>
+      <td class="num"><b>${pct(r.pw)}</b></td>
+      <td class="num ${r.exp>=0?"pos-t":"neg-t"}"><b>${r.exp>=0?"+":"−"}${Math.abs(Math.round(r.exp))}</b></td>
+      <td style="min-width:120px">${r.up==null?`<small class="nn">sin tope de RR</small>`:`<div class="pbl"><span>${pct(r.up)}</span>${bar(r.up,"var(--win)")}</div>`}</td>
+      <td style="min-width:120px">${r.down==null?`<small class="nn">-</small>`:`<div class="pbl"><span>${pct(r.down)}</span>${bar(r.down,"var(--loss)")}</div>`}</td>
+      <td><b class="${cls}">${r.veredicto}</b></td></tr>`; }).join("");
+  const up=R.filter(r=>r.toUp!=null).sort((a,b)=>a.toUp-b.toUp)[0], risk=R.filter(r=>r.down!=null).sort((a,b)=>b.down-a.down)[0], hot=R.slice().sort((a,b)=>b.sum10-a.sum10)[0], cold=R.slice().sort((a,b)=>a.sum10-b.sum10)[0];
+  let t=`<ul class="syn-t">`;
+  if(up) t+=`<li>Más cerca de subir: <b>${esc(up.p.n)}</b>, con unas <b>${up.toUp}</b> victoria${up.toUp>1?"s":""} seguidas sube de rango.</li>`;
+  if(risk&&risk.down>=.05) t+=`<li>Más en riesgo de bajar: <b>${esc(risk.p.n)}</b> (${pct(risk.down)} en las próximas 5 partidas). Con ${risk.toDown} derrota${risk.toDown>1?"s":""} seguida${risk.toDown>1?"s":""} se acerca al descenso.</li>`;
+  if(hot&&hot.sum10>0) t+=`<li>En mejor racha: <b>${esc(hot.p.n)}</b>, ${sgn(hot.sum10)} RR en sus últimas 10.</li>`;
+  if(cold&&cold.sum10<0&&cold!==hot) t+=`<li>En peor racha: <b>${esc(cold.p.n)}</b>, ${sgn(cold.sum10)} RR en sus últimas 10.</li>`;
+  t+=`</ul>`;
+  const G={}; HIST.U.forEach(x=>{ const k=x.grp||"-"; const r=G[k]||(G[k]={k,n:0,w:0}); r.n++; if(x.w) r.w++; });
+  const sg=Object.values(G).filter(r=>r.n>=5).map(r=>({k:r.k,n:r.n,p:(r.w+4)/(r.n+8)})).sort((a,b)=>b.p-a.p);
+  const gtxt=sg.length?`<p class="syn-p" style="padding-top:0">Como grupo, la mejor formación para ganar es <b>${esc(sg[0].k)}</b> (${pct(sg[0].p)}, ${sg[0].n} partidas)${sg.length>1?` y la peor <b>${esc(sg[sg.length-1].k)}</b> (${pct(sg[sg.length-1].p)}, ${sg[sg.length-1].n} partidas)`:""}.</p>`:"";
+  return sec("prediccion",12,"Predicciones: ¿subir o bajar?",`<div class="panel"><div class="scroll"><table class="wraph"><thead><tr><th>Jugador</th><th>Rango y RR</th><th>Últimas 10</th><th class="num">Ganar la próxima</th><th class="num">RR esperado por partida</th><th>Subir de rango en 5 partidas</th><th>Bajar en 5 partidas</th><th>Tendencia</th></tr></thead><tbody>${body}</tbody></table></div>${t}${gtxt}<p class="small0 pad" style="padding-top:0">Estimación estadística, no una garantía. Mezcla el rendimiento de las últimas 10 partidas con todo el historial guardado y usa el RR medio que cada uno gana y pierde. La probabilidad de subir o bajar supone que se juegan 5 partidas seguidas con esa forma. En Inmortal y Radiante no hay tope de RR, así que no se calcula.</p></div>`);
+}
+
 const TABS=[
   ["resumen","Resumen",["kpi","mvp","informe","rendimiento","podio","rrtotal","rr","feed"]],
   ["jugadores","Jugadores",["detalle","tarjetas","vs","insignias","rachas","actividad","agentes","carry","regularidad","records","comparativa","resumenes"]],
   ["equipo","Equipo",["sinergia","grupos","premios","alineaciones","talisman","marcadores","matrizmapas","mapasres","mapas","datos"]],
   ["habitos","Hábitos",["horario","calendario","sesiones","diasrr","semanas","evolrr"]],
-  ["combate","Combate",["clutch","eco","armas","lados"]]
+  ["combate","Combate",["clutch","eco","armas","lados"]],
+  ["pred","Predicción",["prediccion"]]
 ];
 function tabActual(){ const m=/t=([a-z]+)/.exec(location.hash); return m&&(m[1]==="todo"||TABS.some(t=>t[0]===m[1]))?m[1]:"resumen"; }
 function aplicarTab(){
@@ -1434,7 +1487,7 @@ function init(j){
   const f=META.actualizado?new Date(META.actualizado).toLocaleString("es-ES",{dateStyle:"long",timeStyle:"short"}):"";
   document.getElementById("meta").textContent=`${P.length} jugadores · ${FLT.txt}`+(f?` · actualizado el ${f}`:"");
   UNI=uniq();
-  const parts=[secKPI(),secPremios(),secInforme(),secRend(),secPodium(),secRRTotal(),secRRAll(),secFeed(),`<section class="sec s12" id="detalle"><h2>Detalle por jugador</h2><div class="panel detail" id="detail"></div></section>`,secCards(),secVS(),secInsignias(),secRachas(),secActividad(),secAgentes(),secCarry(),secRegularidad(),secRecords(),secSummary(),secPlayers(),secSyn(),`<div id="groups" class="s12">${secGroups()}</div>`,secAlineaciones(),secTalisman(),secMarcadores(),secMapasRes(),secAwards(),secMatrizMapas(),secMapsAgents(),secInsights(),secHorario(),`<div class="stack s7">${secCalendario()}${secSemanas()}</div>`,secSesiones(),secDiasRR(),secEvolRR(),secClutch(),secEco(),secArmas(),secLados()];
+  const parts=[secKPI(),secPremios(),secInforme(),secPrediccion(),secRend(),secPodium(),secRRTotal(),secRRAll(),secFeed(),`<section class="sec s12" id="detalle"><h2>Detalle por jugador</h2><div class="panel detail" id="detail"></div></section>`,secCards(),secVS(),secInsignias(),secRachas(),secActividad(),secAgentes(),secCarry(),secRegularidad(),secRecords(),secSummary(),secPlayers(),secSyn(),`<div id="groups" class="s12">${secGroups()}</div>`,secAlineaciones(),secTalisman(),secMarcadores(),secMapasRes(),secAwards(),secMatrizMapas(),secMapsAgents(),secInsights(),secHorario(),`<div class="stack s7">${secCalendario()}${secSemanas()}</div>`,secSesiones(),secDiasRR(),secEvolRR(),secClutch(),secEco(),secArmas(),secLados()];
   document.getElementById("app").innerHTML=parts.join("")+(ERRS.length?`<p class="foot s12">Sin datos de partidas para: ${esc(ERRS.join(", "))}.</p>`:"");
   montarTabs();
   renderSummary(); renderDetail(); renderVS(); animar();
