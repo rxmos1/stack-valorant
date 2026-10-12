@@ -1387,7 +1387,7 @@ function secEvolRR(){
 function animar(){
   if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   document.querySelectorAll(".kpi b").forEach(el=>{
-    if(el.closest("[hidden]")) return;
+    if(el.closest("[hidden]")||el.children.length) return;
     const t=el.dataset.v||el.textContent; el.dataset.v=t;
     const m=/^(\D*)(\d+(?:,\d+)?)(\D*)$/.exec(t); if(!m) return;
     const num=parseFloat(m[2].replace(",",".")), dec=m[2].includes(",")?m[2].split(",")[1].length:0, t0=performance.now();
