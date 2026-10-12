@@ -1464,7 +1464,7 @@ function secCalc(){
     <td class="num"><input class="cwin" type="number" min="0" max="100" step="1" value="${Math.round(100*r.pw)}" style="width:64px"> %</td>
     <td class="num cexp"></td><td class="num cn"></td><td class="num cwins"></td></tr>`).join("");
   return sec("calculadora",12,"Calculadora: ¿cuántas partidas para subir?",`<div class="panel"><p class="small0 pad">Pon tú el % de victorias que crees que vais a tener. Con el RR medio que cada uno gana y pierde por partida, te digo cuántas partidas necesita para subir. Empieza con el % que sale de su forma actual.</p>
-  <p class="pad" style="padding-top:0">Subir <select id="ckrangos"><option value="1">1 rango</option><option value="2">2 rangos</option><option value="3">3 rangos</option></select> · Mismo % para todos: <input id="cglobal" type="number" min="0" max="100" step="1" placeholder="%" style="width:64px"> <button class="chip" id="caplicar" type="button">Aplicar</button></p>
+  <p class="pad" style="padding-top:0">Subir <select id="ckrangos"><option value="1">1 rango</option><option value="2">2 rangos</option><option value="3">3 rangos</option></select> · Mismo % para todos: <input id="cglobal" type="number" min="0" max="100" step="1" placeholder="%" style="width:64px"> <button class="chip" id="caplicar" type="button">Aplicar</button> <button class="chip" id="c100" type="button">100% victorias</button></p>
   <p class="pad" style="padding-top:0"><label style="cursor:pointer"><input id="cajuste" type="checkbox"> <b>Restar 25%</b> al RR de las victorias (cuando hay diferencia de rangos)</label></p>
   <div class="scroll"><table class="wraph" id="ctab"><thead><tr><th>Jugador</th><th>Rango y RR</th><th class="num">RR por victoria (ajustado)</th><th class="num">RR medio por derrota</th><th class="num">% victorias</th><th class="num">RR por partida</th><th class="num">Partidas para subir</th><th class="num">De ellas, victorias</th></tr></thead><tbody>${rows}</tbody></table></div>
   <p class="small0 pad" style="padding-top:0">Cada rango son 100 RR. Si con ese % y ese ajuste pierde RR de media, no sube nunca. Es una media, en la realidad depende de cada partida.</p></div>`);
@@ -1484,7 +1484,7 @@ function calcRefresh(){
 }
 document.addEventListener("input",e=>{ if(e.target.closest&&(e.target.closest("#ctab")||e.target.id==="ckrangos"||e.target.id==="cajuste")) calcRefresh(); });
 document.addEventListener("change",e=>{ if(e.target.id==="ckrangos"||e.target.id==="cajuste") calcRefresh(); });
-document.addEventListener("click",e=>{  if(e.target.id==="caplicar"){ const v=document.getElementById("cglobal").value; if(v!=="") document.querySelectorAll("#ctab .cwin").forEach(i=>i.value=v); calcRefresh(); } });
+document.addEventListener("click",e=>{  if(e.target.id==="c100"){ document.querySelectorAll("#ctab .cwin").forEach(i=>i.value=100); document.getElementById("cglobal").value=100; calcRefresh(); } if(e.target.id==="caplicar"){ const v=document.getElementById("cglobal").value; if(v!=="") document.querySelectorAll("#ctab .cwin").forEach(i=>i.value=v); calcRefresh(); } });
 
 const TABS=[
   ["resumen","Resumen",["kpi","mvp","informe","rendimiento","podio","rrtotal","rr","feed"]],
