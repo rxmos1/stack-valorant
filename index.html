@@ -943,13 +943,13 @@ function leerFiltro(){
     const d=a&&!isNaN(msMad(a))?msMad(a):0, h=b&&!isNaN(msMad(b))?msMad(b):Infinity;
     return {d,h,vd:a,vh:b,txt:"partidas"+(a?" desde el "+fmtTxtF(a):"")+(b?" hasta el "+fmtTxtF(b):"")};
   }
-  const d=msMad(fmtMad(now).slice(0,10)+"T00:00")-864e5;
-  return {d,h:Infinity,vd:fmtMad(d),vh:"",txt:"solo partidas de ayer y hoy"};
+  const lm=HIST.U.reduce((m,x)=>Math.max(m,Date.parse(x.at)||0),0)||now, d=msMad(dayKey(lm)+"T00:00")-6*864e5;
+  return {d,h:Infinity,vd:fmtMad(d),vh:"",txt:"la última semana con datos (hasta el último día jugado)"};
 }
 function irFiltro(p){const s=new URLSearchParams(p).toString(); location.href=location.pathname+(s?"?"+s:"")+location.hash}
 function montarFiltro(F){
   const el=document.getElementById("filtro"); if(!el) return;
-  el.innerHTML=`<form class="flt"><label>Desde<input type="datetime-local" id="f-d" value="${F.vd}"></label><label>Hasta<input type="datetime-local" id="f-h" value="${F.vh}"></label><button class="pri">Aplicar</button><span class="pre"><button type="button" data-p="hoy">Hoy</button><button type="button" data-p="ayer">Ayer y hoy</button><button type="button" data-p="7">7 días</button><button type="button" data-p="todo">Todo</button></span></form>`;
+  el.innerHTML=`<form class="flt"><label>Desde<input type="datetime-local" id="f-d" value="${F.vd}"></label><label>Hasta<input type="datetime-local" id="f-h" value="${F.vh}"></label><button class="pri">Aplicar</button><span class="pre"><button type="button" data-p="hoy">Hoy</button><button type="button" data-p="ayer">Última semana</button><button type="button" data-p="7">7 días</button><button type="button" data-p="todo">Todo</button></span></form>`;
   el.querySelector("form").addEventListener("submit",e=>{e.preventDefault();const p={},a=document.getElementById("f-d").value,b=document.getElementById("f-h").value;if(a)p.desde=a;if(b)p.hasta=b;irFiltro(p)});
   el.querySelectorAll("[data-p]").forEach(x=>x.addEventListener("click",()=>{const k=x.dataset.p,n=Date.now();
     if(k==="hoy") irFiltro({desde:fmtMad(n).slice(0,10)+"T00:00"});
