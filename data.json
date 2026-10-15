@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-15T15:02:21Z",
+ "actualizado": "2026-10-15T19:05:10Z",
  "n_partidas": 30,
  "puuids": {
   "5398c793-1500-5ba0-bd11-07f396d665aa": "Bulcaçan BenHazú",
@@ -111631,6 +111631,581 @@
    "error": null,
    "partidas": [
     {
+     "match_id": "381150ed-02b9-464c-b1b8-de6c1aa9e09e",
+     "inicio": "2026-10-15T16:24:14.712Z",
+     "fecha": "2026-10-15",
+     "mapa": "Corrode",
+     "agente": "Jett",
+     "victoria": true,
+     "marcador": "13-8",
+     "k": 17,
+     "d": 11,
+     "a": 2,
+     "acs": 224,
+     "adr": 136,
+     "hs": 26,
+     "rr": 16,
+     "grupo_n": 1,
+     "grupo": "Solo",
+     "con": [],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "KAY/O",
+       "k": 22,
+       "d": 12,
+       "a": 7,
+       "acs": 291,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Clove",
+       "k": 21,
+       "d": 18,
+       "a": 10,
+       "acs": 268,
+       "party": 2
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Raze",
+       "k": 17,
+       "d": 11,
+       "a": 8,
+       "acs": 246,
+       "party": 3
+      },
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 17,
+       "d": 11,
+       "a": 2,
+       "acs": 224,
+       "party": 4
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Veto",
+       "k": 14,
+       "d": 12,
+       "a": 4,
+       "acs": 168,
+       "party": 5
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sova",
+       "k": 20,
+       "d": 18,
+       "a": 7,
+       "acs": 292,
+       "party": 6
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Iso",
+       "k": 14,
+       "d": 18,
+       "a": 5,
+       "acs": 188,
+       "party": 7
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Deadlock",
+       "k": 11,
+       "d": 19,
+       "a": 5,
+       "acs": 154,
+       "party": 6
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Reyna",
+       "k": 10,
+       "d": 18,
+       "a": 6,
+       "acs": 133,
+       "party": 8
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Clove",
+       "k": 8,
+       "d": 18,
+       "a": 7,
+       "acs": 125,
+       "party": 7
+      }
+     ],
+     "primeras_bajas": 6,
+     "primeras_muertes": 2,
+     "multikills": 0,
+     "ases": 0,
+     "kills_arma": {
+      "Marshal": 2,
+      "Phantom": 4,
+      "Operator": 6,
+      "Ghost": 1,
+      "Sheriff": 2,
+      "Blade Storm": 2
+     },
+     "clutch_intentos": 1,
+     "clutch_ganados": 0,
+     "armas": {
+      "Sheriff": [
+       3,
+       0,
+       2,
+       0,
+       0
+      ],
+      "Marshal": [
+       1,
+       0,
+       2,
+       1,
+       0
+      ],
+      "Phantom": [
+       7,
+       4,
+       2,
+       10,
+       0
+      ],
+      "Operator": [
+       7,
+       7,
+       0,
+       6,
+       0
+      ],
+      "Ghost": [
+       1,
+       0,
+       1,
+       2,
+       0
+      ],
+      "Stinger": [
+       1,
+       1,
+       0,
+       1,
+       0
+      ],
+      "Classic": [
+       1,
+       1,
+       1,
+       3,
+       0
+      ]
+     },
+     "compra_cara": 13,
+     "compra_cara_perdida": 3,
+     "eco_rondas": 3,
+     "eco_ganadas": 1,
+     "gasto": 85050,
+     "ataque": [
+      5,
+      9
+     ],
+     "defensa": [
+      8,
+      12
+     ]
+    },
+    {
+     "match_id": "b72aa898-c3c7-4607-918c-1e5dd2d23136",
+     "inicio": "2026-10-15T15:34:16.271Z",
+     "fecha": "2026-10-15",
+     "mapa": "Lotus",
+     "agente": "Jett",
+     "victoria": true,
+     "marcador": "13-2",
+     "k": 19,
+     "d": 10,
+     "a": 3,
+     "acs": 356,
+     "adr": 193,
+     "hs": 22,
+     "rr": 19,
+     "grupo_n": 1,
+     "grupo": "Solo",
+     "con": [],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 19,
+       "d": 10,
+       "a": 3,
+       "acs": 356,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Neon",
+       "k": 12,
+       "d": 11,
+       "a": 8,
+       "acs": 271,
+       "party": 2
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Fade",
+       "k": 15,
+       "d": 6,
+       "a": 9,
+       "acs": 271,
+       "party": 3
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Clove",
+       "k": 14,
+       "d": 11,
+       "a": 9,
+       "acs": 247,
+       "party": 3
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Chamber",
+       "k": 11,
+       "d": 7,
+       "a": 3,
+       "acs": 190,
+       "party": 4
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 11,
+       "d": 14,
+       "a": 4,
+       "acs": 220,
+       "party": 5
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Fade",
+       "k": 9,
+       "d": 13,
+       "a": 4,
+       "acs": 205,
+       "party": 6
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Clove",
+       "k": 10,
+       "d": 16,
+       "a": 6,
+       "acs": 186,
+       "party": 7
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Phoenix",
+       "k": 8,
+       "d": 14,
+       "a": 5,
+       "acs": 159,
+       "party": 5
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Chamber",
+       "k": 7,
+       "d": 14,
+       "a": 2,
+       "acs": 138,
+       "party": 8
+      }
+     ],
+     "primeras_bajas": 6,
+     "primeras_muertes": 3,
+     "multikills": 1,
+     "ases": 0,
+     "kills_arma": {
+      "Ghost": 1,
+      "Marshal": 3,
+      "Operator": 10,
+      "Phantom": 2,
+      "Spectre": 2,
+      "Classic": 1
+     },
+     "clutch_intentos": 1,
+     "clutch_ganados": 1,
+     "armas": {
+      "Ghost": [
+       1,
+       1,
+       2,
+       0,
+       0
+      ],
+      "Marshal": [
+       2,
+       2,
+       0,
+       3,
+       0
+      ],
+      "Operator": [
+       7,
+       5,
+       1,
+       9,
+       0
+      ],
+      "Phantom": [
+       2,
+       2,
+       2,
+       3,
+       1
+      ],
+      "Frenzy": [
+       1,
+       1,
+       0,
+       1,
+       0
+      ],
+      "Spectre": [
+       2,
+       2,
+       2,
+       6,
+       2
+      ]
+     },
+     "compra_cara": 10,
+     "compra_cara_perdida": 2,
+     "eco_rondas": 0,
+     "eco_ganadas": 0,
+     "gasto": 65450,
+     "ataque": [
+      3,
+      3
+     ],
+     "defensa": [
+      10,
+      12
+     ]
+    },
+    {
+     "match_id": "9ef175ef-c3e2-4830-a4f6-ca990c637cc8",
+     "inicio": "2026-10-15T15:08:53.945Z",
+     "fecha": "2026-10-15",
+     "mapa": "Summit",
+     "agente": "Jett",
+     "victoria": true,
+     "marcador": "13-3",
+     "k": 19,
+     "d": 6,
+     "a": 1,
+     "acs": 289,
+     "adr": 175,
+     "hs": 36,
+     "rr": 19,
+     "grupo_n": 1,
+     "grupo": "Solo",
+     "con": [],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": "niskEiiiiiiiiiii",
+       "agente": "Jett",
+       "k": 19,
+       "d": 6,
+       "a": 1,
+       "acs": 289,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Miks",
+       "k": 17,
+       "d": 9,
+       "a": 8,
+       "acs": 276,
+       "party": 2
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Fade",
+       "k": 15,
+       "d": 11,
+       "a": 10,
+       "acs": 256,
+       "party": 3
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Chamber",
+       "k": 13,
+       "d": 7,
+       "a": 3,
+       "acs": 227,
+       "party": 4
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Yoru",
+       "k": 10,
+       "d": 12,
+       "a": 4,
+       "acs": 156,
+       "party": 3
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Chamber",
+       "k": 17,
+       "d": 13,
+       "a": 2,
+       "acs": 325,
+       "party": 5
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Reyna",
+       "k": 14,
+       "d": 15,
+       "a": 1,
+       "acs": 288,
+       "party": 6
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 7,
+       "d": 15,
+       "a": 2,
+       "acs": 135,
+       "party": 7
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Fade",
+       "k": 4,
+       "d": 16,
+       "a": 3,
+       "acs": 93,
+       "party": 5
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Omen",
+       "k": 3,
+       "d": 15,
+       "a": 3,
+       "acs": 61,
+       "party": 6
+      }
+     ],
+     "primeras_bajas": 0,
+     "primeras_muertes": 3,
+     "multikills": 3,
+     "ases": 1,
+     "kills_arma": {
+      "Ghost": 5,
+      "Phantom": 11,
+      "Vandal": 2,
+      "Habilidad": 1,
+      "Blade Storm": 1
+     },
+     "clutch_intentos": 1,
+     "clutch_ganados": 1,
+     "armas": {
+      "Ghost": [
+       2,
+       2,
+       5,
+       3,
+       0
+      ],
+      "Phantom": [
+       9,
+       8,
+       8,
+       19,
+       0
+      ],
+      "Vandal": [
+       2,
+       1,
+       1,
+       3,
+       0
+      ],
+      "Marshal": [
+       2,
+       1,
+       0,
+       0,
+       0
+      ],
+      "Operator": [
+       1,
+       1,
+       0,
+       0,
+       0
+      ]
+     },
+     "compra_cara": 12,
+     "compra_cara_perdida": 2,
+     "eco_rondas": 0,
+     "eco_ganadas": 0,
+     "gasto": 62800,
+     "ataque": [
+      10,
+      12
+     ],
+     "defensa": [
+      3,
+      4
+     ]
+    },
+    {
      "match_id": "4ee46abb-053c-42bb-8af4-5f0e11d77b4d",
      "inicio": "2026-10-15T08:36:28.662Z",
      "fecha": "2026-10-15",
@@ -134555,8 +135130,8 @@
      ]
     }
    ],
-   "rango": "Ascendant 1",
-   "rr": 93,
+   "rango": "Ascendant 2",
+   "rr": 47,
    "ultimo_cambio": 16,
    "pico": "Immortal 2 (e3a3)"
   },
