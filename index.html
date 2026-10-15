@@ -691,8 +691,8 @@ function renderDetail(){
 function scoreboard(x){
   const eq=(k,t)=>{
     const ps=x.sb.filter(j=>j.equipo===k);
-    return `<div class="sbt"><div class="sbh ${k==="mio"?(x.w?"res-w":"res-l"):(x.w?"res-l":"res-w")}">${t}</div><table><thead><tr><th>Jugador</th><th>Agente</th><th class="num">K/D/A</th><th class="num">ACS</th><th>Party</th></tr></thead><tbody>`+
-    ps.map(j=>`<tr${j.nombre?' class="amigo"':""}><td>${j.nombre?`<b>${esc(j.nombre)}</b>`:'<span class="anon">Otro jugador</span>'}</td><td>${ri(j.agente)}${esc(j.agente)}</td><td class="num">${j.k}/${j.d}/${j.a}</td><td class="num">${j.acs}</td><td>${j.party?"Grupo "+j.party:""}</td></tr>`).join("")+`</tbody></table></div>`;
+    return `<div class="sbt"><div class="sbh ${k==="mio"?(x.w?"res-w":"res-l"):(x.w?"res-l":"res-w")}">${t}</div><table><thead><tr><th>Jugador</th><th>Rango</th><th>Agente</th><th class="num">K/D/A</th><th class="num">ACS</th><th>Party</th></tr></thead><tbody>`+
+    ps.map(j=>`<tr${j.nombre?' class="amigo"':""}><td>${j.nombre?`<b>${esc(j.nombre)}</b>`:'<span class="anon">Otro jugador</span>'}</td><td>${j.rango&&!/^Un/.test(j.rango)?`<span style="display:inline-flex;align-items:center;gap:6px;white-space:nowrap">${rb(esRank(j.rango),20)}${esc(esRank(j.rango))}</span>`:'<span class="anon">–</span>'}</td><td>${ri(j.agente)}${esc(j.agente)}</td><td class="num">${j.k}/${j.d}/${j.a}</td><td class="num">${j.acs}</td><td>${j.party?"Grupo "+j.party:""}</td></tr>`).join("")+`</tbody></table></div>`;
   };
   return `<div class="sb">${eq("mio","Su equipo · "+(x.w?"Victoria":"Derrota")+" "+esc(x.sc))}${eq("rival","Equipo rival")}</div>`;
 }
