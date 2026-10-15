@@ -340,6 +340,7 @@ body::after{inset:0;width:auto;height:auto;right:0;bottom:0;background:var(--log
 .rk-s small{display:block;font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.06em}
 .rk-s b{font:700 16px var(--mono)}
 @media(max-width:900px){.rk-card{grid-template-columns:1fr;grid-template-areas:"top" "rrl" "bar" "pips" "grid";row-gap:10px}.rk-grid{grid-template-columns:repeat(3,1fr)}}
+.rk-who{all:unset;cursor:pointer;border-radius:6px}.rk-who:hover .pn{text-decoration:underline;color:var(--accent)}.rk-who:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -1518,7 +1519,7 @@ function secRangos(){
     const st=(l,v)=>`<div class="rk-s"><small>${l}</small><b>${v}</b></div>`;
     const net=has?q.net:null;
     const pips=has?`<div class="pips">${q.g.slice(0,10).reverse().map(x=>`<span class="pip ${x.w?"w":"l"}">${x.w?"V":"D"}</span>`).join("")}</div>`:`<div class="pips"></div>`;
-    return `<div class="panel rk-card"><div class="rk-top"><span class="rk-pos">${i+1}</span>${rb(p.rank,52)}<div class="rk-n">${pname(p)}<small>${esc(p.rank)}${p.peak&&p.peak!==p.rank?` · pico ${esc(p.peak)}`:""}</small></div></div>
+    return `<div class="panel rk-card"><div class="rk-top"><span class="rk-pos">${i+1}</span>${rb(p.rank,52)}<div class="rk-n"><button type="button" class="rk-who" data-n="${esc(p.n)}" title="Ver todas sus partidas">${pname(p)}</button><small>${esc(p.rank)}${p.peak&&p.peak!==p.rank?` · pico ${esc(p.peak)}`:""}</small></div></div>
     <div class="rk-rrl"><b>${rr==null?"–":rr+" RR"}</b><span class="${net>0?"pos-t":net<0?"neg-t":""}">${has?sgn(net)+" RR en el periodo":"sin partidas en el periodo"}</span></div>
     <div class="rk-bar"><i style="width:${top?100:w}%"></i></div>
     <div class="rk-grid">${st("Partidas",has?q.s.n:"–")}${st("Victorias",has?q.s.wr+"%":"–")}${st("K/D",has?fmt2(q.kd):"–")}${st("ACS",has?q.acs:"–")}${st("ADR",has?q.adr:"–")}${st("HS",has?q.hs+"%":"–")}</div>${pips}</div>`; }).join("");
@@ -1571,6 +1572,8 @@ function init(j){
 document.addEventListener("keydown",e=>{ if((e.key==="Enter"||e.key===" ")&&e.target.matches&&e.target.matches("tr.exp")){e.preventDefault();toggleMatch(e.target)} });
 document.addEventListener("click",e=>{
   const mr=e.target.closest("tr.exp"); if(mr){toggleMatch(mr);return}
+  const rw=e.target.closest(".rk-who");
+  if(rw){ const i=P.findIndex(q=>q.n===rw.dataset.n); if(i>=0) sel=i; if(location.hash!=="#t=jugadores") location.hash="#t=jugadores"; setTimeout(()=>{ renderSummary(); renderDetail(); const d=document.querySelector("#detail details.mlist"); if(d) d.open=true; document.getElementById("detail").scrollIntoView({behavior:"smooth",block:"start"}); },120); return; }
   const who=e.target.closest(".who,.who2");
   if(who){sel=+who.dataset.i;renderSummary();renderDetail();if(who.classList.contains("who"))document.getElementById("detail").scrollIntoView({behavior:"smooth",block:"start"});return}
   const th=e.target.closest("#summary th button");
