@@ -485,6 +485,21 @@ def guardar_json(datos, puuids):
                   f, ensure_ascii=False, indent=1)
 
 
+TIERES_ES = {"Iron": "Hierro", "Bronze": "Bronce", "Silver": "Plata", "Gold": "Oro", "Platinum": "Platino",
+             "Diamond": "Diamante", "Ascendant": "Ascendente", "Immortal": "Inmortal", "Radiant": "Radiante"}
+
+
+def rango_actual(d):
+    """Rango y RR actuales del jugador, listos para el aviso de Discord."""
+    r = (d.get("rango") or "").strip()
+    if not r:
+        return ""
+    t, _, n = r.partition(" ")
+    r = TIERES_ES.get(t, t) + (" " + n if n else "")
+    rr = d.get("rr")
+    return f" → **{r}**" + (f" · **{rr} RR**" if rr is not None else "")
+
+
 def avisar_discord(nuevos, prev):
     """Manda a Discord un aviso por cada partida nueva (si hay webhook configurado)."""
     url = os.environ.get("DISCORD_WEBHOOK_URL", "").strip()
@@ -503,16 +518,16 @@ def avisar_discord(nuevos, prev):
                 continue
             if ahora - t > timedelta(hours=6):
                 continue
-            por.setdefault(m["match_id"], []).append((k[0], m))
+            por.setdefault(m["match_id"], []).append((k[0], m, d))
     embeds = []
     for lst in por.values():
         m0 = lst[0][1]
         gano = m0.get("victoria")
         lineas = []
-        for nombre, m in sorted(lst, key=lambda x: -(x[1].get("acs") or 0)):
+        for nombre, m, dd in sorted(lst, key=lambda x: -(x[1].get("acs") or 0)):
             rr = m.get("rr")
             lineas.append(f"**{nombre}** · {m.get('agente', '?')} · {m.get('k')}/{m.get('d')}/{m.get('a')} · ACS {round(m.get('acs') or 0)}"
-                          + (f" · {rr:+.0f} RR" if rr is not None else ""))
+                          + (f" · {rr:+.0f} RR" if rr is not None else "") + rango_actual(dd))
         embeds.append({
             "title": f"{'Victoria' if gano else 'Derrota'} {m0.get('marcador', '')} · {m0.get('mapa', '')}",
             "description": "\n".join(lineas),
