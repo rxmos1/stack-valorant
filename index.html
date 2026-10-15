@@ -688,13 +688,16 @@ function renderDetail(){
     <details class="mlist"><summary>Partidas (${p.g.length}) · pulsa para desplegar la lista y ver cada partida completa</summary><div class="scroll"><table><thead><tr><th>Fecha</th><th>Mapa</th><th>Agente</th><th>Resultado</th><th class="num">RR</th><th class="num">K/D/A</th><th class="num">ACS</th><th class="num">ADR</th><th class="num">HS%</th><th>Grupo</th><th>Con</th></tr></thead><tbody>${rows}</tbody></table></div></details>`;
 }
 
+function riotLink(id){ return `<a href="https://tracker.gg/valorant/profile/riot/${encodeURIComponent(id)}/overview" target="_blank" rel="noopener noreferrer" title="Ver su perfil en tracker.gg">${esc(id.split("#")[0])}<span class="anon">#${esc(id.split("#")[1]||"")}</span></a>`; }
+function tgLink(n){ const q=HIST.P.find(p=>p.n===n); return q&&q.tag?`<a href="https://tracker.gg/valorant/profile/riot/${encodeURIComponent(q.n+"#"+q.tag)}/overview" target="_blank" rel="noopener noreferrer" title="Ver su perfil en tracker.gg">${esc(n)}</a>`:esc(n); }
 function scoreboard(x){
   const eq=(k,t)=>{
     const ps=x.sb.filter(j=>j.equipo===k);
     return `<div class="sbt"><div class="sbh ${k==="mio"?(x.w?"res-w":"res-l"):(x.w?"res-l":"res-w")}">${t}</div><table><thead><tr><th>Jugador</th><th>Rango</th><th>Agente</th><th class="num">K/D/A</th><th class="num">ACS</th><th>Party</th></tr></thead><tbody>`+
-    ps.map(j=>`<tr${j.nombre?' class="amigo"':""}><td>${j.nombre?`<b>${esc(j.nombre)}</b>`:'<span class="anon">Otro jugador</span>'}</td><td>${j.rango&&!/^Un/.test(j.rango)?`<span style="display:inline-flex;align-items:center;gap:6px;white-space:nowrap">${rb(esRank(j.rango),20)}${esc(esRank(j.rango))}</span>`:'<span class="anon">–</span>'}</td><td>${ri(j.agente)}${esc(j.agente)}</td><td class="num">${j.k}/${j.d}/${j.a}</td><td class="num">${j.acs}</td><td>${j.party?"Grupo "+j.party:""}</td></tr>`).join("")+`</tbody></table></div>`;
+    ps.map(j=>`<tr${j.nombre?' class="amigo"':""}><td>${j.nombre?`<b>${tgLink(j.nombre)}</b>`:(j.riot?riotLink(j.riot):'<span class="anon">Otro jugador</span>')}</td><td>${j.rango&&!/^Un/.test(j.rango)?`<span style="display:inline-flex;align-items:center;gap:6px;white-space:nowrap">${rb(esRank(j.rango),20)}${esc(esRank(j.rango))}</span>`:'<span class="anon">–</span>'}</td><td>${ri(j.agente)}${esc(j.agente)}</td><td class="num">${j.k}/${j.d}/${j.a}</td><td class="num">${j.acs}</td><td>${j.party?"Grupo "+j.party:""}</td></tr>`).join("")+`</tbody></table></div>`;
   };
-  return `<div class="sb">${eq("mio","Su equipo · "+(x.w?"Victoria":"Derrota")+" "+esc(x.sc))}${eq("rival","Equipo rival")}</div>`;
+  const tl=x.id?`<p class="small0 pad" style="grid-column:1/-1;margin:0"><a href="https://tracker.gg/valorant/match/${encodeURIComponent(x.id)}" target="_blank" rel="noopener noreferrer">Ver la partida completa, con todos los jugadores, en tracker.gg ↗</a></p>`:"";
+  return `<div class="sb">${eq("mio","Su equipo · "+(x.w?"Victoria":"Derrota")+" "+esc(x.sc))}${eq("rival","Equipo rival")}${tl}</div>`;
 }
 function toggleMatch(tr){
   const open=tr.getAttribute("aria-expanded")==="true", nx=tr.nextElementSibling;
