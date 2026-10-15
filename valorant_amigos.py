@@ -249,6 +249,7 @@ def partidas_jugador(jug, nombres_por_puuid):
                     "equipo": "mio" if p["team_id"] == yo["team_id"] else "rival",
                     # solo se guarda el nombre de los jugadores del grupo; el resto queda anónimo
                     "nombre": nombres_por_puuid.get(p["puuid"]),
+                    "riot": (f'{p.get("name")}#{p.get("tag")}' if p.get("name") and p.get("tag") else None),
                     "agente": p["agent"]["name"],
                     "k": ps_["kills"], "d": ps_["deaths"], "a": ps_["assists"],
                     "acs": round(ps_["score"] / rondas),
