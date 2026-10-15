@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-15T22:19:56Z",
+ "actualizado": "2026-10-15T23:15:41Z",
  "n_partidas": 30,
  "puuids": {
   "5398c793-1500-5ba0-bd11-07f396d665aa": "Bulcaçan BenHazú",
@@ -136124,6 +136124,212 @@
    "error": null,
    "partidas": [
     {
+     "match_id": "38310c64-76b2-40eb-b189-31fcc511217f",
+     "inicio": "2026-10-15T22:29:05.491Z",
+     "fecha": "2026-10-15",
+     "mapa": "Lotus",
+     "agente": "Breach",
+     "victoria": false,
+     "marcador": "11-13",
+     "k": 14,
+     "d": 18,
+     "a": 6,
+     "acs": 162,
+     "adr": 104,
+     "hs": 26,
+     "rr": -15,
+     "grupo_n": 1,
+     "grupo": "Solo",
+     "con": [],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Chamber",
+       "k": 31,
+       "d": 16,
+       "a": 1,
+       "acs": 345,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Raze",
+       "k": 12,
+       "d": 22,
+       "a": 10,
+       "acs": 182,
+       "party": 2
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Omen",
+       "k": 16,
+       "d": 21,
+       "a": 6,
+       "acs": 182,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": "FrenchPedicureค",
+       "agente": "Breach",
+       "k": 14,
+       "d": 18,
+       "a": 6,
+       "acs": 162,
+       "party": 3
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Vyse",
+       "k": 8,
+       "d": 19,
+       "a": 4,
+       "acs": 114,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Omen",
+       "k": 20,
+       "d": 14,
+       "a": 12,
+       "acs": 239,
+       "party": 4
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Reyna",
+       "k": 22,
+       "d": 19,
+       "a": 0,
+       "acs": 230,
+       "party": 4
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Chamber",
+       "k": 19,
+       "d": 13,
+       "a": 4,
+       "acs": 216,
+       "party": 5
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Neon",
+       "k": 18,
+       "d": 20,
+       "a": 5,
+       "acs": 215,
+       "party": 6
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Fade",
+       "k": 17,
+       "d": 15,
+       "a": 12,
+       "acs": 212,
+       "party": 4
+      }
+     ],
+     "primeras_bajas": 1,
+     "primeras_muertes": 2,
+     "multikills": 2,
+     "ases": 0,
+     "kills_arma": {
+      "Ghost": 3,
+      "Vandal": 7,
+      "Marshal": 1,
+      "Phantom": 1,
+      "Classic": 1,
+      "Habilidad": 1
+     },
+     "clutch_intentos": 1,
+     "clutch_ganados": 1,
+     "armas": {
+      "Ghost": [
+       2,
+       1,
+       4,
+       1,
+       1
+      ],
+      "Phantom": [
+       7,
+       4,
+       0,
+       12,
+       1
+      ],
+      "Sheriff": [
+       3,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Vandal": [
+       8,
+       4,
+       4,
+       15,
+       0
+      ],
+      "Marshal": [
+       1,
+       0,
+       1,
+       0,
+       0
+      ],
+      "Warden": [
+       1,
+       1,
+       0,
+       0,
+       0
+      ],
+      "Classic": [
+       1,
+       1,
+       2,
+       0,
+       0
+      ],
+      "Guardian": [
+       1,
+       0,
+       0,
+       1,
+       0
+      ]
+     },
+     "compra_cara": 10,
+     "compra_cara_perdida": 3,
+     "eco_rondas": 4,
+     "eco_ganadas": 0,
+     "gasto": 76800,
+     "ataque": [
+      5,
+      12
+     ],
+     "defensa": [
+      6,
+      12
+     ]
+    },
+    {
      "match_id": "ecd4863c-9686-4de3-8cb4-3c836850e68d",
      "inicio": "2026-10-15T21:34:39.264Z",
      "fecha": "2026-10-15",
@@ -158755,7 +158961,7 @@
     }
    ],
    "rango": "Platinum 3",
-   "rr": 19,
+   "rr": 4,
    "ultimo_cambio": -15,
    "pico": "Ascendant 2 (e7a3)"
   }
