@@ -324,7 +324,16 @@ body::after{inset:0;width:auto;height:auto;right:0;bottom:0;background:var(--log
 /* === v6: predicciones === */
 .pbl{display:flex;align-items:center;gap:8px}.pbl span{font:600 13px var(--mono);width:40px;text-align:right}
 .pb{flex:1;height:8px;border-radius:4px;background:var(--chip);overflow:hidden}.pb i{display:block;height:100%;border-radius:4px}
-.acto-b{display:inline-flex;align-items:center;gap:10px;margin:10px 0 4px;padding:5px 16px 5px 5px;border-radius:999px;background:var(--brand);color:#fff;font:700 13px var(--display);letter-spacing:.08em}.acto-b b{background:rgba(0,0,0,.3);padding:4px 12px;border-radius:999px;font-size:16px;letter-spacing:.1em}.acto-b span{font:600 12px var(--mono);letter-spacing:0;opacity:.95}</style>
+.acto-b{display:inline-flex;align-items:center;gap:10px;margin:10px 0 4px;padding:5px 16px 5px 5px;border-radius:999px;background:var(--brand);color:#fff;font:700 13px var(--display);letter-spacing:.08em}.acto-b b{background:rgba(0,0,0,.3);padding:4px 12px;border-radius:999px;font-size:16px;letter-spacing:.1em}.acto-b span{font:600 12px var(--mono);letter-spacing:0;opacity:.95}.rk-row{display:grid;grid-template-columns:28px 40px minmax(130px,1.2fr) minmax(90px,2fr) 76px 84px;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid color-mix(in srgb,var(--mag) 14%,transparent)}
+.rk-row:last-of-type{border-bottom:0}
+.rk-pos{font:700 15px var(--mono);opacity:.6;text-align:center}
+.rk-n small{display:block;opacity:.75;font-size:12px}
+.rk-bar{height:10px;border-radius:5px;background:var(--chip);overflow:hidden}
+.rk-bar i{display:block;height:100%;border-radius:5px;background:var(--brand)}
+.rk-rr{font:700 15px var(--mono);text-align:right}
+.rk-d{font:600 13px var(--mono);text-align:right}
+@media(max-width:640px){.rk-row{grid-template-columns:22px 36px 1fr 64px 70px;gap:8px}.rk-bar{display:none}}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -1488,8 +1497,20 @@ document.addEventListener("input",e=>{ if(e.target.closest&&(e.target.closest("#
 document.addEventListener("change",e=>{ if(e.target.id==="ckrangos"||e.target.id==="cajuste") calcRefresh(); });
 document.addEventListener("click",e=>{  if(e.target.id==="c100"){ document.querySelectorAll("#ctab .cwin").forEach(i=>i.value=100); document.getElementById("cglobal").value=100; calcRefresh(); } if(e.target.id==="caplicar"){ const v=document.getElementById("cglobal").value; if(v!=="") document.querySelectorAll("#ctab .cwin").forEach(i=>i.value=v); calcRefresh(); } });
 
+/* ===== v13: rangos y RR al principio ===== */
+const TIERORD=["Hierro","Bronce","Plata","Oro","Platino","Diamante","Ascendente","Inmortal","Radiante"];
+function rankScore(p){ const a=String(p.rank).split(" "), t=TIERORD.indexOf(a[0]); return (t<0?-1:t)*1000+(+a[1]||0)*300+(p.rr||0); }
+function secRangos(){
+  const R=HIST.P.slice().sort((a,b)=>rankScore(b)-rankScore(a)); if(!R.length) return "";
+  const net={}; P.forEach(p=>{ net[p.n]=p.net; });
+  const rows=R.map((p,i)=>{
+    const rr=p.rr==null?null:p.rr, top=/Inmortal|Radiante/.test(p.rank), w=rr==null?0:Math.min(100,Math.max(0,rr)), n=net[p.n];
+    return `<div class="rk-row"><span class="rk-pos">${i+1}</span>${rb(p.rank,40)}<div class="rk-n">${pname(p)}<small>${esc(p.rank)}${p.peak&&p.peak!==p.rank?` · pico ${esc(p.peak)}`:""}</small></div><div class="rk-bar"><i style="width:${top?100:w}%"></i></div><b class="rk-rr">${rr==null?"–":rr+" RR"}</b><span class="rk-d ${n>0?"pos-t":n<0?"neg-t":""}">${n==null?"":sgn(n)+" RR"}</span></div>`; }).join("");
+  return sec("rangos",12,"Rangos y RR",`<div class="panel pad rk">${rows}<p class="small0">La barra es el RR que lleva en su rango actual (100 RR para subir). A la derecha, lo ganado o perdido en el periodo elegido arriba.</p></div>`);
+}
+
 const TABS=[
-  ["resumen","Resumen",["kpi","mvp","informe","rendimiento","podio","rrtotal","rr","feed"]],
+  ["resumen","Resumen",["rangos","kpi","mvp","informe","rendimiento","podio","rrtotal","rr","feed"]],
   ["jugadores","Jugadores",["detalle","tarjetas","vs","insignias","rachas","actividad","agentes","carry","regularidad","records","comparativa","resumenes"]],
   ["equipo","Equipo",["sinergia","grupos","premios","alineaciones","talisman","marcadores","matrizmapas","mapasres","mapas","datos"]],
   ["habitos","Hábitos",["horario","calendario","sesiones","diasrr","semanas","evolrr"]],
@@ -1525,7 +1546,7 @@ function init(j){
   const f=META.actualizado?new Date(META.actualizado).toLocaleString("es-ES",{dateStyle:"long",timeStyle:"short"}):"";
   document.getElementById("meta").textContent=`${P.length} jugadores · ${FLT.txt}`+(f?` · actualizado el ${f}`:"");
   UNI=uniq();
-  const parts=[secKPI(),secPremios(),secInforme(),secPrediccion(),secCalc(),secRend(),secPodium(),secRRTotal(),secRRAll(),secFeed(),`<section class="sec s12" id="detalle"><h2>Detalle por jugador</h2><div class="panel detail" id="detail"></div></section>`,secCards(),secVS(),secInsignias(),secRachas(),secActividad(),secAgentes(),secCarry(),secRegularidad(),secRecords(),secSummary(),secPlayers(),secSyn(),`<div id="groups" class="s12">${secGroups()}</div>`,secAlineaciones(),secTalisman(),secMarcadores(),secMapasRes(),secAwards(),secMatrizMapas(),secMapsAgents(),secInsights(),secHorario(),`<div class="stack s7">${secCalendario()}${secSemanas()}</div>`,secSesiones(),secDiasRR(),secEvolRR(),secClutch(),secEco(),secArmas(),secLados()];
+  const parts=[secRangos(),secKPI(),secPremios(),secInforme(),secPrediccion(),secCalc(),secRend(),secPodium(),secRRTotal(),secRRAll(),secFeed(),`<section class="sec s12" id="detalle"><h2>Detalle por jugador</h2><div class="panel detail" id="detail"></div></section>`,secCards(),secVS(),secInsignias(),secRachas(),secActividad(),secAgentes(),secCarry(),secRegularidad(),secRecords(),secSummary(),secPlayers(),secSyn(),`<div id="groups" class="s12">${secGroups()}</div>`,secAlineaciones(),secTalisman(),secMarcadores(),secMapasRes(),secAwards(),secMatrizMapas(),secMapsAgents(),secInsights(),secHorario(),`<div class="stack s7">${secCalendario()}${secSemanas()}</div>`,secSesiones(),secDiasRR(),secEvolRR(),secClutch(),secEco(),secArmas(),secLados()];
   document.getElementById("app").innerHTML=parts.join("")+(ERRS.length?`<p class="foot s12">Sin datos de partidas para: ${esc(ERRS.join(", "))}.</p>`:"");
   montarTabs();
   renderSummary(); renderDetail(); renderVS(); calcRefresh(); animar();
