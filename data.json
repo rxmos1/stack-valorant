@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-15T19:05:10Z",
+ "actualizado": "2026-10-15T21:18:28Z",
  "n_partidas": 30,
  "puuids": {
   "5398c793-1500-5ba0-bd11-07f396d665aa": "Bulcaçan BenHazú",
@@ -90974,6 +90974,211 @@
    "error": null,
    "partidas": [
     {
+     "match_id": "e4e982e0-e054-43d6-b67b-5be9ae918e7c",
+     "inicio": "2026-10-15T18:46:58.809Z",
+     "fecha": "2026-10-15",
+     "mapa": "Sunset",
+     "agente": "Omen",
+     "victoria": false,
+     "marcador": "14-14",
+     "k": 22,
+     "d": 21,
+     "a": 6,
+     "acs": 218,
+     "adr": 129,
+     "hs": 19,
+     "rr": 0,
+     "grupo_n": 1,
+     "grupo": "Solo",
+     "con": [],
+     "marcador_jugadores": [
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Sova",
+       "k": 21,
+       "d": 20,
+       "a": 10,
+       "acs": 247,
+       "party": 1
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Jett",
+       "k": 23,
+       "d": 18,
+       "a": 5,
+       "acs": 234,
+       "party": 2
+      },
+      {
+       "equipo": "mio",
+       "nombre": "Abadyyy",
+       "agente": "Omen",
+       "k": 22,
+       "d": 21,
+       "a": 6,
+       "acs": 218,
+       "party": 3
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Sage",
+       "k": 20,
+       "d": 19,
+       "a": 6,
+       "acs": 210,
+       "party": 2
+      },
+      {
+       "equipo": "mio",
+       "nombre": null,
+       "agente": "Raze",
+       "k": 16,
+       "d": 23,
+       "a": 8,
+       "acs": 195,
+       "party": 1
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Raze",
+       "k": 28,
+       "d": 21,
+       "a": 3,
+       "acs": 270,
+       "party": 4
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Waylay",
+       "k": 22,
+       "d": 22,
+       "a": 5,
+       "acs": 232,
+       "party": 4
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Brimstone",
+       "k": 19,
+       "d": 19,
+       "a": 16,
+       "acs": 216,
+       "party": 5
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Phoenix",
+       "k": 19,
+       "d": 17,
+       "a": 7,
+       "acs": 202,
+       "party": 5
+      },
+      {
+       "equipo": "rival",
+       "nombre": null,
+       "agente": "Sage",
+       "k": 13,
+       "d": 23,
+       "a": 10,
+       "acs": 149,
+       "party": 6
+      }
+     ],
+     "primeras_bajas": 2,
+     "primeras_muertes": 2,
+     "multikills": 1,
+     "ases": 0,
+     "kills_arma": {
+      "Ghost": 3,
+      "Phantom": 15,
+      "Spectre": 2,
+      "Bandit": 1,
+      "Vandal": 1
+     },
+     "clutch_intentos": 2,
+     "clutch_ganados": 0,
+     "armas": {
+      "Ghost": [
+       2,
+       1,
+       1,
+       1,
+       0
+      ],
+      "Classic": [
+       1,
+       0,
+       1,
+       1,
+       0
+      ],
+      "Phantom": [
+       19,
+       10,
+       7,
+       31,
+       7
+      ],
+      "Ares": [
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      "Spectre": [
+       2,
+       1,
+       3,
+       8,
+       1
+      ],
+      "Bandit": [
+       1,
+       1,
+       1,
+       4,
+       0
+      ],
+      "Vandal": [
+       1,
+       0,
+       0,
+       1,
+       0
+      ],
+      "Judge": [
+       1,
+       1,
+       0,
+       1,
+       0
+      ]
+     },
+     "compra_cara": 20,
+     "compra_cara_perdida": 10,
+     "eco_rondas": 1,
+     "eco_ganadas": 0,
+     "gasto": 110600,
+     "ataque": [
+      5,
+      12
+     ],
+     "defensa": [
+      7,
+      12
+     ]
+    },
+    {
      "match_id": "ddc187b7-9fcb-43a1-b475-fdf6948e782c",
      "inicio": "2026-10-12T15:28:31.098Z",
      "fecha": "2026-10-12",
@@ -111621,7 +111826,7 @@
    ],
    "rango": "Platinum 1",
    "rr": 77,
-   "ultimo_cambio": 17,
+   "ultimo_cambio": 0,
    "pico": "Platinum 1 (e11a5)"
   },
   {
