@@ -253,6 +253,7 @@ def partidas_jugador(jug, nombres_por_puuid):
                     "k": ps_["kills"], "d": ps_["deaths"], "a": ps_["assists"],
                     "acs": round(ps_["score"] / rondas),
                     "party": p.get("party_id"),
+                    "rango": (p.get("tier") or {}).get("name"),
                 })
             marc.sort(key=lambda x: (x["equipo"] != "mio", -x["acs"]))
             # party_id se sustituye por un número para no publicar identificadores
