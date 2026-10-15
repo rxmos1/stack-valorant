@@ -936,6 +936,7 @@ const TZM="Europe/Madrid";
 function fmtMad(ms){return new Intl.DateTimeFormat("sv-SE",{timeZone:TZM,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).format(new Date(ms)).replace(" ","T")}
 function msMad(s){const u=Date.parse(s+":00Z"); if(isNaN(u)) return NaN; return u-(Date.parse(fmtMad(u)+":00Z")-u)}
 function fmtTxtF(s){const p=s.split("T"),f=p[0].split("-");return f[2]+"/"+f[1]+" a las "+p[1]}
+const ACTO={n:"VI",ini:"2026-10-14T05:00",ant:"2026-08-18T05:00"};
 function leerFiltro(){
   const q=new URLSearchParams(location.search), a=q.get("desde")||"", b=q.get("hasta")||"", now=Date.now();
   if(q.get("todo")) return {d:0,h:Infinity,vd:"",vh:"",txt:"todas las partidas guardadas"};
@@ -943,19 +944,19 @@ function leerFiltro(){
     const d=a&&!isNaN(msMad(a))?msMad(a):0, h=b&&!isNaN(msMad(b))?msMad(b):Infinity;
     return {d,h,vd:a,vh:b,txt:"partidas"+(a?" desde el "+fmtTxtF(a):"")+(b?" hasta el "+fmtTxtF(b):"")};
   }
-  const lm=HIST.U.reduce((m,x)=>Math.max(m,Date.parse(x.at)||0),0)||now, d=msMad(dayKey(lm)+"T00:00")-6*864e5;
-  return {d,h:Infinity,vd:fmtMad(d),vh:"",txt:"la última semana con datos (hasta el último día jugado)"};
+  const d=msMad(ACTO.ini);
+  return {d,h:Infinity,vd:ACTO.ini,vh:"",txt:"Acto VI (desde el 14/10/2026 a las 05:00)"};
 }
 function irFiltro(p){const s=new URLSearchParams(p).toString(); location.href=location.pathname+(s?"?"+s:"")+location.hash}
 function montarFiltro(F){
   const el=document.getElementById("filtro"); if(!el) return;
-  el.innerHTML=`<form class="flt"><label>Desde<input type="datetime-local" id="f-d" value="${F.vd}"></label><label>Hasta<input type="datetime-local" id="f-h" value="${F.vh}"></label><button class="pri">Aplicar</button><span class="pre"><button type="button" data-p="hoy">Hoy</button><button type="button" data-p="ayer">Última semana</button><button type="button" data-p="7">7 días</button><button type="button" data-p="todo">Todo</button></span></form>`;
+  el.innerHTML=`<form class="flt"><label>Desde<input type="datetime-local" id="f-d" value="${F.vd}"></label><label>Hasta<input type="datetime-local" id="f-h" value="${F.vh}"></label><button class="pri">Aplicar</button><span class="pre"><button type="button" data-p="hoy">Hoy</button><button type="button" data-p="acto">Acto VI</button><button type="button" data-p="acto5">Acto V</button><button type="button" data-p="sem">Última semana</button><button type="button" data-p="7">7 días</button><button type="button" data-p="todo">Todo</button></span></form>`;
   el.querySelector("form").addEventListener("submit",e=>{e.preventDefault();const p={},a=document.getElementById("f-d").value,b=document.getElementById("f-h").value;if(a)p.desde=a;if(b)p.hasta=b;irFiltro(p)});
   el.querySelectorAll("[data-p]").forEach(x=>x.addEventListener("click",()=>{const k=x.dataset.p,n=Date.now();
     if(k==="hoy") irFiltro({desde:fmtMad(n).slice(0,10)+"T00:00"});
     else if(k==="7") irFiltro({desde:fmtMad(n-7*864e5)});
     else if(k==="todo") irFiltro({todo:1});
-    else irFiltro({})}));
+    else if(k==="sem"){const lm=HIST.U.reduce((m,x)=>Math.max(m,Date.parse(x.at)||0),0)||n; irFiltro({desde:fmtMad(msMad(dayKey(lm)+"T00:00")-6*864e5)})} else if(k==="acto5") irFiltro({desde:ACTO.ant,hasta:ACTO.ini}); else irFiltro({})}));
 }
 /* ===== v3: panel, rachas, calendario, sesiones, récords, feed, semanas, matriz de mapas, pestañas ===== */
 let HIST={P:[],U:[]};
@@ -1518,7 +1519,7 @@ function init(j){
   arr.forEach(d=>{d.partidas=(d.partidas||[]).filter(m=>{const t=Date.parse(m.inicio||m.fecha);return t>=FLT.d&&t<=FLT.h})});
   ERRS=arr.filter(d=>!(d.partidas&&d.partidas.length)).map(d=>d.id||d.nombre);
   P=arr.filter(d=>d.rango&&d.partidas&&d.partidas.length).map(prep);
-  if(!P.length) return showEmpty("No hay partidas en ese rango de fechas. Prueba a ampliarlo o pulsa «Todo».");
+  if(!P.length){ if(!location.search){ document.getElementById("meta").textContent="Acto VI · todavía sin partidas"; document.getElementById("app").innerHTML='<div class="panel empty"><b>Todavía no hay partidas del Acto VI.</b><br>El Acto VI empezó el 14/10/2026 a las 05:00. En cuanto juguéis la primera partida aparecerá aquí.<br>Mientras tanto, con los botones de arriba puedes ver el «Acto V», la «Última semana» o «Todo».</div>'; return; } return showEmpty("No hay partidas en ese rango de fechas. Prueba a ampliarlo o pulsa «Todo»."); }
   ALL=P.flatMap(p=>p.g.map(x=>Object.assign({p},x)));
   const f=META.actualizado?new Date(META.actualizado).toLocaleString("es-ES",{dateStyle:"long",timeStyle:"short"}):"";
   document.getElementById("meta").textContent=`${P.length} jugadores · ${FLT.txt}`+(f?` · actualizado el ${f}`:"");
