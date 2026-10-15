@@ -2,53 +2,90 @@ name: Actualizar datos
 
 on:
   schedule:
-    - cron: "*/5 * * * *"    # comprueba cada 5 min; el script decide si hace peticiones (ver SILENCIO en valorant_amigos.py)
-  workflow_dispatch:         # botón "Run workflow": actualización completa
+    - cron: "*/10 * * * *"   # red de seguridad: si el bucle se para, esto lo vuelve a arrancar
+  workflow_dispatch:         # botón "Run workflow"
     inputs:
       partidas:
         description: "Partidas a pedir por jugador (30 normal; sube a 100 para recuperar historial)"
         default: "30"
+      modo:
+        description: "completo = una actualización completa; bucle = vigilar cada 3 min y relanzarse solo"
+        default: "completo"
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
-  group: actualizar
+  group: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.modo != 'bucle') && 'manual' || 'actualizar' }}
   cancel-in-progress: false
 
 jobs:
   actualizar:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install requests
-      - name: Descargar datos de Valorant
+      - name: Actualizar datos (bucle cada 3 min o actualización completa)
         env:
           HENRIK_API_KEY: ${{ secrets.HENRIK_API_KEY }}
           HENRIK_N: ${{ github.event.inputs.partidas }}
           EVENTO: ${{ github.event_name }}
+          MODO: ${{ github.event.inputs.modo }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD }}
-        run: |
-          if [ "$EVENTO" = "schedule" ]; then
-            python valorant_amigos.py --no-abrir --rapido
-          else
-            python valorant_amigos.py --no-abrir
-          fi
-      - name: Guardar data.json
-        run: |
-          if [ -f resultados_valorant.json ]; then mv resultados_valorant.json data.json; fi
-          rm -f resultados_valorant.md resultados_valorant.html
-      - name: Subir cambios
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
           git config user.name "github-actions"
           git config user.email "actions@users.noreply.github.com"
-          git add data.json
-          if ! git diff --cached --quiet; then
-            git commit -m "Actualizar datos"
-            git pull --rebase origin main
-            git push
+
+          # Guarda data.json y lo sube solo si cambió algo (o si se fuerza)
+          subir() {
+            [ -f resultados_valorant.json ] || return 0
+            mv resultados_valorant.json data.json
+            rm -f resultados_valorant.md resultados_valorant.html
+            git add data.json
+            if [ "${1:-}" != "forzar" ]; then
+              if python3 - <<'PY'
+          import json, subprocess, sys
+          new = json.load(open("data.json"))
+          try:
+              old = json.loads(subprocess.check_output(["git", "show", "HEAD:data.json"]))
+          except Exception:
+              old = None
+          for d in (new, old):
+              if isinstance(d, dict):
+                  d.pop("actualizado", None)
+          sys.exit(0 if new == old else 1)
+          PY
+              then
+                git reset -q HEAD data.json
+                git checkout -q -- data.json
+                return 0
+              fi
+            fi
+            if ! git diff --cached --quiet; then
+              git commit -q -m "Actualizar datos"
+              git pull -q --rebase -X theirs origin main && git push -q || echo "No se pudo subir esta vez"
+            fi
+          }
+
+          if [ "$EVENTO" = "schedule" ] || [ "$MODO" = "bucle" ]; then
+            fin=$((SECONDS + 3240))   # unos 54 min de vigilancia
+            n=0
+            while :; do
+              python valorant_amigos.py --no-abrir --rapido || echo "fallo en esta vuelta, sigo"
+              n=$((n + 1))
+              if [ $((n % 10)) -eq 0 ]; then subir forzar; else subir; fi
+              [ "$SECONDS" -ge "$fin" ] && break
+              sleep 180
+            done
+            gh workflow run actualizar.yml -f modo=bucle || echo "No se pudo relanzar; lo hará el cron"
+          else
+            python valorant_amigos.py --no-abrir
+            subir forzar
           fi
