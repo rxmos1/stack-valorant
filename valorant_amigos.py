@@ -573,10 +573,14 @@ def avisar_discord(nuevos, prev):
         lineas = []
         for nombre, m, dd in sorted(lst, key=lambda x: -(x[1].get("acs") or 0)):
             rr = m.get("rr")
-            lineas.append(f"**{nombre}** · {m.get('agente', '?')} · {m.get('k')}/{m.get('d')}/{m.get('a')} · ACS {round(m.get('acs') or 0)}"
-                          + (f" · {rr:+.0f} RR" if rr is not None else "") + rango_actual(dd))
+            ico = ("🟩" if rr > 0 else "🟥" if rr < 0 else "⬜") if rr is not None else ("🟩" if gano else "🟥")
+            est = f"{ico} **{nombre}** · {m.get('agente', '?')} · **{m.get('k')}/{m.get('d')}/{m.get('a')}** · ACS {round(m.get('acs') or 0)}"
+            rrtxt = "" if rr is None else f"{'📈' if rr > 0 else '📉' if rr < 0 else '➖'} **{rr:+.0f} RR**"
+            act = rango_actual(dd).replace(" → ", "").strip()
+            partes = [x for x in (rrtxt, ("🏅 " + act) if act else "") if x]
+            lineas.append(est + ("\n╰ " + " · ".join(partes) if partes else ""))
         embeds.append({
-            "title": f"{'Victoria' if gano else 'Derrota'} {m0.get('marcador', '')} · {m0.get('mapa', '')}",
+            "title": f"{'🏆 Victoria' if gano else '💀 Derrota'} {m0.get('marcador', '')} · {m0.get('mapa', '')}",
             "description": "\n".join(lineas),
             "color": 0x4CC27F if gano else 0xF06B6B,
             "footer": {"text": f"{m0.get('grupo', '')} · rxmos1.github.io/stack-valorant"},
