@@ -120,6 +120,45 @@ def datos_basicos(nombre, tag):
     return out
 
 
+def extra_jugadores(m, nrondas):
+    """FK, FD, multikills y KAST de TODOS los jugadores a partir de los eventos de kill (sin peticiones extra)."""
+    try:
+        eqs = {p["puuid"]: p["team_id"] for p in m.get("players", [])}
+        res = {u: {"fk": 0, "fd": 0, "mk": 0, "kast": 0} for u in eqs}
+        por = {}
+        for kl in (m.get("kills") or []):
+            por.setdefault(kl["round"], []).append(kl)
+        for ks in por.values():
+            ks.sort(key=lambda z: z.get("time_in_round_in_ms") or 0)
+            res[ks[0]["killer"]["puuid"]]["fk"] += 1
+            res[ks[0]["victim"]["puuid"]]["fd"] += 1
+            cuenta = {}
+            for kl in ks:
+                cuenta[kl["killer"]["puuid"]] = cuenta.get(kl["killer"]["puuid"], 0) + 1
+            for u, c in cuenta.items():
+                if c >= 2: res[u]["mk"] += 1
+            muertos = {kl["victim"]["puuid"] for kl in ks}
+            kast = {kl["killer"]["puuid"] for kl in ks}
+            for kl in ks:
+                for a in (kl.get("assistants") or []):
+                    kast.add(a["puuid"])
+            kast |= (set(eqs) - muertos)
+            for kl in ks:
+                t1 = kl.get("time_in_round_in_ms") or 0
+                for k2 in ks:
+                    t2 = k2.get("time_in_round_in_ms") or 0
+                    if (k2["victim"]["puuid"] == kl["killer"]["puuid"] and 0 <= t2 - t1 <= 5000
+                            and eqs.get(k2["killer"]["puuid"]) == eqs.get(kl["victim"]["puuid"])):
+                        kast.add(kl["victim"]["puuid"])
+            for u in kast:
+                if u in res: res[u]["kast"] += 1
+        for u in res:
+            res[u]["kast"] = round(100 * res[u]["kast"] / nrondas)
+        return res
+    except Exception:
+        return {}
+
+
 def analisis_rondas(m, yo):
     """Datos que salen de las rondas y de los eventos de kill. Si el esquema cambia, devuelve {} y la web oculta esas secciones."""
     pu, eq = yo["puuid"], yo["team_id"]
@@ -243,6 +282,7 @@ def partidas_jugador(jug, nombres_por_puuid):
             con = sorted(nombres_por_puuid[p["puuid"]] for p in en_grupo
                          if p["puuid"] != jug["puuid"] and p["puuid"] in nombres_por_puuid)
             marc = []
+            extra = extra_jugadores(m, rondas)
             for p in m["players"]:
                 ps_ = p["stats"]
                 marc.append({
@@ -253,6 +293,11 @@ def partidas_jugador(jug, nombres_por_puuid):
                     "agente": p["agent"]["name"],
                     "k": ps_["kills"], "d": ps_["deaths"], "a": ps_["assists"],
                     "acs": round(ps_["score"] / rondas),
+                    "score": ps_["score"],
+                    "adr": round(ps_["damage"]["dealt"] / rondas, 1),
+                    "dd": round((ps_["damage"]["dealt"] - (ps_["damage"].get("received") or 0)) / rondas, 1),
+                    "hs": round(100 * ps_["headshots"] / (ps_["headshots"] + ps_["bodyshots"] + ps_["legshots"])) if (ps_["headshots"] + ps_["bodyshots"] + ps_["legshots"]) else 0,
+                    **extra.get(p["puuid"], {}),
                     "party": p.get("party_id"),
                     "rango": (p.get("tier") or {}).get("name"),
                 })
