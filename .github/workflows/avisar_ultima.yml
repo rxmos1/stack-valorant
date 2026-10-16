@@ -1,0 +1,24 @@
+name: Reenviar partida a Discord
+
+on:
+  workflow_dispatch:
+    inputs:
+      jugador:
+        description: "Parte del nombre del jugador cuya ultima partida se reenvia"
+        default: "niskei"
+
+jobs:
+  enviar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - name: Enviar aviso
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD }}
+          AVISO_JUGADOR: ${{ github.event.inputs.jugador }}
+        run: python enviar_ultima.py
