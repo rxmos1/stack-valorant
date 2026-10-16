@@ -547,7 +547,7 @@ def rango_actual(d):
     return f" → **{r}**" + (f" · **{rr} RR**" if rr is not None else "")
 
 
-def avisar_discord(nuevos, prev):
+def avisar_discord(nuevos, prev, max_horas=6):
     """Manda a Discord un aviso por cada partida nueva (si hay webhook configurado)."""
     url = os.environ.get("DISCORD_WEBHOOK_URL", "").strip()
     if not url:
@@ -563,7 +563,7 @@ def avisar_discord(nuevos, prev):
                 t = datetime.fromisoformat((m.get("inicio") or "").replace("Z", "+00:00"))
             except ValueError:
                 continue
-            if ahora - t > timedelta(hours=6):
+            if ahora - t > timedelta(hours=max_horas):
                 continue
             por.setdefault(m["match_id"], []).append((k[0], m, d))
     embeds = []
