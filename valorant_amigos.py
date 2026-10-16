@@ -569,6 +569,10 @@ def avisar_discord(nuevos, prev, max_horas=6):
     embeds = []
     for lst in por.values():
         m0 = lst[0][1]
+        try:
+            fh = datetime.fromisoformat((m0.get("inicio") or "").replace("Z", "+00:00")).astimezone(__import__("zoneinfo").ZoneInfo("Europe/Madrid")).strftime("%d/%m/%Y · %H:%M")
+        except Exception:
+            fh = ""
         gano = m0.get("victoria")
         lineas = []
         for nombre, m, dd in sorted(lst, key=lambda x: -(x[1].get("acs") or 0)):
@@ -581,8 +585,9 @@ def avisar_discord(nuevos, prev, max_horas=6):
             lineas.append(est + ("\n╰ " + " · ".join(partes) if partes else ""))
         embeds.append({
             "title": f"{'🏆 Victoria' if gano else '💀 Derrota'} {m0.get('marcador', '')} · {m0.get('mapa', '')}",
-            "description": "\n".join(lineas),
+            "description": (f"🗓️ **{fh}** (hora de Madrid)\n\n" if fh else "") + "\n".join(lineas),
             "color": 0x4CC27F if gano else 0xF06B6B,
+            "timestamp": m0.get("inicio") or None,
             "footer": {"text": f"{m0.get('grupo', '')} · rxmos1.github.io/stack-valorant"},
         })
     for i in range(0, len(embeds), 10):
