@@ -19,6 +19,7 @@ jobs:
       - run: pip install requests
       - name: Enviar aviso
         env:
+          HENRIK_API_KEY: ${{ secrets.HENRIK_API_KEY }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD }}
           AVISO_JUGADOR: ${{ github.event.inputs.jugador }}
         run: python enviar_ultima.py
