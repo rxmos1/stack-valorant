@@ -607,19 +607,30 @@ def main_rapido(previo, ahora):
     if not reciente and ahora.minute % 15 >= 5:
         print("Nadie ha jugado hace poco: toca comprobar solo cada 15 minutos. Salgo sin hacer peticiones.")
         return
-    cambiados = []
-    for nombre, tag in JUGADORES:
-        n, t = quote(nombre, safe=""), quote(tag, safe="")
-        j, err = get(f"/valorant/v4/matches/{REGION}/{PLATFORM}/{n}/{t}",
-                     {"mode": "competitive", "size": 1})
-        if err or not j.get("data"):
-            print(f" - {nombre}: sin respuesta ({err})")
-            continue
-        mid = j["data"][0]["metadata"]["match_id"]
-        conocidas = {m.get("match_id") for m in prev.get((nombre, tag), {}).get("partidas", [])}
-        if mid not in conocidas:
-            print(f" - {nombre}: partida nueva")
-            cambiados.append((nombre, tag))
+    def escanear():
+        res = []
+        for nombre, tag in JUGADORES:
+            n, t = quote(nombre, safe=""), quote(tag, safe="")
+            j, err = get(f"/valorant/v4/matches/{REGION}/{PLATFORM}/{n}/{t}",
+                         {"mode": "competitive", "size": 1})
+            if err or not j.get("data"):
+                print(f" - {nombre}: sin respuesta ({err})")
+                continue
+            mid = j["data"][0]["metadata"]["match_id"]
+            conocidas = {m.get("match_id") for m in prev.get((nombre, tag), {}).get("partidas", [])}
+            if mid not in conocidas:
+                print(f" - {nombre}: partida nueva")
+                res.append((nombre, tag))
+        return res
+
+    cambiados = escanear()
+    if cambiados:
+        # La API no actualiza a todos a la vez: espero un poco y reviso otra vez
+        # para que el aviso de Discord salga con todo el grupo en un solo mensaje.
+        espera = int(os.environ.get("ESPERA_GRUPO", "180"))
+        print(f"Partida nueva detectada: espero {espera} s por si el resto del grupo tarda en aparecer.")
+        time.sleep(espera)
+        cambiados = list(dict.fromkeys(cambiados + escanear()))
     if not cambiados:
         print("Sin partidas nuevas. No se cambia nada.")
         return
