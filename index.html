@@ -939,6 +939,52 @@ function secArmas(){
 function renderArmas(){ const e=document.getElementById("armasbody"); if(!e) return; const s=secArmas(); const t=document.createElement("div"); t.innerHTML=s; const n=t.querySelector("#armasbody"); if(n) e.innerHTML=n.innerHTML; }
 
 /* ataque y defensa */
+let EQ=null, FLTR=null;
+function secEquipo(){
+  if(!EQ||!EQ.partidas) return "";
+  const L=EQ.partidas.filter(m=>m.n>=2&&(!FLTR||(Date.parse(m.inicio)>=FLTR.d&&Date.parse(m.inicio)<=FLTR.h)));
+  if(!L.length) return "";
+  const z=()=>[0,0], add=(a,b)=>{a[0]+=b[0];a[1]+=b[1]};
+  const T={w:0,pg:z(),pa:z(),pd:z(),r2g:z(),r2p:z(),at:z(),df:z(),fb:z(),fbc:z()}, M={};
+  L.forEach(m=>{
+    if(m.w) T.w++;
+    const o=M[m.mapa]||(M[m.mapa]={n:0,w:0,p:z(),a:z(),d:z()}); o.n++; if(m.w) o.w++;
+    (m.pist||[]).forEach(x=>{
+      T.pg[1]++; o.p[1]++; if(x.gano){T.pg[0]++; o.p[0]++}
+      const lado=x.lado==="atq"?T.pa:x.lado==="def"?T.pd:null; if(lado){lado[1]++; if(x.gano) lado[0]++}
+      if(x.r2!=null){ const q=x.gano?T.r2g:T.r2p; q[1]++; if(x.r2) q[0]++ }
+    });
+    add(T.at,m.atq||z()); add(T.df,m.def||z()); add(T.fb,m.fb||z()); add(T.fbc,m.fbc||z());
+    add(o.a,m.atq||z()); add(o.d,m.def||z());
+  });
+  const p=(a)=>a[1]?Math.round(100*a[0]/a[1]):null, f=(a)=>a[1]?p(a)+"%":"-";
+  const col=(v)=>v==null?"":v>=55?"cell-w":v<=45?"cell-l":"";
+  const kp=(t,v,sub,c)=>`<div class="kpi"><small>${t}</small><b${c?` style="color:var(--${c})"`:""}>${v}</b><span>${sub}</span></div>`;
+  const cc=(v)=>v==null?"":v>=55?"win":v<=45?"loss":"";
+  const kpis=`<div class="kpis">`
+    +kp("Partidas de equipo",L.length,`${T.w} ganadas · ${L.length-T.w} perdidas`)
+    +kp("% victorias",f([T.w,L.length]),"partidas del grupo",cc(p([T.w,L.length])))
+    +kp("Pistolas ganadas",`${T.pg[0]}<span style="font-size:16px;color:var(--muted)"> / ${T.pg[1]}</span>`,`${f(T.pg)} · ${T.pg[1]-T.pg[0]} perdidas`,cc(p(T.pg)))
+    +kp("Pistola atacando",f(T.pa),`${T.pa[0]} de ${T.pa[1]}`,cc(p(T.pa)))
+    +kp("Pistola defendiendo",f(T.pd),`${T.pd[0]} de ${T.pd[1]}`,cc(p(T.pd)))
+    +kp("Rondas atacando",f(T.at),`${T.at[0]} de ${T.at[1]}`,cc(p(T.at)))
+    +kp("Rondas defendiendo",f(T.df),`${T.df[0]} de ${T.df[1]}`,cc(p(T.df)))
+    +kp("Primera baja a favor",f(T.fb),`${T.fb[0]} de ${T.fb[1]} rondas`,cc(p(T.fb)))
+    +`</div>`;
+  const bar=(a)=>{const v=p(a);return v==null?"-":`<div class="bar-cell"><div class="t"><i style="width:${v}%;${v<45?"background:var(--loss)":v>=55?"background:var(--win)":""}"></i></div><span class="num" style="width:44px">${v}%</span></div>`};
+  const conv=`<table class="wraph"><thead><tr><th>Situación</th><th>% rondas ganadas</th><th class="num">Rondas</th></tr></thead><tbody>
+    <tr><td>Ronda 2 tras ganar la pistola</td><td>${bar(T.r2g)}</td><td class="num">${T.r2g[0]}/${T.r2g[1]}</td></tr>
+    <tr><td>Ronda 2 tras perder la pistola</td><td>${bar(T.r2p)}</td><td class="num">${T.r2p[0]}/${T.r2p[1]}</td></tr>
+    <tr><td>Ronda con la primera baja a favor</td><td>${bar(T.fb)}</td><td class="num">${T.fb[0]}/${T.fb[1]}</td></tr>
+    <tr><td>Ronda con la primera baja en contra</td><td>${bar(T.fbc)}</td><td class="num">${T.fbc[0]}/${T.fbc[1]}</td></tr></tbody></table>`;
+  const rows=Object.entries(M).map(([k,o])=>({k,o})).sort((a,b)=>b.o.n-a.o.n).map(({k,o})=>`<tr><td>${esc(k)}</td><td class="num">${o.n}</td><td class="num ${col(p([o.w,o.n]))}">${f([o.w,o.n])}</td><td class="num ${col(p(o.p))}">${o.p[0]}/${o.p[1]}</td><td class="num ${col(p(o.a))}">${f(o.a)}</td><td class="num ${col(p(o.d))}">${f(o.d)}</td></tr>`).join("");
+  const t=[];
+  if(T.pg[1]) t.push(`Las pistolas: <b>${f(T.pg)}</b> ganadas (${T.pg[0]} de ${T.pg[1]}). ${p(T.pa)!=null&&p(T.pd)!=null?(p(T.pa)>p(T.pd)+8?"Atacando se os dan mucho mejor que defendiendo.":p(T.pd)>p(T.pa)+8?"Defendiendo se os dan mucho mejor que atacando.":"Parecidas en los dos lados."):""}`);
+  if(T.r2g[1]&&T.r2p[1]) t.push(`Ganar la pistola vale mucho: en la ronda siguiente ganáis el <b>${f(T.r2g)}</b>; si la perdéis, el <b>${f(T.r2p)}</b>.`);
+  if(T.fb[1]&&T.fbc[1]) t.push(`La primera baja decide la ronda: con ella ganáis el <b>${f(T.fb)}</b>, sin ella el <b>${f(T.fbc)}</b>.`);
+  return sec("equipo",12,"Equipo: pistolas, lados y primeras bajas",`<div class="panel">${kpis}<div class="scroll" style="margin-top:14px">${conv}</div>${t.length?`<p class="syn-p">${t.join(" ")}</p>`:""}<div class="sub-h pad" style="margin-top:6px">Por mapa (partidas del grupo, una vez cada una)</div><div class="scroll"><table><thead><tr><th>Mapa</th><th class="num">Partidas</th><th class="num">% victorias</th><th class="num">Pistolas</th><th class="num">Ataque</th><th class="num">Defensa</th></tr></thead><tbody>${rows}</tbody></table></div><p class="foot">Solo cuentan partidas con 2 o más del grupo, de las últimas 30 de cada uno.</p></div>`);
+}
+
 function secLados(){
   if(!P.some(p=>p.atn>0||p.dfn>0)) return "";
   const bar=(w,n)=>n?`<div class="bar-cell"><div class="t"><i style="width:${Math.round(100*w/n)}%;${100*w/n<45?"background:var(--loss)":100*w/n>=55?"background:var(--win)":""}"></i></div><span class="num" style="width:44px">${Math.round(100*w/n)}%</span></div>`:"-";
@@ -1595,7 +1641,7 @@ function showEmpty(msg){
 function init(j){
   const arr=Array.isArray(j)?j:(j.jugadores||[]); META=Array.isArray(j)?{}:j;
   HIST.P=arr.filter(d=>d.rango&&d.partidas&&d.partidas.length).map(prep); HIST.U=uniqOf(HIST.P.flatMap(p=>p.g.map(x=>Object.assign({p},x))));
-  const FLT=leerFiltro(); montarFiltro(FLT); montarActo(FLT);
+  const FLT=leerFiltro(); FLTR=FLT; montarFiltro(FLT); montarActo(FLT);
   arr.forEach(d=>{d.partidas=(d.partidas||[]).filter(m=>{const t=Date.parse(m.inicio||m.fecha);return t>=FLT.d&&t<=FLT.h})});
   ERRS=arr.filter(d=>!(d.partidas&&d.partidas.length)).map(d=>d.id||d.nombre);
   P=arr.filter(d=>d.rango&&d.partidas&&d.partidas.length).map(prep);
@@ -1604,7 +1650,7 @@ function init(j){
   const f=META.actualizado?new Date(META.actualizado).toLocaleString("es-ES",{dateStyle:"long",timeStyle:"short"}):"";
   document.getElementById("meta").textContent=`${P.length} jugadores · ${FLT.txt}`+(f?` · actualizado el ${f}`:"");
   UNI=uniq();
-  const parts=[secRangos(),secKPI(),secPremios(),secInforme(),secPrediccion(),secCalc(),secRend(),secPodium(),secRRTotal(),secRRAll(),secFeed(),`<section class="sec s12" id="detalle"><h2>Detalle por jugador</h2><div class="panel detail" id="detail"></div></section>`,secCards(),secVS(),secInsignias(),secRachas(),secActividad(),secAgentes(),secCarry(),secRegularidad(),secRecords(),secSummary(),secPlayers(),secSyn(),`<div id="groups" class="s12">${secGroups()}</div>`,secAlineaciones(),secTalisman(),secMarcadores(),secMapasRes(),secAwards(),secMatrizMapas(),secMapsAgents(),secInsights(),secHorario(),`<div class="stack s7">${secCalendario()}${secSemanas()}</div>`,secSesiones(),secDiasRR(),secEvolRR(),secClutch(),secEco(),secArmas(),secLados()];
+  const parts=[secRangos(),secKPI(),secEquipo(),secPremios(),secInforme(),secPrediccion(),secCalc(),secRend(),secPodium(),secRRTotal(),secRRAll(),secFeed(),`<section class="sec s12" id="detalle"><h2>Detalle por jugador</h2><div class="panel detail" id="detail"></div></section>`,secCards(),secVS(),secInsignias(),secRachas(),secActividad(),secAgentes(),secCarry(),secRegularidad(),secRecords(),secSummary(),secPlayers(),secSyn(),`<div id="groups" class="s12">${secGroups()}</div>`,secAlineaciones(),secTalisman(),secMarcadores(),secMapasRes(),secAwards(),secMatrizMapas(),secMapsAgents(),secInsights(),secHorario(),`<div class="stack s7">${secCalendario()}${secSemanas()}</div>`,secSesiones(),secDiasRR(),secEvolRR(),secClutch(),secEco(),secArmas(),secLados()];
   document.getElementById("app").innerHTML=parts.join("")+(ERRS.length?`<p class="foot s12">Sin datos de partidas para: ${esc(ERRS.join(", "))}.</p>`:"");
   montarTabs();
   renderSummary(); renderDetail(); renderVS(); calcRefresh(); animar();
@@ -1664,7 +1710,7 @@ function cargarIconos(){
     pop.src="fotos/grande/"+a.dataset.s+".jpg"; pop.style.display="block"; place();
   });
 })();
-Promise.all([fetch("data.json?v="+Date.now()).then(r=>{if(!r.ok) throw new Error("data.json: HTTP "+r.status); return r.json()}),cargarIconos()]).then(x=>x[0]).then(init).catch(err=>showEmpty(String(err.message||err)));
+Promise.all([fetch("data.json?v="+Date.now()).then(r=>{if(!r.ok) throw new Error("data.json: HTTP "+r.status); return r.json()}),cargarIconos(),fetch("equipo.json?v="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)]).then(x=>{EQ=x[2];return x[0]}).then(init).catch(err=>showEmpty(String(err.message||err)));
 </script>
 </body>
 </html>
