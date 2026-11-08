@@ -54,6 +54,7 @@ JUGADORES = [
     ("Abadyyy", "2497"),
     ("niskEiiiiiiiiiii", "EAZY"),
     ("FrenchPedicureค", "0104"),
+    ("Papotico", "1252"),
 ]
 
 ETIQUETA = {1: "Solo", 2: "Dúo", 3: "Trío", 4: "Cuarteto", 5: "Stack de 5"}
